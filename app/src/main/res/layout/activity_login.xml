@@ -26,7 +26,8 @@
         android:layout_below="@id/imvLogo"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/hint">
 
         <EditText
             android:id="@+id/edtUser"
@@ -44,7 +45,9 @@
         android:layout_below="@id/tilUser"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/hint"
+        app:errorTextAppearance="@style/error">
 
         <EditText
             android:id="@+id/edtPassword"
@@ -54,4 +57,13 @@
             android:inputType="textPassword"
             android:hint="@string/password"/>
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLogin"
+        android:text="@string/login"
+        android:layout_below="@id/tilPassword"
+        android:background="@drawable/shape_login"
+        style="@style/login"/>
 </RelativeLayout>

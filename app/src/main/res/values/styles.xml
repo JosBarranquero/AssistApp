@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="hint" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="error" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="login" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/colorButtonLogin</item>
+    </style>
 </resources>
