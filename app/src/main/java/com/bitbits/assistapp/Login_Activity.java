@@ -23,7 +23,8 @@ public class Login_Activity extends AppCompatActivity {
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Intent intent = new Intent(Login_Activity.this, );
+                Intent intent = new Intent(Login_Activity.this, ConversationList_Activity.class);
+                startActivity(intent);
             }
         });
     }
