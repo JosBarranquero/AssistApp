@@ -2,6 +2,9 @@ package com.bitbits.assistapp.models;
 
 import android.media.Image;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -15,6 +18,13 @@ public class Message {
     Image img;
     Date date;
 
+    public Message(int id, String content, Image img) {
+        this.id = id;
+        this.content = content;
+        this.img = img;
+        this.date = Calendar.getInstance().getTime();
+    }
+
     public int getId() {
         return id;
     }
@@ -23,23 +33,12 @@ public class Message {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Image getImg() {
         return img;
-    }
-
-    public void setImg(Image img) {
-        this.img = img;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
 }

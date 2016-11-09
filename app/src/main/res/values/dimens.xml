@@ -3,7 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!-- Login logo width and height-->
+    <!-- Login logo width and height -->
     <dimen name="logo_width">150dp</dimen>
     <dimen name="logo_height">150dp</dimen>
+
+    <!-- User image width and height -->
+    <dimen name="img_width">75dp</dimen>
+    <dimen name="img_height">75dp</dimen>
 </resources>

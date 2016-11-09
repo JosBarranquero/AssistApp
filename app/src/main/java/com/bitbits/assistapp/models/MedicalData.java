@@ -12,6 +12,20 @@ public class MedicalData {
     String name, surname, sex, nationality, job, residence;
     boolean smoker, alcoholism, drugs;
 
+    public MedicalData(int id, Date birthdate, String name, String surname, String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
+        this.id = id;
+        this.birthdate = birthdate;
+        this.name = name;
+        this.surname = surname;
+        this.sex = sex;
+        this.nationality = nationality;
+        this.job = job;
+        this.residence = residence;
+        this.smoker = smoker;
+        this.alcoholism = alcoholic;
+        this.drugs = drugs;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,11 +62,11 @@ public class MedicalData {
         return smoker;
     }
 
-    public boolean isAlcoholism() {
+    public boolean isAlcoholic() {
         return alcoholism;
     }
 
-    public boolean isDrugs() {
+    public boolean usesDrugs() {
         return drugs;
     }
 }

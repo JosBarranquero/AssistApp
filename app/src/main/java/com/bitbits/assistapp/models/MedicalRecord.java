@@ -13,6 +13,15 @@ public class MedicalRecord {
     boolean hospitalised;
     Date date;
 
+    public MedicalRecord(int id, MedicalData data,String reason, String antecedents, boolean hospitalised, Date date) {
+        this.id = id;
+        this.data = data;
+        this.reason = reason;
+        this.antecedents = antecedents;
+        this.hospitalised = hospitalised;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }
