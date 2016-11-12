@@ -10,6 +10,7 @@ import com.bitbits.assistapp.models.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Singleton class which stores the data
@@ -34,5 +35,9 @@ public class Repository {
 
     public void putUser(User u){
         users.add(u);
+    }
+
+    public List<User> getUser() {
+        return users;
     }
 }
