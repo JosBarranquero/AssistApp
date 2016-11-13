@@ -4,6 +4,8 @@ import android.media.Image;
 
 import com.bitbits.assistapp.models.Hospital;
 import com.bitbits.assistapp.models.MedicalData;
+import com.bitbits.assistapp.models.Message;
+import com.bitbits.assistapp.models.Nurse;
 import com.bitbits.assistapp.models.Patient;
 import com.bitbits.assistapp.models.Speciality;
 import com.bitbits.assistapp.models.User;
@@ -20,24 +22,53 @@ import java.util.List;
 public class Repository {
     private static Repository ourInstance;
     private static ArrayList<User> users;
+    private static ArrayList<Message> messages;
+    private static User current;
 
     public static Repository getInstance() {
         if (ourInstance == null) {
-            ourInstance = new Repository();
             users = new ArrayList<>();
+            messages = new ArrayList<>();
+            ourInstance = new Repository();
         }
         return ourInstance;
     }
 
     private Repository() {
-        putUser(new User(1, "00000000A", "Francisco", "Fernández", "pacofer@bitbits.com", new Patient(1, new Hospital(1, "Clínico", "Yo que sé", "953493349"), new Speciality(1, "Neurología"), new MedicalData(1, Calendar.getInstance().getTime(), "Francismo", "Fernández", "Masculino", "Español", "Parado", "Calle Falsa 123", true, true, true)), null, null, true));
+        Hospital clinico = new Hospital(1, "Clínico", "Yo que sé", "953493349");
+        Speciality trauma = new Speciality(2, "Traumatología");
+
+        Patient patient = new Patient(1, clinico, trauma, new MedicalData(1, Calendar.getInstance().getTime(), "Lourdes", "Rodríguez", "Femenino", "Español", "Profesora", "Calle Falsa 123", false, false, false));
+        Nurse nurse = new Nurse(1, clinico, trauma);
+
+        User lourdes = new User(1, "Aa123456", "12345678A", "Lourdes", "Rodríguez", "moronlu18@gmail.com", patient, null, null, true);
+        User jose = new User(2, "Aa123456", "12345678B", "José Antonio", "Barranquero", "joseantbarranquero@gmail.com", null, nurse, null, true);
+
+        putUser(lourdes);
+        putUser(jose);
     }
 
     public void putUser(User u){
         users.add(u);
     }
 
+    public void setCurrentUser(User u) {
+        current = u;
+    }
+
+    public User getCurrentUser(){
+        return current;
+    }
+
     public List<User> getUser() {
         return users;
+    }
+
+    public void writeMessage(Message m) {
+        messages.add(m);
+    }
+
+    public List<Message> getMessages() {
+        return messages;
     }
 }

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txvContactName"
-        android:text="test"
+        android:text=""
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

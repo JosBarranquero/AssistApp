@@ -5,4 +5,24 @@
     <string name="login">Entrar</string>
     <string name="password">Contraseña</string>
     <string name="search">Buscar</string>
+    <string name="pref_account">Personal</string>
+    <string name="pref_notifications">Notificaciones</string>
+    <string name="pref_support">Soporte</string>
+    <string name="pref_sound_summary">Emitir sonido cuando se reciba un mensaje</string>
+    <string name="pref_sound_title">Sonido</string>
+    <string name="pref_vibrate_summary">Vibrar cuando se reciba un mensaje</string>
+    <string name="pref_vibrate_title">Vibración</string>
+    <string name="pref_about_title">Acerca de AssistApp</string>
+    <string name="pref_email_title">Cambiar dirección de email</string>
+    <string name="pref_password_title">Cambiar contraseña</string>
+    <string name="provisional">Elementos del Navigation Drawer</string>
+    <string name="nav_notice">En versiones futuras, esta Activity será reemplazada con un Navigation Drawer en la Activity Conversation List&#8230; Perdón por las molestias</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="nav_logout">Cerrar sesión</string>
+    <string name="nav_med_record">Mi historia clínica</string>
+    <string name="app_description">Comunicador médico</string>
+    <string name="app_credits">Desarrollado por José Antonio Barranquero Fernández.\n\nLicenciado bajo &lt;PENDIENTE DE LICENCIA&gt;</string>
+    <string name="provisional_2">Para enviar un mensaje, toque en \"+\"</string>
+    <string name="provisional_3">Escribir mensaje</string>
+    <string name="send">Enviar</string>
 </resources>

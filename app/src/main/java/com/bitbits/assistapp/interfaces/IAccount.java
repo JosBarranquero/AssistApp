@@ -8,11 +8,12 @@ package com.bitbits.assistapp.interfaces;
 public interface IAccount {
     interface View {
         void setErrorMessage(String error, int idView);
-        void launchActivity();
+        void launchActivity(String name);
     }
 
     interface Presenter {
-        void validateUser(String user);
-        void validatePassword(String password);
+        boolean validateUser(String user);
+        boolean validatePassword(String password);
+        void validateCredentials(String user, String password);
     }
 }

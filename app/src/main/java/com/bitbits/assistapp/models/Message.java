@@ -17,12 +17,15 @@ public class Message {
     String content;
     Image img;
     Date date;
+    User sender, receiptant;
 
-    public Message(int id, String content, Image img) {
+    public Message(int id, String content, Image img, User sender, User receiptant) {
         this.id = id;
         this.content = content;
         this.img = img;
         this.date = Calendar.getInstance().getTime();
+        this.sender = sender;
+        this.receiptant = receiptant;
     }
 
     public int getId() {
@@ -41,4 +44,11 @@ public class Message {
         return content;
     }
 
+    public User getSender() {
+        return sender;
+    }
+
+    public User getReceiptant() {
+        return receiptant;
+    }
 }
