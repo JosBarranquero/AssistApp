@@ -18,6 +18,8 @@ import java.util.List;
 
 /**
  * Adapter which manages the contacts shown on the conversation list
+ * @author José Antonio Barranquero Fernández
+ * @version 1.0
  */
 public class ConversationList_Adapter extends RecyclerView.Adapter<ConversationList_Adapter.ConversationViewHolder> {
     private List<User> contacts = new ArrayList<>();

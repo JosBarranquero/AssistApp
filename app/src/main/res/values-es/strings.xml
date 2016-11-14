@@ -25,4 +25,7 @@
     <string name="provisional_2">Para enviar un mensaje, toque en \"+\"</string>
     <string name="provisional_3">Escribir mensaje</string>
     <string name="send">Enviar</string>
+    <string name="content">Contenido</string>
+    <string name="receiptant">Para</string>
+    <string name="sender">De</string>
 </resources>
