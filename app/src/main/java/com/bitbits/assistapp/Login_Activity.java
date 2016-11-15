@@ -62,7 +62,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mTilUser.setError(null);
+                mTilPassword.setError(null);
             }
 
             @Override

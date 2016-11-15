@@ -66,6 +66,7 @@ public class Login_Presenter implements IAccount.Presenter {
                 if (account.getId_doc().equals(user) && account.getPass().equals(password) && account.isActive()) {
                     view.launchActivity(account.getName() + " " + account.getSurname());
                     Repository.getInstance().setCurrentUser(account);
+                    return;
                 } else {
                     view.setErrorMessage(((Context)view).getString(R.string.credentials_error), R.id.edtPassword);
                 }
