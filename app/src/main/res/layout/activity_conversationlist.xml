@@ -19,8 +19,8 @@
         android:dividerHeight="0dp"
         android:background="#111"/>
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rcvConvoList"/>
+        android:id="@+id/lstConvoList"/>
 </android.support.v4.widget.DrawerLayout>

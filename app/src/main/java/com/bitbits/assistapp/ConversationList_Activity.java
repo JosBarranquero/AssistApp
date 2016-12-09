@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bitbits.assistapp.adapters.ConversationList_Adapter;
+import com.bitbits.assistapp.adapters.ConversationList_Adapter_Legacy;
 
 /**
  * Class which will list the available conversations
@@ -21,7 +22,7 @@ import com.bitbits.assistapp.adapters.ConversationList_Adapter;
  */
 public class ConversationList_Activity extends AppCompatActivity {
     private ConversationList_Adapter mAdapter;
-    private RecyclerView mRcvConvoList;
+    private ListView mLstConvoList;
     private DrawerLayout mDrwLayout;
     private ListView mDrwList;
 
@@ -35,9 +36,9 @@ public class ConversationList_Activity extends AppCompatActivity {
         mDrwList = (ListView) findViewById(R.id.left_drawer);
 
         mAdapter = new ConversationList_Adapter(this);
-        mRcvConvoList = (RecyclerView)findViewById(R.id.rcvConvoList);
-        mRcvConvoList.setLayoutManager(new LinearLayoutManager(this));
-        mRcvConvoList.setAdapter(mAdapter);
+        mLstConvoList = (ListView)findViewById(R.id.lstConvoList);
+        //mLstConvoList.setLayoutManager(new LinearLayoutManager(this));
+        mLstConvoList.setAdapter(mAdapter);
 
         Toast.makeText(this, R.string.provisional_2, Toast.LENGTH_LONG).show();
     }

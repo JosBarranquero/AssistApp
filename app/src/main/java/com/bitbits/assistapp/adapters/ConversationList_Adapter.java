@@ -1,10 +1,11 @@
 package com.bitbits.assistapp.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,50 +16,54 @@ import com.bitbits.assistapp.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Adapter which manages the contacts shown on the conversation list
+ *
  * @author José Antonio Barranquero Fernández
- * @version 1.0
+ * @version 1.1
  */
-public class ConversationList_Adapter extends RecyclerView.Adapter<ConversationList_Adapter.ConversationViewHolder> {
-    private List<User> contacts = new ArrayList<>();
-    private Context context;
+public class ConversationList_Adapter extends ArrayAdapter<User> {
+    Context context;
+    List<User> contacts = new ArrayList<>();
 
-    public ConversationList_Adapter(Context c) {
-        this.context = c;
-        for (User account :
-                Repository.getInstance().getUser()) {
-            if (!account.equals(Repository.getInstance().getCurrentUser()))
+    public ConversationList_Adapter(Context context) {
+        super(context, R.layout.item_conversation);
+        this.context = context;
+        for (User account : Repository.getInstance().getUser()) {
+            if (!account.equals(Repository.getInstance().getCurrentUser())) {
                 contacts.add(account);
+            }
         }
     }
 
+    @NonNull
     @Override
-    public ConversationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_conversation, null);
-        return new ConversationViewHolder(item);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        super.getView(position, convertView, parent);
+        View item = convertView;
+        ConversationHolder conversationHolder;
+
+        if (item == null) {
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            item = layoutInflater.inflate(R.layout.item_conversation, null);
+            conversationHolder = new ConversationHolder();
+
+            conversationHolder.contact_image = (ImageView)item.findViewById(R.id.imgContact);
+            conversationHolder.txvName = (TextView)item.findViewById(R.id.txvContactName);
+
+            item.setTag(conversationHolder);
+        } else {
+            conversationHolder = (ConversationHolder)item.getTag();
+        }
+
+        conversationHolder.contact_image.setImageResource(R.drawable.logo);
+        conversationHolder.txvName.setText(contacts.get(position).getName());
+
+        return item;
     }
 
-    @Override
-    public void onBindViewHolder(ConversationViewHolder holder, int position) {
-            holder.contact_image.setImageResource(R.drawable.logo);
-            holder.txvName.setText(contacts.get(position).getName() + " " + contacts.get(position).getSurname());
-    }
-
-    @Override
-    public int getItemCount() {
-        return contacts.size();
-    }
-
-    public static class ConversationViewHolder extends RecyclerView.ViewHolder {
+    class ConversationHolder {
         ImageView contact_image;
         TextView txvName;
-
-        public ConversationViewHolder(View itemView) {
-            super(itemView);
-            contact_image = (ImageView) itemView.findViewById(R.id.imgContact);
-            txvName = (TextView) itemView.findViewById(R.id.txvContactName);
-        }
     }
 }
