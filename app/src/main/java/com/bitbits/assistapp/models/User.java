@@ -1,12 +1,15 @@
 package com.bitbits.assistapp.models;
 
 import android.media.Image;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 
 /**
  * Model class for users
  * @author José Antonio Barranquero Fernández
  */
-public class User {
+public class User implements Serializable {
     int id;
     String pass, id_doc, name, surname, email;
     Patient patient;

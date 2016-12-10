@@ -1,12 +1,13 @@
 package com.bitbits.assistapp.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Class which defines a patient's medical data
  * @author José Antonio Barranquero Fernández
  */
-public class MedicalData {
+public class MedicalData implements Serializable {
     int id;
     Date birthdate;
     String name, surname, sex, nationality, job, residence;

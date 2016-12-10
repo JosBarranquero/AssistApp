@@ -1,10 +1,12 @@
 package com.bitbits.assistapp.models;
 
+import java.io.Serializable;
+
 /**
 * Model class which defines nurses
 * @author José Antonio Barranquero Fernández
 */
-public class Patient {
+public class Patient implements Serializable {
     int id;
     Hospital was_in;
     Speciality speciality;

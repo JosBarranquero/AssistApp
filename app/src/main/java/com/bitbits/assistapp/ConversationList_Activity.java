@@ -5,15 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bitbits.assistapp.adapters.ConversationList_Adapter;
-import com.bitbits.assistapp.adapters.ConversationList_Adapter_Legacy;
+import com.bitbits.assistapp.models.User;
 
 /**
  * Class which will list the available conversations
@@ -30,17 +30,22 @@ public class ConversationList_Activity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversationlist);
-        setTitle(this.getIntent().getExtras().getString("name"));
+        setTitle(Repository.getInstance().getCurrentUser().getName()+" "+Repository.getInstance().getCurrentUser().getSurname());
 
         mDrwLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrwList = (ListView) findViewById(R.id.left_drawer);
 
-        mAdapter = new ConversationList_Adapter(this);
         mLstConvoList = (ListView)findViewById(R.id.lstConvoList);
-        //mLstConvoList.setLayoutManager(new LinearLayoutManager(this));
+        mLstConvoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ConversationList_Activity.this, Conversation_Activity.class);
+                intent.putExtra("receiver", (User)parent.getItemAtPosition(position));
+                startActivity(intent);
+            }
+        });
+        mAdapter = new ConversationList_Adapter(this);
         mLstConvoList.setAdapter(mAdapter);
-
-        Toast.makeText(this, R.string.provisional_2, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -65,10 +70,6 @@ public class ConversationList_Activity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_navDrawer:
                 intent = new Intent(ConversationList_Activity.this, NavigationDrawer_Activity.class);
-                startActivity(intent);
-                break;
-            case R.id.action_message:
-                intent = new Intent(ConversationList_Activity.this, Conversation_Activity.class);
                 startActivity(intent);
                 break;
         }

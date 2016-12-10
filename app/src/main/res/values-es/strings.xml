@@ -22,8 +22,6 @@
     <string name="nav_med_record">Mi historia clínica</string>
     <string name="app_description">Comunicador médico</string>
     <string name="app_credits">Desarrollado por José Antonio Barranquero Fernández.\n\nLicenciado bajo &lt;PENDIENTE DE LICENCIA&gt;</string>
-    <string name="provisional_2">Para enviar un mensaje, toque en \"+\"</string>
-    <string name="provisional_3">Escribir mensaje</string>
     <string name="send">Enviar</string>
     <string name="content">Contenido</string>
     <string name="receiptant">Para</string>

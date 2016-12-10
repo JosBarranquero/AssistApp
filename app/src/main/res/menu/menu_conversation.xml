@@ -9,8 +9,4 @@
         android:title="@string/provisional"
         android:id="@+id/action_navDrawer"
         app:showAsAction="collapseActionView"/>
-    <item android:icon="@android:drawable/btn_plus"
-        android:title="@string/provisional_3"
-        android:id="@+id/action_message"
-        app:showAsAction="collapseActionView"/>
 </menu>

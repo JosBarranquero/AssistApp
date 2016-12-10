@@ -1,10 +1,12 @@
 package com.bitbits.assistapp.models;
 
+import java.io.Serializable;
+
 /**
  * Class which defines a medical speciality
  * @author José Antonio Barranquero Fernández
  */
-public class Speciality {
+public class Speciality implements Serializable {
     int id;
     String name;
 

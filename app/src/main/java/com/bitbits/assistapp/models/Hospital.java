@@ -1,10 +1,12 @@
 package com.bitbits.assistapp.models;
 
+import java.io.Serializable;
+
 /**
  * Class which defines a hospital
  * @author José Antonio Barranquero Fernández
  */
-public class Hospital {
+public class Hospital implements Serializable {
     int id;
     String name, address, phone;
 

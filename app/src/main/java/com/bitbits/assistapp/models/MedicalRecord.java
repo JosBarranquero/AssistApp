@@ -1,12 +1,13 @@
 package com.bitbits.assistapp.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Class which defines medical records
  * @author José Antonio Barranquero Fernández
  */
-public class MedicalRecord {
+public class MedicalRecord implements Serializable {
     int id;
     MedicalData data;
     String reason, antecedents;
