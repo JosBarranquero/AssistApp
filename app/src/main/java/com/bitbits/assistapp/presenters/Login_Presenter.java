@@ -67,10 +67,9 @@ public class Login_Presenter implements IAccount.Presenter {
                     view.launchActivity(account.getName() + " " + account.getSurname());
                     Repository.getInstance().setCurrentUser(account);
                     return;
-                } else {
-                    view.setErrorMessage(((Context)view).getString(R.string.credentials_error), R.id.edtPassword);
                 }
             }
+            view.setErrorMessage(((Context)view).getString(R.string.credentials_error), R.id.edtPassword);
         }
     }
 }
