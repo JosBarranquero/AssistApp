@@ -13,7 +13,7 @@ import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.models.Message;
 
 /**
- * Adapter which manages the messages listed in Conversation_Activity
+ * Adapter which manages the messages listed in Conversation_Fragment
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */

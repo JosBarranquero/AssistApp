@@ -1,26 +1,26 @@
 package com.bitbits.assistapp;
 
-import android.app.ListActivity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.bitbits.assistapp.adapters.Conversation_Adapter;
 import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.User;
 
 /**
- * Activity which will show the messages in between users and allows to write new ones
+ * Fragment which will show the messages in between users and allows to write new ones
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
-public class Conversation_Activity extends AppCompatActivity {
+public class Conversation_Fragment extends Fragment {
     ListView lstMessages;
     Conversation_Adapter mAdapter;
     EditText mEdtContent;
@@ -29,22 +29,30 @@ public class Conversation_Activity extends AppCompatActivity {
     int id = 0;
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         message();
     }
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversation);
-        receiptant = (User)getIntent().getSerializableExtra("receiver");
-        setTitle(receiptant.getName());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.fragment_conversation, container, false);
 
-        lstMessages = (ListView)findViewById(R.id.lstMessages);
+        receiptant = (User)getArguments().getSerializable("receiver");
+        getActivity().setTitle(receiptant.getName());
 
-        mEdtContent = (EditText)findViewById(R.id.edtContent);
-        mBtnSend = (Button) findViewById(R.id.btnSend);
+        lstMessages = (ListView)rootView.findViewById(R.id.lstMessages);
+        mEdtContent = (EditText)rootView.findViewById(R.id.edtContent);
+        mBtnSend = (Button)rootView.findViewById(R.id.btnSend);
+
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,12 +66,10 @@ public class Conversation_Activity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void message() {
-        mAdapter = new Conversation_Adapter(this);
+        mAdapter = new Conversation_Adapter(getActivity());
         lstMessages.setAdapter(mAdapter);
     }
 }
