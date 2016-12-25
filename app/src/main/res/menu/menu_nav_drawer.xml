@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+    <item android:title="@string/nav_med_record"
+        android:id="@+id/navHistory"/>
+    </group>
+    <group>
+    <item android:title="@string/nav_settings"
+        android:icon="@android:drawable/ic_secure"
+        android:id="@+id/navSettings"/>
+    <item android:title="@string/nav_logout"
+        android:id="@+id/navLogout"/>
+    </group>
+</menu>

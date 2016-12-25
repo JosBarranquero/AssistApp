@@ -9,7 +9,7 @@
     <string name="send">Send</string>
 
     <string name="sender">Sender</string>
-    <string name="receiptant">Receiptant</string>
+    <string name="receiver">Receiver</string>
     <string name="content">Content</string>
 
     <string name="provisional">Navigation Drawer Items</string>

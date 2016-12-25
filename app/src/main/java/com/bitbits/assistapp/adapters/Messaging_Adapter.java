@@ -13,15 +13,15 @@ import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.models.Message;
 
 /**
- * Adapter which manages the messages listed in Conversation_Fragment
+ * Adapter which manages the messages listed in Messaging_Fragment
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
 
-public class Conversation_Adapter extends ArrayAdapter<Message> {
+public class Messaging_Adapter extends ArrayAdapter<Message> {
     private Context context;
 
-    public Conversation_Adapter(Context context) {
+    public Messaging_Adapter(Context context) {
         super(context, R.layout.item_message, Repository.getInstance().getMessages());
         this.context = context;
     }
@@ -49,7 +49,7 @@ public class Conversation_Adapter extends ArrayAdapter<Message> {
         }
 
         messageHolder.txvSender.setText(context.getResources().getString(R.string.sender) + ": " + getItem(position).getSender().getName());
-        messageHolder.txvReceiptant.setText(context.getResources().getString(R.string.receiptant) + ": " + getItem(position).getReceiptant().getName());
+        messageHolder.txvReceiptant.setText(context.getResources().getString(R.string.receiver) + ": " + getItem(position).getReceiptant().getName());
         messageHolder.txvContent.setText(context.getResources().getString(R.string.content) + ": " + getItem(position).getContent());
 
         return item;

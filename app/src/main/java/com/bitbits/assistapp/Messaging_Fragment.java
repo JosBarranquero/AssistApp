@@ -11,27 +11,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.bitbits.assistapp.adapters.Conversation_Adapter;
+import com.bitbits.assistapp.adapters.Messaging_Adapter;
+import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.User;
+import com.bitbits.assistapp.presenters.Messaging_Presenter;
 
 /**
  * Fragment which will show the messages in between users and allows to write new ones
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
-public class Conversation_Fragment extends Fragment {
-    ListView lstMessages;
-    Conversation_Adapter mAdapter;
+public class Messaging_Fragment extends Fragment implements IMessage.View {
+    ListView mLstMessages;
+    Messaging_Adapter mAdapter;
     EditText mEdtContent;
     Button mBtnSend;
-    User receiptant;
+    User receiver;
+    IMessage.Presenter mPresenter;
     int id = 0;
 
     @Override
-    public void onResume() {
-        super.onResume();
-        message();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPresenter = new Messaging_Presenter(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter = null;
     }
 
     @Nullable
@@ -40,10 +49,12 @@ public class Conversation_Fragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_conversation, container, false);
 
-        receiptant = (User)getArguments().getSerializable("receiver");
-        getActivity().setTitle(receiptant.getName());
+        receiver = (User)getArguments().getSerializable("receiver");
+        getActivity().setTitle(receiver.getName());
 
-        lstMessages = (ListView)rootView.findViewById(R.id.lstMessages);
+        
+
+        mLstMessages = (ListView)rootView.findViewById(R.id.lstMessages);
         mEdtContent = (EditText)rootView.findViewById(R.id.edtContent);
         mBtnSend = (Button)rootView.findViewById(R.id.btnSend);
 
@@ -53,23 +64,26 @@ public class Conversation_Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
+        mAdapter = new Messaging_Adapter(getActivity());
+        
+        mLstMessages.setAdapter(mAdapter);
+        
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String content = mEdtContent.getText().toString();
                 if (!TextUtils.isEmpty(content)) {
-                    Message message = new Message(++id, content, null, Repository.getInstance().getCurrentUser(), receiptant);
-                    Repository.getInstance().writeMessage(message);
+                    Message message = new Message(++id, content, null, Repository.getInstance().getCurrentUser(), receiver);
+                    mPresenter.sendMessage(message);
 
-                    message();
                     mEdtContent.setText("");
                 }
             }
         });
     }
 
-    private void message() {
-        mAdapter = new Conversation_Adapter(getActivity());
-        lstMessages.setAdapter(mAdapter);
+    public void message() {
+        mAdapter.notifyDataSetChanged();
     }
 }

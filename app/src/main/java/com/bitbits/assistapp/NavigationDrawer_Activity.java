@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 /**
  * Activity which will act as a Navigation Drawer
@@ -25,13 +24,7 @@ public class NavigationDrawer_Activity extends AppCompatActivity {
 
         mBtnRecord = (Button) findViewById(R.id.btnRecord);
         mBtnSettings = (Button) findViewById(R.id.btnSettings);
-        mBtnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NavigationDrawer_Activity.this, Settings_Activity.class);
-                startActivity(intent);
-            }
-        });
+
         mBtnLogout = (Button) findViewById(R.id.btnLogout);
         mBtnAbout = (Button)findViewById(R.id.btnAbout);
         mBtnAbout.setOnClickListener(new View.OnClickListener() {

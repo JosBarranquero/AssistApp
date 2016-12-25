@@ -5,8 +5,8 @@
         android:icon="@android:drawable/ic_menu_search"
         android:id="@+id/action_search"
         app:showAsAction="ifRoom"/>
-    <item android:icon="@android:drawable/ic_menu_more"
+    <!--<item android:icon="@android:drawable/ic_menu_more"
         android:title="@string/provisional"
         android:id="@+id/action_navDrawer"
-        app:showAsAction="collapseActionView"/>
+        app:showAsAction="collapseActionView"/>-->
 </menu>

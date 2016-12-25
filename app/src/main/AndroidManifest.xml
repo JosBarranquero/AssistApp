@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".Home_Activity"/>
         <activity android:name=".NavigationDrawer_Activity" />
-        <activity android:name=".Settings_Activity"/>
+        <activity android:name=".Settings_Fragment"/>
     </application>
 
 </manifest>

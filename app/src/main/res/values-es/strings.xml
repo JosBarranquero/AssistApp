@@ -24,6 +24,6 @@
     <string name="app_credits">Desarrollado por José Antonio Barranquero Fernández.\n\nLicenciado bajo &lt;PENDIENTE DE LICENCIA&gt;</string>
     <string name="send">Enviar</string>
     <string name="content">Contenido</string>
-    <string name="receiptant">Para</string>
+    <string name="receiver">Para</string>
     <string name="sender">De</string>
 </resources>

@@ -1,7 +1,5 @@
 package com.bitbits.assistapp;
 
-import android.media.Image;
-
 import com.bitbits.assistapp.models.Hospital;
 import com.bitbits.assistapp.models.MedicalData;
 import com.bitbits.assistapp.models.Message;
@@ -16,25 +14,29 @@ import java.util.List;
 
 /**
  * Singleton class which stores the data
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
 public class Repository {
-    private static Repository ourInstance;
-    private static ArrayList<User> users;
-    private static ArrayList<Message> messages;
-    private static User current;
+    private static Repository myInstance;
+    private ArrayList<User> users;
+    private ArrayList<Message> messages;
+    private ArrayList<Hospital> hospitals;
+    private User current;
 
     public static Repository getInstance() {
-        if (ourInstance == null) {
-            users = new ArrayList<>();
-            messages = new ArrayList<>();
-            ourInstance = new Repository();
+        if (myInstance == null) {
+            myInstance = new Repository();
         }
-        return ourInstance;
+        return myInstance;
     }
 
     private Repository() {
+
+        users = new ArrayList<>();
+        messages = new ArrayList<>();
+
         Hospital clinico = new Hospital(1, "Clínico", "Yo que sé", "953493349");
         Speciality trauma = new Speciality(2, "Traumatología");
 
@@ -48,7 +50,7 @@ public class Repository {
         putUser(jose);
     }
 
-    public void putUser(User u){
+    public void putUser(User u) {
         users.add(u);
     }
 
@@ -56,7 +58,7 @@ public class Repository {
         current = u;
     }
 
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         return current;
     }
 
@@ -70,5 +72,9 @@ public class Repository {
 
     public List<Message> getMessages() {
         return messages;
+    }
+
+    public List<Hospital> getHospitals() {
+        return hospitals;
     }
 }

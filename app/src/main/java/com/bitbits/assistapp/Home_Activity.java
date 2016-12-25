@@ -10,8 +10,9 @@ import android.support.v7.app.AppCompatActivity;
  * @version 1.0
  */
 public class Home_Activity extends AppCompatActivity implements ConversationList_Fragment.ListConversationListener {
-    Conversation_Fragment mConversationFragment;
+    Messaging_Fragment mMessagingFragment;
     ConversationList_Fragment mConversationListFragment;
+    Settings_Fragment mSettingsFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,9 +24,25 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     }
 
     @Override
-    public void showConversation(Bundle bundle) {
-        mConversationFragment = new Conversation_Fragment();
-        mConversationFragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.framehome, mConversationFragment).addToBackStack(null).commit();
+    public void showMessaging(Bundle bundle) {
+        mMessagingFragment = new Messaging_Fragment();
+        mMessagingFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mMessagingFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void showMedicalRecord() {
+
+    }
+
+    @Override
+    public void showSettings() {
+        mSettingsFragment = new Settings_Fragment();
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mSettingsFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void logOut() {
+
     }
 }
