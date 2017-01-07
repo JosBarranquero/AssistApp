@@ -1,6 +1,10 @@
 package com.bitbits.assistapp.models;
 
+import android.support.annotation.StringDef;
+
 import java.io.Serializable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Date;
 
 /**
@@ -10,10 +14,17 @@ import java.util.Date;
 public class MedicalData implements Serializable {
     int id;
     Date birthdate;
-    String name, surname, sex, nationality, job, residence;
+    String name, surname, nationality, job, residence;
+    @Sex String sex;
     boolean smoker, alcoholism, drugs;
 
-    public MedicalData(int id, Date birthdate, String name, String surname, String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
+    @Retention(RetentionPolicy.RUNTIME)
+    @StringDef({MASC, FEM})
+    public @interface Sex {}
+    public static final String MASC = "Masculine";
+    public static final String FEM = "Feminine";
+
+    public MedicalData(int id, Date birthdate, String name, String surname, @Sex String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
         this.id = id;
         this.birthdate = birthdate;
         this.name = name;

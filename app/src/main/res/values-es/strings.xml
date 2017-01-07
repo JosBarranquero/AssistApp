@@ -26,4 +26,6 @@
     <string name="content">Contenido</string>
     <string name="receiver">Para</string>
     <string name="sender">De</string>
+    <string name="masculine">Masculino</string>
+    <string name="femenine">Femenino</string>
 </resources>
