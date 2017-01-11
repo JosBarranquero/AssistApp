@@ -23,15 +23,15 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Harambe"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/password"
+        android:id="@+id/speciality"
         style="@style/Widget.AppCompat.Spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cincinatizoo@gmail.com"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 </LinearLayout>

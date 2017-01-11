@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 public class Home_Activity extends AppCompatActivity implements ConversationList_Fragment.ListConversationListener {
     Messaging_Fragment mMessagingFragment;
     ConversationList_Fragment mConversationListFragment;
+    MedicalRecord_Fragment mMedicalRecordFragment;
     Settings_Fragment mSettingsFragment;
 
     @Override
@@ -32,7 +33,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
     @Override
     public void showMedicalRecord() {
-
+        mMedicalRecordFragment = new MedicalRecord_Fragment();
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mMedicalRecordFragment).addToBackStack(null).commit();
     }
 
     @Override

@@ -28,8 +28,6 @@ import com.bitbits.assistapp.models.User;
 public class ConversationList_Fragment extends Fragment {
     private ConversationList_Adapter mAdapter;
     private ListView mLstConvoList;
-    private DrawerLayout mDrwLayout;
-    private NavigationView mNavView;
     private ListConversationListener mCallback;
 
     public interface ListConversationListener {
@@ -80,9 +78,6 @@ public class ConversationList_Fragment extends Fragment {
 
         getActivity().setTitle(Repository.getInstance().getCurrentUser().getName() + " " + Repository.getInstance().getCurrentUser().getSurname());
 
-        mDrwLayout = (DrawerLayout)rootView.findViewById(R.id.drawer_layout);
-        mNavView = (NavigationView) rootView.findViewById(R.id.nav_view);
-
         mLstConvoList = (ListView)rootView.findViewById(R.id.lstConvoList);
 
         return rootView;
@@ -101,8 +96,6 @@ public class ConversationList_Fragment extends Fragment {
                 mCallback.showMessaging(bundle);
             }
         });
-
-        setupNavigationDrawer();
     }
 
 
@@ -127,32 +120,9 @@ public class ConversationList_Fragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrwLayout.openDrawer(GravityCompat.START);
-                break;
             //TODO Implement search option
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setupNavigationDrawer() {
-        mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navHistory:
-                        mCallback.showMedicalRecord();
-                        return true;
-                    case R.id.navSettings:
-                        mCallback.showSettings();
-                        return true;
-                    case R.id.navLogout:
-                        mCallback.logOut();
-                        return true;
-                }
-                return true;
-            }
-        });
     }
 }

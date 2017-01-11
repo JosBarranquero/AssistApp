@@ -10,10 +10,11 @@
         <menu>
             <item
                 android:id="@+id/navSettings"
-                android:icon="@android:drawable/ic_secure"
+                android:icon="@drawable/ic_action_settings"
                 android:title="@string/nav_settings" />
             <item
                 android:id="@+id/navLogout"
+                android:icon="@drawable/ic_action_logout"
                 android:title="@string/nav_logout" />
         </menu>
     </item>
