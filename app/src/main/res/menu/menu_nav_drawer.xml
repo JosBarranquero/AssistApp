@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group>
-    <item android:title="@string/nav_med_record"
-        android:id="@+id/navHistory"/>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navHistory"
+            android:icon="@drawable/ic_action_record"
+            android:title="@string/nav_med_record" />
     </group>
-    <group>
-    <item android:title="@string/nav_settings"
-        android:icon="@android:drawable/ic_secure"
-        android:id="@+id/navSettings"/>
-    <item android:title="@string/nav_logout"
-        android:id="@+id/navLogout"/>
-    </group>
+    <item android:title="@string/options">
+        <menu>
+            <item
+                android:id="@+id/navSettings"
+                android:icon="@android:drawable/ic_secure"
+                android:title="@string/nav_settings" />
+            <item
+                android:id="@+id/navLogout"
+                android:title="@string/nav_logout" />
+        </menu>
+    </item>
 </menu>

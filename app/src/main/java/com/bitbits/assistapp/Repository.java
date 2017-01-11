@@ -36,11 +36,11 @@ public class Repository {
     }
 
     private Repository() {
-
         users = new ArrayList<>();
         messages = new ArrayList<>();
         hospitals = new ArrayList<>();
         data = new ArrayList<>();
+        records = new ArrayList<>();
 
         Hospital clinico = new Hospital(1, "Clínico", "Yo que sé", "953493349");
         putHospitals(clinico);

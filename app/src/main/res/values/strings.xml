@@ -32,7 +32,8 @@
     <string name="pref_about_title">About AssistApp</string>
 
     <string name="nav_notice">In a future version, this Activity will be replaced with a Navigation Drawer on the Conversation List Activity&#8230; Sorry for the inconvenience</string>
-    <string name="nav_med_record">My medical record</string>
+    <string name="nav_med_record">Medical record</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_logout">Log out</string>
+    <string name="options">Options</string>
 </resources>

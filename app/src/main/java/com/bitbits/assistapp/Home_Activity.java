@@ -17,7 +17,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.content_nav);
 
         mConversationListFragment = new ConversationList_Fragment();
         getFragmentManager().beginTransaction().add(R.id.framehome, mConversationListFragment).commit();

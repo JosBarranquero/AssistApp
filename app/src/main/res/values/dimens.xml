@@ -8,6 +8,10 @@
     <dimen name="logo_height">150dp</dimen>
 
     <!-- User image width and height -->
-    <dimen name="img_width">75dp</dimen>
-    <dimen name="img_height">75dp</dimen>
+    <dimen name="img_width">64dp</dimen>
+    <dimen name="img_height">64dp</dimen>
+
+    <dimen name="header_height">192dp</dimen>
+    <dimen name="header_padding">16dp</dimen>
+    <dimen name="profile_image">64dp</dimen>
 </resources>
