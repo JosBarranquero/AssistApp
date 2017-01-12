@@ -1,11 +1,13 @@
-<resources>
-
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources><!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="hint" parent="TextAppearance.Design.Hint">
@@ -19,4 +21,5 @@
     <style name="login" parent="TextAppearance.AppCompat.Button">
         <item name="android:textColor">@color/colorButtonLogin</item>
     </style>
+
 </resources>
