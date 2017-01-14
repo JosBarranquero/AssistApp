@@ -7,6 +7,7 @@ import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.interfaces.IAccount;
 import com.bitbits.assistapp.models.User;
+import com.bitbits.assistapp.preferences.User_Preferences;
 
 /**
  * Presenter for Login_Activity
@@ -16,11 +17,19 @@ import com.bitbits.assistapp.models.User;
 public class Login_Presenter implements IAccount.Presenter {
     Repository data = Repository.getInstance();
     IAccount.View view;
+    Context context;
 
     public Login_Presenter(IAccount.View view) {
         this.view = view;
+        context = view.getContext();
     }
 
+    /**
+     * Method which validates if the username entered is valid
+     * @param user The username to be validated
+     * @return True - if it's valid
+     *         False - if it's not valid
+     */
     @Override
     public boolean validateUser(String user) {
         boolean valid = false;
@@ -32,6 +41,12 @@ public class Login_Presenter implements IAccount.Presenter {
         return valid;
     }
 
+    /**
+     * Method which validates if the password entered is valid
+     * @param password The password to be validated
+     * @return True - if it's valid
+     *         False - if it's not valid
+     */
     @Override
     public boolean validatePassword(String password) {
         String error = "";
@@ -66,6 +81,10 @@ public class Login_Presenter implements IAccount.Presenter {
                 if (account.getId_doc().equals(user) && account.getPass().equals(password) && account.isActive()) {
                     view.launchActivity(account.getName() + " " + account.getSurname());
                     Repository.getInstance().setCurrentUser(account);
+                    if (User_Preferences.getPass(context) == null && User_Preferences.getUser(context) == null) {
+                        User_Preferences.saveUser(account.getId_doc(), context);
+                        User_Preferences.savePass(account.getPass(), context);
+                    }
                     return;
                 }
             }

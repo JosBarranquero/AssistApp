@@ -2,16 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/navConvo"
+            android:icon="@drawable/ic_action_convo"
+            android:title="@string/conversations"
+            android:checked="true"/>
+        <item
             android:id="@+id/navHistory"
             android:icon="@drawable/ic_action_record"
             android:title="@string/nav_med_record" />
+        <item
+            android:id="@+id/navSettings"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/nav_settings" />
     </group>
     <item android:title="@string/options">
         <menu>
-            <item
-                android:id="@+id/navSettings"
-                android:icon="@drawable/ic_action_settings"
-                android:title="@string/nav_settings" />
             <item
                 android:id="@+id/navLogout"
                 android:icon="@drawable/ic_action_logout"

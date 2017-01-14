@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="data_empty">Field must be filled</string>
+    <string name="data_empty">Field must be entered</string>
     <string name="password_digit">Password must contain at least one digit</string>
     <string name="password_case">Password must contain at least one character in uppercase/lowercase</string>
     <string name="password_length">Password must be at least 8 characters long</string>

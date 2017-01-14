@@ -7,8 +7,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.bitbits.assistapp.adapters.Messaging_Adapter;
@@ -26,7 +26,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     ListView mLstMessages;
     Messaging_Adapter mAdapter;
     EditText mEdtContent;
-    Button mBtnSend;
+    ImageButton mBtnSend;
     User receiver;
     IMessage.Presenter mPresenter;
     int id = 0;
@@ -47,16 +47,14 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_conversation, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_messaging, container, false);
 
-        receiver = (User)getArguments().getSerializable("receiver");
+        receiver = (User) getArguments().getSerializable("receiver");
         getActivity().setTitle(receiver.getName());
 
-        
-
-        mLstMessages = (ListView)rootView.findViewById(R.id.lstMessages);
-        mEdtContent = (EditText)rootView.findViewById(R.id.edtContent);
-        mBtnSend = (Button)rootView.findViewById(R.id.btnSend);
+        mLstMessages = (ListView) rootView.findViewById(R.id.lstMessages);
+        mEdtContent = (EditText) rootView.findViewById(R.id.edtContent);
+        mBtnSend = (ImageButton) rootView.findViewById(R.id.btnSend);
 
         return rootView;
     }
@@ -64,11 +62,11 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
         mAdapter = new Messaging_Adapter(getActivity());
-        
+
         mLstMessages.setAdapter(mAdapter);
-        
+
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +81,10 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         });
     }
 
+    /**
+     * Method which updates the adapter data
+     */
+    @Override
     public void message() {
         mAdapter.notifyDataSetChanged();
     }

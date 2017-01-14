@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AssistApp</string>
+    <string name="app_credits">Développé par José Antonio Barranquero Fernández. Licence sous &lt;LICENCE EN ATTENTE&gt;</string>
+    <string name="app_description">Communicateur médical</string>
+    <string name="content">Contenu</string>
+    <string name="conversations">Conversations</string>
+    <string name="credentials_error">Identifiant ou mot de passe erronés</string>
+    <string name="data_empty">Le champ doit être saisi</string>
+    <string name="femenine">Féminin</string>
+    <string name="id_card">Numéro de carte d\'identité</string>
+    <string name="login">S\'identifier</string>
+    <string name="masculine">Masculin</string>
+    <string name="nav_logout">Se déconnecter</string>
+    <string name="nav_med_record">Dossier médical</string>
+    <string name="nav_settings">Réglages</string>
+    <string name="options">Options</string>
+    <string name="password">Mot de passe</string>
+    <string name="password_case">Le mot de passe doit contenir au moins un caractère en majuscules/minuscules</string>
+    <string name="password_digit">Le mot de passe doit contenir au moins un numéro</string>
+    <string name="password_length">Le mot de passe doit contenir au moins 8 caractères</string>
+    <string name="pref_about_title">À propos d\'AssistApp</string>
+    <string name="pref_account">Personnel</string>
+    <string name="pref_email_title">Changer l\'adresse email</string>
+    <string name="pref_notifications">Notifications</string>
+    <string name="pref_password_title">Changer le mot de passe</string>
+    <string name="pref_sound_summary">Sonner lorsqu\'un message est reçu</string>
+    <string name="pref_sound_title">Son</string>
+    <string name="pref_support">Support</string>
+    <string name="pref_vibrate_summary">Vibrer lorsqu\'un message est reçu</string>
+    <string name="pref_vibrate_title">VIbration</string>
+    <string name="receiver">Destinataire</string>
+    <string name="search">Chercher</string>
+    <string name="send">Envoyer</string>
+    <string name="sender">De</string>
+    <string name="username">Utilisateur</string>
+    <string name="speciality">Spécialité</string>
+    <string name="drugs">Drogues</string>
+    <string name="alcoholic">Alcoolique</string>
+    <string name="smoker">Fumeur</string>
+    <string name="hospitalised">Hospitalisé</string>
+</resources>

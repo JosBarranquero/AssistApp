@@ -3,11 +3,7 @@ package com.bitbits.assistapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +17,7 @@ import com.bitbits.assistapp.adapters.ConversationList_Adapter;
 import com.bitbits.assistapp.models.User;
 
 /**
- * Class which will list the available conversations
+ * Fragment which will list the available conversations
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
@@ -32,18 +28,15 @@ public class ConversationList_Fragment extends Fragment {
 
     public interface ListConversationListener {
         void showMessaging(Bundle bundle);
-        void showMedicalRecord();
-        void showSettings();
-        void logOut();
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mCallback = (ListConversationListener)activity;
+            mCallback = (ListConversationListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(e.getMessage() + " activity must implement ListConversationListener interface");
+            throw new ClassCastException(activity.getLocalClassName() + " must implement ListConversationListener interface");
         }
     }
 
@@ -78,7 +71,7 @@ public class ConversationList_Fragment extends Fragment {
 
         getActivity().setTitle(Repository.getInstance().getCurrentUser().getName() + " " + Repository.getInstance().getCurrentUser().getSurname());
 
-        mLstConvoList = (ListView)rootView.findViewById(R.id.lstConvoList);
+        mLstConvoList = (ListView) rootView.findViewById(R.id.lstConvoList);
 
         return rootView;
     }
@@ -92,19 +85,19 @@ public class ConversationList_Fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("receiver", (User)parent.getItemAtPosition(position));
+                bundle.putSerializable("receiver", (User) parent.getItemAtPosition(position));
                 mCallback.showMessaging(bundle);
             }
         });
     }
 
 
-
     /**
      * Method which inflates the ActionBar menu
-     * @param menu The options menu in which the menu items are placed
+     *
+     * @param menu     The options menu in which the menu items are placed
      * @param inflater The MenuInflater
-     *                 @see MenuInflater
+     * @see MenuInflater
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -114,6 +107,7 @@ public class ConversationList_Fragment extends Fragment {
 
     /**
      * Method which handles the ActionBar menu taps
+     *
      * @param item The item that has been tapped on
      * @return true when the event controlled by this has been consumed, false when it hasn't and gets propagated
      */

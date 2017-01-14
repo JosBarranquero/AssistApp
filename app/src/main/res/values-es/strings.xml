@@ -15,8 +15,6 @@
     <string name="pref_about_title">Acerca de AssistApp</string>
     <string name="pref_email_title">Cambiar dirección de email</string>
     <string name="pref_password_title">Cambiar contraseña</string>
-    <string name="provisional">Elementos del Navigation Drawer</string>
-    <string name="nav_notice">En versiones futuras, esta Activity será reemplazada con un Navigation Drawer en la Activity Conversation List&#8230; Perdón por las molestias</string>
     <string name="nav_settings">Ajustes</string>
     <string name="nav_logout">Cerrar sesión</string>
     <string name="nav_med_record">Historia clínica</string>
@@ -24,9 +22,16 @@
     <string name="app_credits">Desarrollado por José Antonio Barranquero Fernández.\n\nLicenciado bajo &lt;PENDIENTE DE LICENCIA&gt;</string>
     <string name="send">Enviar</string>
     <string name="content">Contenido</string>
-    <string name="receiver">Para</string>
+    <string name="receiver">Destinatario</string>
     <string name="sender">De</string>
     <string name="masculine">Masculino</string>
     <string name="femenine">Femenino</string>
     <string name="options">Opciones</string>
+    <string name="conversations">Conversaciones</string>
+    <string name="username">Usuario</string>
+    <string name="speciality">Especialidad</string>
+    <string name="drugs">Drogas</string>
+    <string name="alcoholic">Alcohólico</string>
+    <string name="smoker">Fumador</string>
+    <string name="hospitalised">Hospitalizado</string>
 </resources>

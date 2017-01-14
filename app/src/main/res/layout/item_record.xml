@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/txvReason"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txvReason"
+        android:layout_alignLeft="@+id/txvReason"
+        android:layout_alignStart="@+id/txvReason"
+        android:layout_marginTop="11dp"
+        android:id="@+id/txvAntecedents"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <CheckBox
+        android:text="@string/hospitalised"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txvReason"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/cbxHospitalised" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cbxHospitalised"
+        android:layout_alignRight="@+id/cbxHospitalised"
+        android:layout_alignEnd="@+id/cbxHospitalised"
+        android:id="@+id/txvDate" />
+</RelativeLayout>

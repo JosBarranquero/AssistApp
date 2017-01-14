@@ -19,7 +19,6 @@ import java.util.List;
 
 /**
  * Adapter which manages the contacts shown on the conversation list
- *
  * @author José Antonio Barranquero Fernández
  * @version 1.1
  */
@@ -59,12 +58,12 @@ public class ConversationList_Adapter extends ArrayAdapter<User> {
             item = layoutInflater.inflate(R.layout.item_conversation, null);
             conversationHolder = new ConversationHolder();
 
-            conversationHolder.contact_image = (ImageView)item.findViewById(R.id.imgContact);
-            conversationHolder.txvName = (TextView)item.findViewById(R.id.txvContactName);
+            conversationHolder.contact_image = (ImageView) item.findViewById(R.id.imgContact);
+            conversationHolder.txvName = (TextView) item.findViewById(R.id.txvContactName);
 
             item.setTag(conversationHolder);
         } else {
-            conversationHolder = (ConversationHolder)item.getTag();
+            conversationHolder = (ConversationHolder) item.getTag();
         }
 
         conversationHolder.contact_image.setImageResource(R.drawable.logo);
