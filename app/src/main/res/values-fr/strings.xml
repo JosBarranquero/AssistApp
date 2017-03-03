@@ -13,7 +13,7 @@
     <string name="masculine">Masculin</string>
     <string name="nav_logout">Se déconnecter</string>
     <string name="nav_med_record">Dossier médical</string>
-    <string name="nav_settings">Réglages</string>
+    <string name="nav_settings">Paramètres</string>
     <string name="options">Options</string>
     <string name="password">Mot de passe</string>
     <string name="password_case">Le mot de passe doit contenir au moins un caractère en majuscules/minuscules</string>

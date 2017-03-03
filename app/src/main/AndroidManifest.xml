@@ -3,11 +3,15 @@
     package="com.bitbits.assistapp">
 
     <application
+        android:name=".AssistApp_Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:authorities="com.bitbits.assistapp"
+            android:name=".provider.SelfContentProvider"/>
         <activity android:name=".Login_Activity" android:windowSoftInputMode="adjustPan" android:noHistory="true" android:theme="@style/LoginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -40,7 +40,7 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
             messageHolder = new MessageHolder();
 
             messageHolder.txvSender = (TextView) item.findViewById(R.id.txvSender);
-            messageHolder.txvReceiptant = (TextView) item.findViewById(R.id.txvReceiptant);
+            messageHolder.txvReceiver = (TextView) item.findViewById(R.id.txvReceiver);
             messageHolder.txvContent = (TextView) item.findViewById(R.id.txvContent);
 
             item.setTag(messageHolder);
@@ -49,7 +49,7 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
         }
 
         messageHolder.txvSender.setText(context.getResources().getString(R.string.sender) + ": " + getItem(position).getSender().getName());
-        messageHolder.txvReceiptant.setText(context.getResources().getString(R.string.receiver) + ": " + getItem(position).getReceiptant().getName());
+        messageHolder.txvReceiver.setText(context.getResources().getString(R.string.receiver) + ": " + getItem(position).getReceiver().getName());
         messageHolder.txvContent.setText(context.getResources().getString(R.string.content) + ": " + getItem(position).getContent());
 
         return item;
@@ -57,7 +57,7 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
 
     class MessageHolder {
         TextView txvSender;
-        TextView txvReceiptant;
+        TextView txvReceiver;
         TextView txvContent;
     }
 }

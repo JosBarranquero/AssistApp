@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 /**
  * Model class for users
+ *
  * @author José Antonio Barranquero Fernández
  */
 public class User implements Serializable {
@@ -17,7 +18,7 @@ public class User implements Serializable {
     Image img;
     boolean active;
 
-    public User(int id,String pass, String doc, String name, String surname, String email, Patient p, Nurse n, Image img, boolean active) {
+    public User(int id, String pass, String doc, String name, String surname, String email, Patient p, Nurse n, Image img, boolean active) {
         this.id = id;
         this.pass = pass;
         this.id_doc = doc;
@@ -28,6 +29,14 @@ public class User implements Serializable {
         this.nurse = n;
         this.img = img;
         this.active = active;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPass() {
@@ -60,7 +69,7 @@ public class User implements Serializable {
      * @version 1.0
      */
     public boolean isPatient() {
-        return nurse==null;
+        return nurse == null;
     }
 
     public boolean isActive() {

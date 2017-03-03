@@ -1,6 +1,7 @@
 package com.bitbits.assistapp;
 
 import android.app.Fragment;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.bitbits.assistapp.adapters.Messaging_Adapter;
+import com.bitbits.assistapp.adapters.Messaging_CursorAdapter;
 import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.User;
@@ -24,7 +26,7 @@ import com.bitbits.assistapp.presenters.Messaging_Presenter;
  */
 public class Messaging_Fragment extends Fragment implements IMessage.View {
     ListView mLstMessages;
-    Messaging_Adapter mAdapter;
+    Messaging_CursorAdapter mAdapter;
     EditText mEdtContent;
     ImageButton mBtnSend;
     User receiver;
@@ -32,8 +34,15 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     int id = 0;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.getAllMessages(mAdapter);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAdapter = new Messaging_CursorAdapter(getActivity(), null, 1);
         mPresenter = new Messaging_Presenter(this);
     }
 
@@ -63,8 +72,6 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new Messaging_Adapter(getActivity());
-
         mLstMessages.setAdapter(mAdapter);
 
         mBtnSend.setOnClickListener(new View.OnClickListener() {
@@ -87,5 +94,12 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void message() {
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setCursor(Cursor cursor) {
+        if (cursor != null) {
+            mAdapter.swapCursor(cursor);
+        }
     }
 }

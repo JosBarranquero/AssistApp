@@ -44,8 +44,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
         setupDrawer();
 
-        mConversationListFragment = new ConversationList_Fragment();
-        getFragmentManager().beginTransaction().add(R.id.framehome, mConversationListFragment).commit();
+        showConversations();
     }
 
     /**
@@ -94,6 +93,15 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     /**
      * Method which changes the current fragment to the Messaging_Fragment
      * @param bundle The contact info
@@ -111,6 +119,9 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * @see ConversationList_Fragment
      */
     public void showConversations() {
+        if (mConversationListFragment == null) {
+            mConversationListFragment = new ConversationList_Fragment();
+        }
         getFragmentManager().beginTransaction().replace(R.id.framehome, mConversationListFragment).commit();
     }
 

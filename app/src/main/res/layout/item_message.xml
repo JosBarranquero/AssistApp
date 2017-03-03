@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txvReceiptant"
+        android:id="@+id/txvReceiver"
         android:layout_below="@id/txvSender"
         android:text=""
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txvContent"
-        android:layout_below="@id/txvReceiptant"
+        android:layout_below="@id/txvReceiver"
         android:text=""
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_alignParentLeft="true"

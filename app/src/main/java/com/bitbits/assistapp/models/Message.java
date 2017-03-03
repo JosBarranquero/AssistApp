@@ -15,15 +15,15 @@ public class Message implements Serializable {
     String content;
     Image img;
     Date date;
-    User sender, receiptant;
+    User sender, receiver;
 
-    public Message(int id, String content, Image img, User sender, User receiptant) {
+    public Message(int id, String content, Image img, User sender, User receiver) {
         this.id = id;
         this.content = content;
         this.img = img;
         this.date = Calendar.getInstance().getTime();
         this.sender = sender;
-        this.receiptant = receiptant;
+        this.receiver = receiver;
     }
 
     public int getId() {
@@ -46,7 +46,7 @@ public class Message implements Serializable {
         return sender;
     }
 
-    public User getReceiptant() {
-        return receiptant;
+    public User getReceiver() {
+        return receiver;
     }
 }
