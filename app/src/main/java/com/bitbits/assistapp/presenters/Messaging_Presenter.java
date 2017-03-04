@@ -54,7 +54,7 @@ public class Messaging_Presenter implements IMessage.Presenter, LoaderManager.Lo
                 message.getContent(),
                 message.getImg(),
                 "2017-02-01"));
-        DatabaseHelper.getInstance().close();
+        DatabaseHelper.getInstance().closeDatabase();
     }
 
     @Override
