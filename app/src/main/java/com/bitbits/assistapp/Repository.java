@@ -1,12 +1,8 @@
 package com.bitbits.assistapp;
 
-import com.bitbits.assistapp.models.Hospital;
 import com.bitbits.assistapp.models.MedicalData;
 import com.bitbits.assistapp.models.MedicalRecord;
 import com.bitbits.assistapp.models.Message;
-import com.bitbits.assistapp.models.Nurse;
-import com.bitbits.assistapp.models.Patient;
-import com.bitbits.assistapp.models.Speciality;
 import com.bitbits.assistapp.models.User;
 
 import java.util.ArrayList;
@@ -23,7 +19,6 @@ public class Repository {
     private static Repository myInstance;
     private ArrayList<User> users;
     private ArrayList<Message> messages;
-    private ArrayList<Hospital> hospitals;
     private ArrayList<MedicalData> data;
     private ArrayList<MedicalRecord> records;
     private User current;
@@ -38,14 +33,8 @@ public class Repository {
     private Repository() {
         users = new ArrayList<>();
         messages = new ArrayList<>();
-        hospitals = new ArrayList<>();
         data = new ArrayList<>();
         records = new ArrayList<>();
-
-        Hospital clinico = new Hospital(1, "Clínico", "Yo que sé", "953493349");
-        putHospitals(clinico);
-
-        Speciality trauma = new Speciality(2, "Traumatología");
 
         MedicalData lourdesData = new MedicalData(1, Calendar.getInstance().getTime(), "Lourdes", "Rodríguez", MedicalData.FEM, "Español", "Profesora", "Calle Falsa 123", false, true, false);
         data.add(lourdesData);
@@ -55,11 +44,8 @@ public class Repository {
         records.add(lourdesRecord);
         records.add(lourdesRecord2);
 
-        Patient patient = new Patient(1, clinico, trauma, lourdesData);
-        Nurse nurse = new Nurse(1, clinico, trauma);
-
-        User lourdes = new User(1, "Aa123456", "12345678A", "Lourdes", "Rodríguez", "moronlu18@gmail.com", patient, null, null, true);
-        User jose = new User(2, "Aa123456", "12345678B", "José Antonio", "Barranquero", "joseantbarranquero@gmail.com", null, nurse, null, true);
+        User lourdes = new User(1, "Aa123456", "12345678A", "Lourdes", "Rodríguez", "moronlu18@gmail.com", User.PATIENT, null, true);
+        User jose = new User(2, "Aa123456", "12345678B", "José Antonio", "Barranquero", "joseantbarranquero@gmail.com", User.NURSE, null, true);
 
         putUser(lourdes);
         putUser(jose);
@@ -87,14 +73,6 @@ public class Repository {
 
     public List<Message> getMessages() {
         return messages;
-    }
-
-    public List<Hospital> getHospitals() {
-        return hospitals;
-    }
-
-    public void putHospitals(Hospital h) {
-        hospitals.add(h);
     }
 
     public List<MedicalData> getMedData() {

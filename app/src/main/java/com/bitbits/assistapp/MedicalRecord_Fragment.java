@@ -93,7 +93,7 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
         mTxvResidence.setText(residence);
         switch (sex) {
             case MedicalData.FEM:
-                mTxvSex.setText(R.string.femenine);
+                mTxvSex.setText(R.string.feminine);
                 break;
             case MedicalData.MASC:
                 mTxvSex.setText(R.string.masculine);
