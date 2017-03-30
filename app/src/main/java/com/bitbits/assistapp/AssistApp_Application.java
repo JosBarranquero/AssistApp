@@ -11,6 +11,7 @@ import android.content.Context;
 
 public class AssistApp_Application extends Application {
     private static Context context;
+    public static String URL = "https://bitbits.hopto.org/AssistApp/";
 
     public AssistApp_Application() {
         super();

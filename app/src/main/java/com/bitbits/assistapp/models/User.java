@@ -15,8 +15,7 @@ public class User implements Serializable {
     int id;
     String pass, id_doc, name, surname, email;
     String type;
-    Image img;
-    boolean active;
+    String img;
 
     @Retention(RetentionPolicy.RUNTIME)
     @StringDef({NURSE, PATIENT})
@@ -24,7 +23,7 @@ public class User implements Serializable {
     public static final String NURSE = "Nurse";
     public static final String PATIENT = "Patient";
 
-    public User(int id, String pass, String doc, String name, String surname, String email, String type, Image img, boolean active) {
+    public User(int id, String pass, String doc, String name, String surname, String email, String type, String img) {
         this.id = id;
         this.pass = pass;
         this.id_doc = doc;
@@ -33,7 +32,6 @@ public class User implements Serializable {
         this.email = email;
         this.type = type;
         this.img = img;
-        this.active = active;
     }
 
     public int getId() {
@@ -92,19 +90,11 @@ public class User implements Serializable {
         this.type = type;
     }
 
-    public Image getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(Image img) {
+    public void setImg(String img) {
         this.img = img;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }

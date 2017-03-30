@@ -7,14 +7,25 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import com.bitbits.assistapp.fragments.ConversationList_Fragment;
+import com.bitbits.assistapp.fragments.MedicalRecord_Fragment;
+import com.bitbits.assistapp.fragments.Messaging_Fragment;
+import com.bitbits.assistapp.fragments.Settings_Fragment;
 import com.bitbits.assistapp.preferences.User_Preferences;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Activity which will show the Fragments that compose this Application
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
@@ -48,7 +59,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     }
 
     /**
-     * Method which sets the Navigation Drawer Item Selected listener
+     * Method which sets the Navigation Drawer Item Selected listener and header user information
      */
     private void setupDrawer() {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -60,10 +71,16 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                         showConversations();
                         break;
                     case R.id.navHistory:
+                        setTitle(item.getTitle());
                         showMedicalRecord();
                         break;
                     case R.id.navSettings:
+                        setTitle(item.getTitle());
                         showSettings();
+                        break;
+                    case R.id.navAbout:
+                        item.setChecked(false);
+                        showAbout();
                         break;
                     case R.id.navLogout:
                         logOut();
@@ -76,10 +93,33 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                 return true;
             }
         });
+
+        View header = mNavigationView.getHeaderView(0);
+
+        TextView username = (TextView) header.findViewById(R.id.username);
+        username.setText(Repository.getInstance().getCurrentUser().getName() + " " + Repository.getInstance().getCurrentUser().getSurname());
+
+        CircleImageView profileImage = (CircleImageView) header.findViewById(R.id.profile_image);
+        Picasso.with(Home_Activity.this)
+                .load(AssistApp_Application.URL + Repository.getInstance().getCurrentUser().getImg())
+                .error(R.drawable.logo)
+                .into(profileImage);
+    }
+
+    private void showAbout() {
+        //TODO Improve about splash screen
+        View messageView = getLayoutInflater().inflate(R.layout.screen_about, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Home_Activity.this);
+        builder.setIcon(R.drawable.logo);
+        builder.setTitle(R.string.app_name);
+        builder.setView(messageView);
+        builder.create();
+        builder.show();
     }
 
     /**
      * Method which controls which optionMenuItem has been tapped on
+     *
      * @param item The tapped item
      * @return Return false to allow normal menu processing to proceed, true to consume it here.
      */
@@ -104,11 +144,13 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
     /**
      * Method which changes the current fragment to the Messaging_Fragment
+     *
      * @param bundle The contact info
      * @see Messaging_Fragment
      */
     @Override
     public void showMessaging(Bundle bundle) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         mMessagingFragment = new Messaging_Fragment();
         mMessagingFragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.framehome, mMessagingFragment).addToBackStack(null).commit();
@@ -116,6 +158,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
     /**
      * Method which changes the current fragment to the ConversationList_Fragment
+     *
      * @see ConversationList_Fragment
      */
     public void showConversations() {
@@ -127,6 +170,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
     /**
      * Method which changes the current fragment to the MedicalRecord_Fragment
+     *
      * @see MedicalRecord_Fragment
      */
     public void showMedicalRecord() {
@@ -136,6 +180,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
     /**
      * Method which changes the current fragment to the Settings_Fragment
+     *
      * @see Settings_Fragment
      */
     public void showSettings() {
@@ -145,6 +190,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
     /**
      * Method which deletes the saved user and password, and goes back to the Login_Activity
+     *
      * @see User_Preferences
      * @see Login_Activity
      */

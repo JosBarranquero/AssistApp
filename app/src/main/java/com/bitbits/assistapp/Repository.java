@@ -44,8 +44,8 @@ public class Repository {
         records.add(lourdesRecord);
         records.add(lourdesRecord2);
 
-        User lourdes = new User(1, "Aa123456", "12345678A", "Lourdes", "Rodríguez", "moronlu18@gmail.com", User.PATIENT, null, true);
-        User jose = new User(2, "Aa123456", "12345678B", "José Antonio", "Barranquero", "joseantbarranquero@gmail.com", User.NURSE, null, true);
+        User lourdes = new User(1, "Aa123456", "12345678B", "Lourdes", "Rodríguez", "moronlu18@gmail.com", User.PATIENT, "profiles/w.jpg");
+        User jose = new User(2, "Aa123456", "12345678A", "José Antonio", "Barranquero", "joseantbarranquero@gmail.com", User.NURSE, "profiles/Jose.jpg");
 
         putUser(lourdes);
         putUser(jose);

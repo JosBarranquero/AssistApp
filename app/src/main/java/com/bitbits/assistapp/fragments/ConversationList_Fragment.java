@@ -1,9 +1,10 @@
-package com.bitbits.assistapp;
+package com.bitbits.assistapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.bitbits.assistapp.R;
+import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.adapters.ConversationList_Adapter;
 import com.bitbits.assistapp.models.User;
 
@@ -70,6 +73,7 @@ public class ConversationList_Fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_conversationlist, container, false);
 
         getActivity().setTitle(Repository.getInstance().getCurrentUser().getName() + " " + Repository.getInstance().getCurrentUser().getSurname());
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mLstConvoList = (ListView) rootView.findViewById(R.id.lstConvoList);
 

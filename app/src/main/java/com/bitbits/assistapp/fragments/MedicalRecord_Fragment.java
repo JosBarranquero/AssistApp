@@ -1,4 +1,4 @@
-package com.bitbits.assistapp;
+package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.adapters.MedicalRecord_Adapter;
 import com.bitbits.assistapp.interfaces.IRecord;
 import com.bitbits.assistapp.models.MedicalData;
@@ -44,6 +45,7 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View rootView = inflater.inflate(R.layout.fragment_medrecord, container, false);
 
         mTxvBirth = (TextView) rootView.findViewById(R.id.txvBirth);

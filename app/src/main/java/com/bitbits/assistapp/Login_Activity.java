@@ -1,9 +1,14 @@
 package com.bitbits.assistapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.StringDef;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -38,7 +43,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
         mLogin = new Login_Presenter(this);
 
         if (User_Preferences.getPass(this) != null && User_Preferences.getUser(this) != null) {
-            mLogin.validateCredentials(User_Preferences.getUser(this), User_Preferences.getPass(this));
+            validateCredentials(User_Preferences.getUser(this), User_Preferences.getPass(this));
         } else {
             mTilUser = (TextInputLayout) findViewById(R.id.tilUser);
             mTilPassword = (TextInputLayout) findViewById(R.id.tilPassword);
@@ -82,9 +87,9 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
             mBtnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String user = mEdtUser.getText().toString();
-                    String password = mEdtPassword.getText().toString();
-                    mLogin.validateCredentials(user, password);
+                        String user = mEdtUser.getText().toString();
+                        String password = mEdtPassword.getText().toString();
+                        validateCredentials(user, password);
                 }
             });
         }
@@ -126,5 +131,34 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     @Override
     public Context getContext() {
         return this;
+    }
+
+    private void validateCredentials(String user, String password) {
+        if (isNetworkAvailable()) {
+            mLogin.validateCredentials(user, password);
+        } else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.app_name);
+            builder.setMessage(R.string.no_network);
+            builder.setCancelable(false);
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            builder.show();
+        }
+    }
+
+    /**
+     * Method which checks for internet connectivity
+     * @return True if it can connect, false if it can't
+     */
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
     }
 }

@@ -1,10 +1,12 @@
 package com.bitbits.assistapp.interfaces;
 
+import com.bitbits.assistapp.fragments.MedicalRecord_Fragment;
+
 /**
  * Interface to be implemented by MedicalRecord_Fragment and MedicalRecord_Presenter
  * @author José Antonio Barranquero Fernández
  * @version 1.0
- * @see com.bitbits.assistapp.MedicalRecord_Fragment
+ * @see MedicalRecord_Fragment
  * @see com.bitbits.assistapp.presenters.MedicalRecord_Presenter
  */
 public interface IRecord {

@@ -37,6 +37,8 @@
 
     <string name="pref_about_title">About AssistApp</string>
 
+    <string name="no_network">AssistApp needs a network connection in order to work</string>
+
     <string name="nav_med_record">Medical record</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_logout">Log out</string>

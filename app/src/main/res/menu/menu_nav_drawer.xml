@@ -18,6 +18,10 @@
     <item android:title="@string/options">
         <menu>
             <item
+                android:id="@+id/navAbout"
+                android:icon="@drawable/ic_action_about"
+                android:title="@string/pref_about_title"/>
+            <item
                 android:id="@+id/navLogout"
                 android:icon="@drawable/ic_action_logout"
                 android:title="@string/nav_logout" />

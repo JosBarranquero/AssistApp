@@ -26,11 +26,11 @@
             android:key="user_email" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_support">
+    <!--<PreferenceCategory android:title="@string/pref_support">
         <EditTextPreference
             android:key="about"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/pref_about_title"/>
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 </PreferenceScreen>

@@ -1,4 +1,4 @@
-package com.bitbits.assistapp;
+package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
 import android.database.Cursor;
@@ -12,7 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.bitbits.assistapp.adapters.Messaging_Adapter;
+import com.bitbits.assistapp.R;
+import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.adapters.Messaging_CursorAdapter;
 import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
@@ -59,7 +60,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         View rootView = inflater.inflate(R.layout.fragment_messaging, container, false);
 
         receiver = (User) getArguments().getSerializable("receiver");
-        getActivity().setTitle(receiver.getName());
+        getActivity().setTitle(receiver.getName() + " " + receiver.getSurname());
 
         mLstMessages = (ListView) rootView.findViewById(R.id.lstMessages);
         mEdtContent = (EditText) rootView.findViewById(R.id.edtContent);

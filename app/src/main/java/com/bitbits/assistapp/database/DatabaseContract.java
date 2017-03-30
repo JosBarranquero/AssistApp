@@ -90,32 +90,29 @@ public class DatabaseContract {
         public static final String COLUMN_TYPE = "type";
         public static final String COLUMN_IMAGE = "img";
         public static final String COLUMN_EMAIL = "email";
-        public static final String COLUMN_ACTIVE = "active";
         public static final String SQL_CREATE_ENTRIES = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                 "%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "%s TEXT NOT NULL, " +
                 "%s TEXT NOT NULL, " +
                 "%s TEXT NOT NULL, " +
                 "%s TEXT NOT NULL, " +
-                "%s INTEGER %s, " +
-                "%s INTEGER %s, " +
-                "%s BLOB, " +
+                "%s INTEGER, " +
                 "%s TEXT NOT NULL, " +
-                "%s BOOLEAN NOT NULL)",
+                "%s TEXT NOT NULL)",
                 TABLE_NAME,
                 BaseColumns._ID,
                 COLUMN_ID_DOC,
                 COLUMN_PASSWORD,
                 COLUMN_NAME,
                 COLUMN_SURNAME,
+                COLUMN_TYPE,
                 COLUMN_IMAGE,
-                COLUMN_EMAIL,
-                COLUMN_ACTIVE);
+                COLUMN_EMAIL);
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
-        public static final String INSERT_DEFAULT = String.format("INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s), (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                TABLE_NAME, COLUMN_ID_DOC, COLUMN_PASSWORD, COLUMN_NAME, COLUMN_SURNAME, COLUMN_TYPE, COLUMN_IMAGE, COLUMN_EMAIL, COLUMN_ACTIVE,
-                "'12345678A'", "'Aa123456'", "'Lourdes'", "'Rodríguez'", "'Patient'", null, "'moronlu18@gmail.com'", 1,
-                "'12345678B'", "'Aa123456'", "'José Antonio'", "'Barranquero'", "'Nurse'", null, "'joseantbarranquero@gmail.com'", 1);
+        public static final String INSERT_DEFAULT = String.format("INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s) VALUES (%s, %s, %s, %s, %s, %s, %s), (%s, %s, %s, %s, %s, %s, %s)",
+                TABLE_NAME, COLUMN_ID_DOC, COLUMN_PASSWORD, COLUMN_NAME, COLUMN_SURNAME, COLUMN_TYPE, COLUMN_IMAGE, COLUMN_EMAIL,
+                "'12345678A'", "'Aa123456'", "'Lourdes'", "'Rodríguez'", "'Patient'", "'profiles/w.jpg'", "'moronlu18@gmail.com'",
+                "'12345678B'", "'Aa123456'", "'José Antonio'", "'Barranquero'", "'Nurse'", "'profiles/Jose.jpg'", "'joseantbarranquero@gmail.com'");
     }
 
     public static class MessageEntry implements BaseColumns {
