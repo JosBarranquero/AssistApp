@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.StringDef;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -133,6 +131,12 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
         return this;
     }
 
+
+    /**
+     * Method which validates the credential, but checks if the network is available beforehand
+     * @param user      The user name
+     * @param password  The password
+     */
     private void validateCredentials(String user, String password) {
         if (isNetworkAvailable()) {
             mLogin.validateCredentials(user, password);
@@ -154,7 +158,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
     /**
      * Method which checks for internet connectivity
-     * @return True if it can connect, false if it can't
+     * @return True if it network is available, false if it is not
      */
     private boolean isNetworkAvailable() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

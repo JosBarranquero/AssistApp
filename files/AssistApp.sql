@@ -10,7 +10,7 @@ FLUSH PRIVILEGES;
 
 USE AssistApp_DB;
 
--- Tables definition
+-- Table definitions
 CREATE TABLE Users (
     id INTEGER NOT NULL AUTO_INCREMENT,
     id_doc VARCHAR(9) NOT NULL,
