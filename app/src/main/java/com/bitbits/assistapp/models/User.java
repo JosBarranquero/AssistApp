@@ -1,6 +1,5 @@
 package com.bitbits.assistapp.models;
 
-import android.media.Image;
 import android.support.annotation.StringDef;
 
 import java.io.Serializable;
@@ -13,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class User implements Serializable {
     int id;
-    String pass, id_doc, name, surname, email;
+    String password, idDoc, name, surname, email;
     String type;
     String img;
 
@@ -25,8 +24,8 @@ public class User implements Serializable {
 
     public User(int id, String pass, String doc, String name, String surname, String email, String type, String img) {
         this.id = id;
-        this.pass = pass;
-        this.id_doc = doc;
+        this.password = pass;
+        this.idDoc = doc;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -42,20 +41,20 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getId_doc() {
-        return id_doc;
+    public String getIdDoc() {
+        return idDoc;
     }
 
-    public void setId_doc(String id_doc) {
-        this.id_doc = id_doc;
+    public void setIdDoc(String idDoc) {
+        this.idDoc = idDoc;
     }
 
     public String getName() {

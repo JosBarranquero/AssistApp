@@ -35,20 +35,6 @@ public class Repository {
         messages = new ArrayList<>();
         data = new ArrayList<>();
         records = new ArrayList<>();
-
-        MedicalData lourdesData = new MedicalData(1, Calendar.getInstance().getTime(), "Lourdes", "Rodríguez", MedicalData.FEM, "Español", "Profesora", "Calle Falsa 123", false, true, false);
-        data.add(lourdesData);
-
-        MedicalRecord lourdesRecord = new MedicalRecord(1, lourdesData, "Dolor fuerte de barriga", "Ninguno", false, Calendar.getInstance().getTime());
-        MedicalRecord lourdesRecord2 = new MedicalRecord(2, lourdesData, "Desmayo", "Trabajo de alto estrés", true, Calendar.getInstance().getTime());
-        records.add(lourdesRecord);
-        records.add(lourdesRecord2);
-
-        User lourdes = new User(1, "Aa123456", "12345678B", "Lourdes", "Rodríguez", "moronlu18@gmail.com", User.PATIENT, "profiles/w.jpg");
-        User jose = new User(2, "Aa123456", "12345678A", "José Antonio", "Barranquero", "joseantbarranquero@gmail.com", User.NURSE, "profiles/Jose.jpg");
-
-        putUser(lourdes);
-        putUser(jose);
     }
 
     public void putUser(User u) {

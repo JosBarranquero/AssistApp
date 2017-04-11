@@ -28,6 +28,6 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
         MedicalData data = Repository.getInstance().getMedData().get(0);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-        view.setDataInfo(data.getName(), data.getNationality(), data.getJob(), data.getResidence(), data.getSex(), dateFormat.format(data.getBirthdate()), data.isSmoker(), data.isAlcoholic(), data.usesDrugs());
+        view.setDataInfo(String.valueOf(data.getIdPat()), data.getNationality(), data.getJob(), data.getResidence(), data.getSex(), dateFormat.format(data.getBirthdate()), data.isSmoker(), data.isAlcoholic(), data.usesDrugs());
     }
 }

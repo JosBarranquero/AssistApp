@@ -13,8 +13,9 @@ import java.util.Date;
  */
 public class MedicalData implements Serializable {
     int id;
+    int idPat;
     Date birthdate;
-    String name, surname, nationality, job, residence;
+    String nationality, job, residence;
     @Sex String sex;
     boolean smoker, alcoholism, drugs;
 
@@ -24,11 +25,10 @@ public class MedicalData implements Serializable {
     public static final String MASC = "M";
     public static final String FEM = "F";
 
-    public MedicalData(int id, Date birthdate, String name, String surname, @Sex String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
+    public MedicalData(int id, Date birthdate, int idPat, @Sex String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
         this.id = id;
         this.birthdate = birthdate;
-        this.name = name;
-        this.surname = surname;
+        this.idPat = idPat;
         this.sex = sex;
         this.nationality = nationality;
         this.job = job;
@@ -46,12 +46,8 @@ public class MedicalData implements Serializable {
         return birthdate;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
+    public int getIdPat() {
+        return idPat;
     }
 
     public String getSex() {

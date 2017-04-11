@@ -180,7 +180,7 @@ implements <a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presen
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/bitbits/assistapp/presenters/Login_Presenter.html#validateCredentials-java.lang.String-java.lang.String-">validateCredentials</a></span>(java.lang.String&nbsp;user,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/bitbits/assistapp/presenters/Login_Presenter.html#validateCredentials-java.lang.String-java.lang.String-">validateCredentials</a></span>(java.lang.String&nbsp;users,
                    java.lang.String&nbsp;password)</code>
 <div class="block">Method which validates the login credentials and check if they exists.</div>
 </td>
@@ -191,7 +191,7 @@ implements <a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presen
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/bitbits/assistapp/presenters/Login_Presenter.html#validateUser-java.lang.String-">validateUser</a></span>(java.lang.String&nbsp;user)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/bitbits/assistapp/presenters/Login_Presenter.html#validateUser-java.lang.String-">validateUser</a></span>(java.lang.String&nbsp;users)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -273,7 +273,7 @@ implements <a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presen
 <ul class="blockList">
 <li class="blockList">
 <h4>validateUser</h4>
-<pre>public&nbsp;boolean&nbsp;validateUser(java.lang.String&nbsp;user)</pre>
+<pre>public&nbsp;boolean&nbsp;validateUser(java.lang.String&nbsp;users)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presenter.html#validateUser-java.lang.String-">validateUser</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presenter.html" title="interface in com.bitbits.assistapp.interfaces">IAccount.Presenter</a></code></dd>
@@ -299,7 +299,7 @@ implements <a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presen
 <ul class="blockListLast">
 <li class="blockList">
 <h4>validateCredentials</h4>
-<pre>public&nbsp;void&nbsp;validateCredentials(java.lang.String&nbsp;user,
+<pre>public&nbsp;void&nbsp;validateCredentials(java.lang.String&nbsp;users,
                                 java.lang.String&nbsp;password)</pre>
 <div class="block">Method which validates the login credentials and check if they exists.
  If they do, it launches the next activity</div>
@@ -307,7 +307,7 @@ implements <a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presen
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presenter.html#validateCredentials-java.lang.String-java.lang.String-">validateCredentials</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../com/bitbits/assistapp/interfaces/IAccount.Presenter.html" title="interface in com.bitbits.assistapp.interfaces">IAccount.Presenter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>user</code> - The username</dd>
+<dd><code>users</code> - The username</dd>
 <dd><code>password</code> - The password</dd>
 </dl>
 </li>

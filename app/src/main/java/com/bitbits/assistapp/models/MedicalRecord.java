@@ -9,14 +9,14 @@ import java.util.Date;
  */
 public class MedicalRecord implements Serializable {
     int id;
-    MedicalData data;
+    int idData;
     String reason, antecedents;
     boolean hospitalised;
     Date date;
 
-    public MedicalRecord(int id, MedicalData data,String reason, String antecedents, boolean hospitalised, Date date) {
+    public MedicalRecord(int id, int idData, String reason, String antecedents, boolean hospitalised, Date date) {
         this.id = id;
-        this.data = data;
+        this.idData = idData;
         this.reason = reason;
         this.antecedents = antecedents;
         this.hospitalised = hospitalised;
@@ -27,8 +27,8 @@ public class MedicalRecord implements Serializable {
         return id;
     }
 
-    public MedicalData getData() {
-        return data;
+    public int getData() {
+        return idData;
     }
 
     public String getReason() {

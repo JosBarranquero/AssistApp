@@ -34,4 +34,5 @@
     <string name="smoker">Fumador</string>
     <string name="hospitalised">Hospitalizado</string>
     <string name="no_network">AssistApp necesita conexión a Internet para funcionar</string>
+    <string name="loggingin">Iniciando sesión</string>
 </resources>

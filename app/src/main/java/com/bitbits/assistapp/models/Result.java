@@ -11,7 +11,7 @@ public class Result {
     boolean code;
     int status;
     String message;
-    ArrayList<User> user;
+    ArrayList<User> users;
     ArrayList<MedicalData> meddata;
     ArrayList<MedicalRecord> medrecord;
     ArrayList<Message> messages;
@@ -40,12 +40,12 @@ public class Result {
         this.message = message;
     }
 
-    public ArrayList<User> getUser() {
-        return user;
+    public ArrayList<User> getUsers() {
+        return users;
     }
 
-    public void setUser(ArrayList<User> user) {
-        this.user = user;
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
 
     public ArrayList<MedicalData> getMeddata() {
