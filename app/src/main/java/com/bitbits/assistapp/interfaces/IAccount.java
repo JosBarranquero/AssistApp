@@ -13,7 +13,7 @@ public interface IAccount {
     interface View {
         void setErrorMessage(String error, int idView);
 
-        void launchActivity(String name);
+        void launchActivity();
 
         Context getContext();
     }

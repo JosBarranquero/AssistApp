@@ -18,7 +18,7 @@
     <string name="nav_logout">Cerrar sesión</string>
     <string name="nav_med_record">Historia clínica</string>
     <string name="app_description">Comunicador médico</string>
-    <string name="app_credits">Desarrollado por José Antonio Barranquero Fernández.\n\nLicenciado bajo &lt;PENDIENTE DE LICENCIA&gt;</string>
+    <string name="app_credits">Desarrollado por José Antonio Barranquero Fernández.\n\nBitBits, 2016–2017</string>
     <string name="send">Enviar</string>
     <string name="content">Contenido</string>
     <string name="receiver">Destinatario</string>

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +18,16 @@ import android.widget.ListView;
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.adapters.ConversationList_Adapter;
+import com.bitbits.assistapp.models.Result;
 import com.bitbits.assistapp.models.User;
+import com.bitbits.assistapp.utilities.ApiClient;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Fragment which will list the available conversations
@@ -53,8 +63,6 @@ public class ConversationList_Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAdapter = new ConversationList_Adapter(getActivity());
-
         setRetainInstance(true);
         setHasOptionsMenu(true);
     }
@@ -84,7 +92,7 @@ public class ConversationList_Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mLstConvoList.setAdapter(mAdapter);
+        getUsers();
         mLstConvoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -122,5 +130,37 @@ public class ConversationList_Fragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getUsers() {
+        ApiClient.get(ApiClient.ASSISTS + "/" + Repository.getInstance().getCurrentUser().getId(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Result result;
+                Gson gson = new Gson();
+                result = gson.fromJson(String.valueOf(response), Result.class);
+                if (result != null) {
+                    if (result.getCode()) {
+                        Repository.getInstance().setUsers(result.getUsers());
+
+                        mAdapter = new ConversationList_Adapter(getActivity());
+                        mLstConvoList.setAdapter(mAdapter);
+                    } else {
+                        Log.e("Assist", result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e("Assist", responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.e("Assist", throwable.getMessage());
+            }
+        });
     }
 }

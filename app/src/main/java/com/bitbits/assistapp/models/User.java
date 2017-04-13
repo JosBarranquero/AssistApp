@@ -90,7 +90,7 @@ public class User implements Serializable {
     }
 
     public String getImg() {
-        return img;
+        return img.replace(" ", "%20");
     }
 
     public void setImg(String img) {

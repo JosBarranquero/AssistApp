@@ -115,9 +115,8 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
      * @see Home_Activity
      */
     @Override
-    public void launchActivity(String name) {
+    public void launchActivity() {
         Intent intent = new Intent(Login_Activity.this, Home_Activity.class);
-        intent.putExtra("name", name);
         startActivity(intent);
     }
 

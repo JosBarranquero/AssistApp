@@ -115,11 +115,12 @@ public class Login_Presenter implements IAccount.Presenter {
                     if (result != null) {
                         if (result.getCode()) {
                             Repository.getInstance().setCurrentUser(result.getUsers().get(0));
+                            Repository.getInstance().getCurrentUser().setPassword(password);
                             if (User_Preferences.getPass(context) == null && User_Preferences.getUser(context) == null) {
-                                User_Preferences.saveUser(user, context);
-                                User_Preferences.savePass(password, context);
+                                User_Preferences.saveUser(Repository.getInstance().getCurrentUser().getIdDoc(), context);
+                                User_Preferences.savePass(Repository.getInstance().getCurrentUser().getPassword(), context);
                             }
-                            view.launchActivity(result.getUsers().get(0).getName() + " " + result.getUsers().get(0).getSurname());
+                            view.launchActivity();
                         } else {
                             view.setErrorMessage(result.getMessage(), R.id.edtPassword);
                         }
@@ -129,23 +130,23 @@ public class Login_Presenter implements IAccount.Presenter {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     progressDialog.dismiss();
-                    Log.e("NET", responseString);
+                    Log.e("Login", responseString);
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     progressDialog.dismiss();
-                    Log.e("NET", throwable.getMessage());
+                    Log.e("Login", throwable.getMessage());
                 }
             });
         }
         /*if (validateUser(user) && validatePassword(password)) {
             for (User account :
-                    Repository.getInstance().getUser()) {
+                    Repository.getInstance().getUsers()) {
                 if (account.getIdDoc().equals(user) && account.getPassword().equals(password)) {
                     view.launchActivity(account.getName() + " " + account.getSurname());
                     Repository.getInstance().setCurrentUser(account);
-                    if (User_Preferences.getPassword(context) == null && User_Preferences.getUser(context) == null) {
+                    if (User_Preferences.getPassword(context) == null && User_Preferences.getUsers(context) == null) {
                         User_Preferences.saveUser(account.getIdDoc(), context);
                         User_Preferences.savePass(account.getPassword(), context);
                     }

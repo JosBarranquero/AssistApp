@@ -24,6 +24,6 @@ public interface IMessage {
 
     interface Presenter {
         void sendMessage(Message message);
-        void getAllMessages(CursorAdapter adapter);
+        //void getAllMessages(CursorAdapter adapter);
     }
 }

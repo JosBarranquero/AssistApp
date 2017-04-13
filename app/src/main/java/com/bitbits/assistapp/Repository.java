@@ -49,8 +49,12 @@ public class Repository {
         return current;
     }
 
-    public List<User> getUser() {
+    public List<User> getUsers() {
         return users;
+    }
+
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
 
     public void writeMessage(Message m) {

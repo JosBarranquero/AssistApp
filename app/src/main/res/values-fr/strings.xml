@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_credits">Développé par José Antonio Barranquero Fernández. Licence sous &lt;LICENCE EN ATTENTE&gt;</string>
+    <string name="app_credits">Développé par José Antonio Barranquero Fernández.\n\nBitBits, 2016–2017</string>
     <string name="app_description">Communicateur médical</string>
     <string name="content">Contenu</string>
     <string name="conversations">Conversations</string>

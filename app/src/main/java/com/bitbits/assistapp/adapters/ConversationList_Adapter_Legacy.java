@@ -28,7 +28,7 @@ public class ConversationList_Adapter_Legacy extends RecyclerView.Adapter<Conver
 
     public ConversationList_Adapter_Legacy(Context c) {
         this.context = c;
-        for (User account : Repository.getInstance().getUser()) {
+        for (User account : Repository.getInstance().getUsers()) {
             if (!account.equals(Repository.getInstance().getCurrentUser())) {
                 contacts.add(account);
             }

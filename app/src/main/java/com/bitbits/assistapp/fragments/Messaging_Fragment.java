@@ -37,7 +37,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.getAllMessages(mAdapter);
+        //mPresenter.getAllMessages(mAdapter);
     }
 
     @Override

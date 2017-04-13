@@ -23,7 +23,7 @@ import com.bitbits.assistapp.provider.ProviderContract;
  * @version 1.0
  *          25/12/16
  */
-public class Messaging_Presenter implements IMessage.Presenter, LoaderManager.LoaderCallbacks<Cursor> {
+public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.LoaderCallbacks<Cursor>*/ {
     public static final int MESSAGES = 1;
 
     IMessage.View mView;
@@ -40,8 +40,10 @@ public class Messaging_Presenter implements IMessage.Presenter, LoaderManager.Lo
      * @see Message
      */
     public void sendMessage(Message message) {
-        //Repository.getInstance().writeMessage(message);
-        SQLiteDatabase database = DatabaseHelper.getInstance().openDatabase();
+        //TODO Repository.getInstance().writeMessage(message);
+
+
+        /*SQLiteDatabase database = DatabaseHelper.getInstance().openDatabase();
         database.execSQL(String.format("INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (%s, %s, '%s', %s, '%s')",
                 DatabaseContract.MessageEntry.TABLE_NAME,
                 DatabaseContract.MessageEntry.COLUMN_RECEIVER,
@@ -54,10 +56,10 @@ public class Messaging_Presenter implements IMessage.Presenter, LoaderManager.Lo
                 message.getContent(),
                 message.getImg(),
                 "2017-02-01"));
-        DatabaseHelper.getInstance().closeDatabase();
+        DatabaseHelper.getInstance().closeDatabase();*/
     }
 
-    @Override
+    /*@Override
     public void getAllMessages(CursorAdapter adapter) {
         ((Activity)context).getLoaderManager().initLoader(MESSAGES, null, this);
     }
@@ -86,5 +88,5 @@ public class Messaging_Presenter implements IMessage.Presenter, LoaderManager.Lo
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mView.setCursor(null);
-    }
+    }*/
 }

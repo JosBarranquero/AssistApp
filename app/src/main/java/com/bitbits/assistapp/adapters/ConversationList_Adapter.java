@@ -10,9 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bitbits.assistapp.AssistApp_Application;
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.models.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +31,12 @@ public class ConversationList_Adapter extends ArrayAdapter<User> {
     public ConversationList_Adapter(Context context) {
         super(context, R.layout.item_conversation);
         this.context = context;
-        for (User account : Repository.getInstance().getUser()) {
+        /*for (User account : Repository.getInstance().getUsers()) {
             if (!account.equals(Repository.getInstance().getCurrentUser())) {
                 contacts.add(account);
             }
-        }
+        }*/
+        contacts = Repository.getInstance().getUsers();
     }
 
     @Nullable
@@ -66,8 +69,8 @@ public class ConversationList_Adapter extends ArrayAdapter<User> {
             conversationHolder = (ConversationHolder) item.getTag();
         }
 
-        conversationHolder.contact_image.setImageResource(R.drawable.logo);
-        conversationHolder.txvName.setText(contacts.get(position).getName());
+        Picasso.with(context).load(AssistApp_Application.URL+contacts.get(position).getImg()).error(R.mipmap.ic_launcher).into(conversationHolder.contact_image);
+        conversationHolder.txvName.setText(contacts.get(position).getName() + " " + contacts.get(position).getSurname());
 
         return item;
     }
