@@ -24,7 +24,8 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
      * Method which loads the medical data and sends it to the view, so it can be shown to the user
      */
     @Override
-    public void loadData() {
+    public void loadData(int userId) {
+        //TODO load medical data
         MedicalData data = Repository.getInstance().getMedData().get(0);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 

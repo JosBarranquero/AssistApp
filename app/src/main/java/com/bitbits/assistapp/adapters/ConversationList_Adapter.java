@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * Adapter which manages the contacts shown on the conversation list
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.1
  */
@@ -69,7 +70,10 @@ public class ConversationList_Adapter extends ArrayAdapter<User> {
             conversationHolder = (ConversationHolder) item.getTag();
         }
 
-        Picasso.with(context).load(AssistApp_Application.URL+contacts.get(position).getImg()).error(R.mipmap.ic_launcher).into(conversationHolder.contact_image);
+        Picasso.with(context)
+                .load(AssistApp_Application.URL + contacts.get(position).getImg())
+                .error(R.drawable.logo)
+                .into(conversationHolder.contact_image);
         conversationHolder.txvName.setText(contacts.get(position).getName() + " " + contacts.get(position).getSurname());
 
         return item;

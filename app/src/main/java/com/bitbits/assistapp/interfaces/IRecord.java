@@ -15,6 +15,6 @@ public interface IRecord {
     }
 
     interface Presenter {
-        void loadData();
+        void loadData(int userId);
     }
 }

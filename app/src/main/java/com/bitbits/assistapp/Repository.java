@@ -6,7 +6,6 @@ import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.User;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -37,10 +36,6 @@ public class Repository {
         records = new ArrayList<>();
     }
 
-    public void putUser(User u) {
-        users.add(u);
-    }
-
     public void setCurrentUser(User u) {
         current = u;
     }
@@ -65,11 +60,23 @@ public class Repository {
         return messages;
     }
 
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
+    }
+
     public List<MedicalData> getMedData() {
         return data;
     }
 
+    public void setMedData(ArrayList<MedicalData> medData) {
+        this.data = medData;
+    }
+
     public ArrayList<MedicalRecord> getRecords() {
         return records;
+    }
+
+    public void setRecord(ArrayList<MedicalRecord> records) {
+        this.records = records;
     }
 }

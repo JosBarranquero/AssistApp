@@ -24,13 +24,13 @@ import com.bitbits.assistapp.utilities.ApiClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
 /**
  * Fragment which will list the available conversations
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
@@ -81,7 +81,7 @@ public class ConversationList_Fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_conversationlist, container, false);
 
         getActivity().setTitle(Repository.getInstance().getCurrentUser().getName() + " " + Repository.getInstance().getCurrentUser().getSurname());
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mLstConvoList = (ListView) rootView.findViewById(R.id.lstConvoList);
 
@@ -93,6 +93,7 @@ public class ConversationList_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getUsers();
+
         mLstConvoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

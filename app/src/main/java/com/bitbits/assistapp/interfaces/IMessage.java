@@ -18,7 +18,7 @@ import com.bitbits.assistapp.models.Message;
 public interface IMessage {
     interface View {
         void message();
-        void setCursor(Cursor cursor);
+        //void setCursor(Cursor cursor);
         Context getContext();
     }
 

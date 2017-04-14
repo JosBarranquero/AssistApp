@@ -13,15 +13,13 @@ import java.util.Date;
 public class Message implements Serializable {
     int id;
     String content;
-    Image img;
-    Date date;
-    User sender, receiver;
+    String date;
+    int sender, receiver;
 
-    public Message(int id, String content, Image img, User sender, User receiver) {
+    public Message(int id, String content, int sender, int receiver) {
         this.id = id;
         this.content = content;
-        this.img = img;
-        this.date = Calendar.getInstance().getTime();
+        this.date = Calendar.getInstance().getTime().toString();
         this.sender = sender;
         this.receiver = receiver;
     }
@@ -30,23 +28,19 @@ public class Message implements Serializable {
         return id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
-    }
-
-    public Image getImg() {
-        return img;
     }
 
     public String getContent() {
         return content;
     }
 
-    public User getSender() {
+    public int getSender() {
         return sender;
     }
 
-    public User getReceiver() {
+    public int getReceiver() {
         return receiver;
     }
 }

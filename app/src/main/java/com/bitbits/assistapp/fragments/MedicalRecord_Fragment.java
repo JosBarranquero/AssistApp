@@ -18,6 +18,7 @@ import com.bitbits.assistapp.presenters.MedicalRecord_Presenter;
 
 /**
  * Fragment which will show the user Medical Record
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
@@ -71,11 +72,12 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
         mAdapter = new MedicalRecord_Adapter(getActivity());
         mLstRecord.setAdapter(mAdapter);
 
-        mPresenter.loadData();
+        //TODO mPresenter.loadData();
     }
 
     /**
      * Method which loads the MedicalData in its corresponding Views
+     *
      * @param name
      * @param nationality
      * @param job

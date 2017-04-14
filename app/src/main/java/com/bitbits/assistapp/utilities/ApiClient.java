@@ -18,6 +18,7 @@ public class ApiClient {
     public static final String MEDDATA = "meddata";
     public static final String MEDRECORD = "medrecord";
     public static final String ASSISTS = "assist";
+    public static final String MESSAGES = "messages";
 
     private static final String APIKEY = "assistapp";
 

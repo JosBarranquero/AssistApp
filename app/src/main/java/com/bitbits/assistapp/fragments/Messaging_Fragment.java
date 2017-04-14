@@ -1,10 +1,10 @@
 package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +14,20 @@ import android.widget.ListView;
 
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
-import com.bitbits.assistapp.adapters.Messaging_CursorAdapter;
+import com.bitbits.assistapp.adapters.Messaging_Adapter;
 import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
+import com.bitbits.assistapp.models.Result;
 import com.bitbits.assistapp.models.User;
 import com.bitbits.assistapp.presenters.Messaging_Presenter;
+import com.bitbits.assistapp.utilities.ApiClient;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Fragment which will show the messages in between users and allows to write new ones
@@ -27,7 +36,7 @@ import com.bitbits.assistapp.presenters.Messaging_Presenter;
  */
 public class Messaging_Fragment extends Fragment implements IMessage.View {
     ListView mLstMessages;
-    Messaging_CursorAdapter mAdapter;
+    Messaging_Adapter mAdapter;
     EditText mEdtContent;
     ImageButton mBtnSend;
     User receiver;
@@ -43,7 +52,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new Messaging_CursorAdapter(getActivity(), null, 1);
+
         mPresenter = new Messaging_Presenter(this);
     }
 
@@ -73,14 +82,14 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mLstMessages.setAdapter(mAdapter);
+        getMessages();
 
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String content = mEdtContent.getText().toString();
                 if (!TextUtils.isEmpty(content)) {
-                    Message message = new Message(++id, content, null, Repository.getInstance().getCurrentUser(), receiver);
+                    Message message = new Message(++id, content, Repository.getInstance().getCurrentUser().getId(), receiver.getId());
                     mPresenter.sendMessage(message);
 
                     mEdtContent.setText("");
@@ -97,10 +106,44 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override
+    private void getMessages() {
+        RequestParams params = new RequestParams();
+        params.put("receiver", receiver.getId());
+        params.put("sender", Repository.getInstance().getCurrentUser().getId());
+        ApiClient.post(ApiClient.MESSAGES, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Result result;
+                Gson gson = new Gson();
+                result = gson.fromJson(String.valueOf(response), Result.class);
+                if (result != null) {
+                    if (result.getCode()) {
+                        Repository.getInstance().setMessages(result.getMessages());
+
+                        mAdapter = new Messaging_Adapter(getActivity());
+                        mLstMessages.setAdapter(mAdapter);
+                    } else {
+                        Log.e("MSG", result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e("MSG", responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.e("MSG", throwable.getMessage());
+            }
+        });
+    }
+
+    /*@Override
     public void setCursor(Cursor cursor) {
         if (cursor != null) {
             mAdapter.swapCursor(cursor);
         }
-    }
+    }*/
 }

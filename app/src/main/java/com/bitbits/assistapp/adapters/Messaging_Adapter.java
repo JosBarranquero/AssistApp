@@ -48,8 +48,8 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
             messageHolder = (MessageHolder) item.getTag();
         }
 
-        messageHolder.txvSender.setText(context.getResources().getString(R.string.sender) + ": " + getItem(position).getSender().getName());
-        messageHolder.txvReceiver.setText(context.getResources().getString(R.string.receiver) + ": " + getItem(position).getReceiver().getName());
+        messageHolder.txvSender.setText(context.getResources().getString(R.string.sender) + ": " + getItem(position).getSender());
+        messageHolder.txvReceiver.setText(context.getResources().getString(R.string.receiver) + ": " + getItem(position).getReceiver());
         messageHolder.txvContent.setText(context.getResources().getString(R.string.content) + ": " + getItem(position).getContent());
 
         return item;

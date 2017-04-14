@@ -174,6 +174,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * @see MedicalRecord_Fragment
      */
     public void showMedicalRecord() {
+        //TODO
         mMedicalRecordFragment = new MedicalRecord_Fragment();
         getFragmentManager().beginTransaction().replace(R.id.framehome, mMedicalRecordFragment).commit();
     }
@@ -184,7 +185,9 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * @see Settings_Fragment
      */
     public void showSettings() {
-        mSettingsFragment = new Settings_Fragment();
+        if (mSettingsFragment == null) {
+            mSettingsFragment = new Settings_Fragment();
+        }
         getFragmentManager().beginTransaction().replace(R.id.framehome, mSettingsFragment).commit();
     }
 
