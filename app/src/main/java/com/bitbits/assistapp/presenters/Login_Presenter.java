@@ -119,6 +119,7 @@ public class Login_Presenter implements IAccount.Presenter {
                             if (User_Preferences.getPass(context) == null && User_Preferences.getUser(context) == null) {
                                 User_Preferences.saveUser(Repository.getInstance().getCurrentUser().getIdDoc(), context);
                                 User_Preferences.savePass(Repository.getInstance().getCurrentUser().getPassword(), context);
+                                User_Preferences.saveEmail(Repository.getInstance().getCurrentUser().getEmail(), context);
                             }
                             view.launchActivity();
                         } else {

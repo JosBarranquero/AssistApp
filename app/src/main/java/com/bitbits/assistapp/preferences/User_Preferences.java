@@ -13,19 +13,27 @@ public class User_Preferences {
     private static SharedPreferences sharedPreferences;
     public static final String USER_KEY = "username";
     public static final String PASS_KEY = "password";
+    public static final String EMAIL_KEY = "email";
 
     public static void saveUser(String username, Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_KEY, username);
-        editor.commit();
+        editor.apply();
     }
 
     public static void savePass(String password, Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(PASS_KEY, password);
-        editor.commit();
+        editor.apply();
+    }
+
+    public static void saveEmail(String email, Context context) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(EMAIL_KEY, email);
+        editor.apply();
     }
 
     public static String getUser(Context context) {
@@ -36,5 +44,10 @@ public class User_Preferences {
     public static String getPass(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getString(PASS_KEY, null);
+    }
+
+    public static String getEmail(Context context) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(EMAIL_KEY, null);
     }
 }

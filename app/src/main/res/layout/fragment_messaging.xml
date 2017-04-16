@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageButton
-        android:text="@string/send"
+        android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/btnSend"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/white"
         android:src="@drawable/ic_action_send"
-        android:background="@android:color/white"/>
+        android:text="@string/send" />
 
     <EditText
+        android:id="@+id/edtContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="text"
-
-        android:ems="10"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/edtContent"
         android:layout_toLeftOf="@+id/btnSend"
-        android:layout_toStartOf="@+id/btnSend" />
+        android:layout_toStartOf="@+id/btnSend"
+        android:ems="10"
+        android:inputType="textCapSentences"
+        android:maxLength="200" />
 
     <ListView
         android:id="@+id/lstMessages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/edtContent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/edtContent" />
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

@@ -39,8 +39,7 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
 
             messageHolder = new MessageHolder();
 
-            messageHolder.txvSender = (TextView) item.findViewById(R.id.txvSender);
-            messageHolder.txvReceiver = (TextView) item.findViewById(R.id.txvReceiver);
+            messageHolder.txvDate = (TextView) item.findViewById(R.id.txvDate);
             messageHolder.txvContent = (TextView) item.findViewById(R.id.txvContent);
 
             item.setTag(messageHolder);
@@ -48,16 +47,18 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
             messageHolder = (MessageHolder) item.getTag();
         }
 
-        messageHolder.txvSender.setText(context.getResources().getString(R.string.sender) + ": " + getItem(position).getSender());
-        messageHolder.txvReceiver.setText(context.getResources().getString(R.string.receiver) + ": " + getItem(position).getReceiver());
-        messageHolder.txvContent.setText(context.getResources().getString(R.string.content) + ": " + getItem(position).getContent());
+        messageHolder.txvDate.setText(getItem(position).getDate());
+        messageHolder.txvContent.setText(getItem(position).getContent());
+
+        if (getItem(position).getSender() == Repository.getInstance().getCurrentUser().getId()) {
+            item.setBackground(context.getResources().getDrawable(R.drawable.shape_ownmsg));
+        }
 
         return item;
     }
 
     class MessageHolder {
-        TextView txvSender;
-        TextView txvReceiver;
+        TextView txvDate;
         TextView txvContent;
     }
 }

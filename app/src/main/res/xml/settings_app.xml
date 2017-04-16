@@ -18,12 +18,14 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/pref_password_title"
-            android:key="user_pass" />
+            android:key="password"
+            android:inputType="textPassword" />
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/pref_email_title"
-            android:key="user_email" />
+            android:key="email"
+            android:inputType="textEmailAddress" />
     </PreferenceCategory>
 
     <!--<PreferenceCategory android:title="@string/pref_support">

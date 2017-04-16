@@ -40,4 +40,5 @@
     <string name="hospitalised">Hospitalisé</string>
     <string name="no_network">AssistApp a besoin d\'une connexion réseau pour travailler</string>
     <string name="loggingin">En train de s\'identifier</string>
+    <string name="date">Date</string>
 </resources>

@@ -200,6 +200,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     public void logOut() {
         User_Preferences.savePass(null, this);
         User_Preferences.saveUser(null, this);
+        User_Preferences.saveEmail(null, this);
         Intent intent = new Intent(Home_Activity.this, Login_Activity.class);
         startActivity(intent);
     }

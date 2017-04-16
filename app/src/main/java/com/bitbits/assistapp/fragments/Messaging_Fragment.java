@@ -1,9 +1,12 @@
 package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,6 +99,26 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
                 }
             }
         });
+        mEdtContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(mEdtContent.getText().toString())) {
+                    mBtnSend.setEnabled(true);
+                } else {
+                    mBtnSend.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     /**
@@ -104,6 +127,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void message() {
         mAdapter.notifyDataSetChanged();
+        mLstMessages.setSelection(mLstMessages.getCount());
     }
 
     private void getMessages() {
@@ -122,6 +146,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
                         mAdapter = new Messaging_Adapter(getActivity());
                         mLstMessages.setAdapter(mAdapter);
+                        mLstMessages.setSelection(mLstMessages.getCount());
                     } else {
                         Log.e("MSG", result.getMessage());
                     }
@@ -138,6 +163,16 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
                 Log.e("MSG", throwable.getMessage());
             }
         });
+    }
+
+    /**
+     * Method which returns the Context
+     * @return The context
+     * @see Context
+     */
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 
     /*@Override

@@ -31,10 +31,10 @@ public class Messaging_CursorAdapter extends CursorAdapter {
 
         MessageHolder messageHolder = new MessageHolder();
 
-        messageHolder.txvSender = (TextView)rootView.findViewById(R.id.txvSender);
+        /*messageHolder.txvSender = (TextView)rootView.findViewById(R.id.txvSender);
         messageHolder.txvReceiver = (TextView)rootView.findViewById(R.id.txvReceiver);
         messageHolder.txvContent = (TextView)rootView.findViewById(R.id.txvContent);
-
+*/
         rootView.setTag(messageHolder);
 
         return rootView;

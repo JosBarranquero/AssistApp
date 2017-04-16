@@ -111,7 +111,6 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
     /**
      * Medthod which launches the Home_Activity after the credentials have been validated
-     * @param name The user name
      * @see Home_Activity
      */
     @Override
