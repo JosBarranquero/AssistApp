@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">AssistApp</string>
-    <string name="app_description">Medical communicator</string>
-    <string name="app_credits">Developed by José Antonio Barranquero Fernández.\n\nBitBits, 2016–2017</string>
     <string name="id_card">ID card number</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -46,4 +44,7 @@
     <string name="options">Options</string>
     <string name="conversations">Conversations</string>
     <string name="loggingin">Logging in</string>
+    <string name="about_Version">Version %1$s</string>
+    <string name="about_company">BitBits, 2016–2017</string>
+    <string name="about_developed">Developed by BitBits</string>
 </resources>

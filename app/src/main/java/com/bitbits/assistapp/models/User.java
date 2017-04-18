@@ -73,6 +73,10 @@ public class User implements Serializable {
         this.surname = surname;
     }
 
+    public String getFormattedName() {
+        return this.name + " " + this.surname;
+    }
+
     public String getEmail() {
         return email;
     }

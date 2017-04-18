@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_credits">Développé par José Antonio Barranquero Fernández.\n\nBitBits, 2016–2017</string>
-    <string name="app_description">Communicateur médical</string>
     <string name="content">Contenu</string>
     <string name="conversations">Conversations</string>
     <string name="credentials_error">Identifiant ou mot de passe erronés</string>
@@ -41,4 +39,8 @@
     <string name="no_network">AssistApp a besoin d\'une connexion réseau pour travailler</string>
     <string name="loggingin">En train de s\'identifier</string>
     <string name="date">Date</string>
+    <string name="email_error">Adresse email invalide</string>
+    <string name="about_company">BitBits, 2016–2017</string>
+    <string name="about_Version">Version %1$s</string>
+    <string name="about_developed">Développé par BitBits</string>
 </resources>

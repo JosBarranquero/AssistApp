@@ -23,7 +23,7 @@ import java.util.Locale;
  * @see MedicalRecord
  */
 public class MedicalRecord_Adapter extends ArrayAdapter<MedicalRecord> {
-    Context context;
+    private Context context;
 
     public MedicalRecord_Adapter(Context context) {
         super(context, R.layout.item_record, Repository.getInstance().getRecords());
@@ -53,10 +53,8 @@ public class MedicalRecord_Adapter extends ArrayAdapter<MedicalRecord> {
         }
         MedicalRecord currentRecord = getItem(position);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault());
-
         holder.txvReason.setText(currentRecord.getReason());
-        holder.txvDate.setText(dateFormat.format(currentRecord.getDate()));
+        holder.txvDate.setText(currentRecord.getFormattedDate());
         holder.txvAntecents.setText(currentRecord.getAntecedents());
         holder.cbxHospitalised.setChecked(currentRecord.isHospitalised());
         holder.cbxHospitalised.setEnabled(false);

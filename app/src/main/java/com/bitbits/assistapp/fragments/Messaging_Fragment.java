@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -44,12 +45,10 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     ImageButton mBtnSend;
     User receiver;
     IMessage.Presenter mPresenter;
-    int id = 0;
 
     @Override
     public void onStart() {
         super.onStart();
-        //mPresenter.getAllMessages(mAdapter);
     }
 
     @Override
@@ -72,7 +71,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         View rootView = inflater.inflate(R.layout.fragment_messaging, container, false);
 
         receiver = (User) getArguments().getSerializable("receiver");
-        getActivity().setTitle(receiver.getName() + " " + receiver.getSurname());
+        getActivity().setTitle(receiver.getFormattedName());
 
         mLstMessages = (ListView) rootView.findViewById(R.id.lstMessages);
         mEdtContent = (EditText) rootView.findViewById(R.id.edtContent);
@@ -92,7 +91,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
             public void onClick(View v) {
                 String content = mEdtContent.getText().toString();
                 if (!TextUtils.isEmpty(content)) {
-                    Message message = new Message(++id, content, Repository.getInstance().getCurrentUser().getId(), receiver.getId());
+                    Message message = new Message(content, Repository.getInstance().getCurrentUser().getId(), receiver.getId());
                     mPresenter.sendMessage(message);
 
                     mEdtContent.setText("");
@@ -107,11 +106,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(mEdtContent.getText().toString())) {
-                    mBtnSend.setEnabled(true);
-                } else {
-                    mBtnSend.setEnabled(false);
-                }
+
             }
 
             @Override
@@ -174,11 +169,4 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     public Context getContext() {
         return getActivity();
     }
-
-    /*@Override
-    public void setCursor(Cursor cursor) {
-        if (cursor != null) {
-            mAdapter.swapCursor(cursor);
-        }
-    }*/
 }

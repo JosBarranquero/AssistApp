@@ -80,53 +80,5 @@ public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.
                 Log.e("MSG", throwable.getMessage());
             }
         });
-
-        /*SQLiteDatabase database = DatabaseHelper.getInstance().openDatabase();
-        database.execSQL(String.format("INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (%s, %s, '%s', %s, '%s')",
-                DatabaseContract.MessageEntry.TABLE_NAME,
-                DatabaseContract.MessageEntry.COLUMN_RECEIVER,
-                DatabaseContract.MessageEntry.COLUMN_SENDER,
-                DatabaseContract.MessageEntry.COLUMN_CONTENT,
-                DatabaseContract.MessageEntry.COLUMN_IMAGE,
-                DatabaseContract.MessageEntry.COLUMN_DATE,
-                message.getReceiver().getId(),
-                message.getSender().getId(),
-                message.getContent(),
-                message.getImg(),
-                "2017-02-01"));
-        DatabaseHelper.getInstance().closeDatabase();*/
     }
-
-
-
-    /*@Override
-    public void getAllMessages(CursorAdapter adapter) {
-        ((Activity)context).getLoaderManager().initLoader(MESSAGES, null, this);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Loader ccl;
-
-        switch (id){
-            case MESSAGES:
-                ccl = new CursorLoader(context, ProviderContract.Message.CONTENT_URI, ProviderContract.Message.PROJECTION, null, null, null);
-                break;
-            default:
-                ccl=null;
-        }
-
-        return ccl;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        data.setNotificationUri(context.getContentResolver(), ProviderContract.Message.CONTENT_URI);
-        mView.setCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mView.setCursor(null);
-    }*/
 }

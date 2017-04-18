@@ -2,6 +2,7 @@ package com.bitbits.assistapp.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +19,10 @@ import android.widget.ListView;
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.adapters.ConversationList_Adapter;
+import com.bitbits.assistapp.interfaces.IConversation;
 import com.bitbits.assistapp.models.Result;
 import com.bitbits.assistapp.models.User;
+import com.bitbits.assistapp.presenters.ConversationList_Presenter;
 import com.bitbits.assistapp.utilities.ApiClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,10 +37,11 @@ import cz.msebera.android.httpclient.Header;
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
-public class ConversationList_Fragment extends Fragment {
+public class ConversationList_Fragment extends Fragment implements IConversation.View {
     private ConversationList_Adapter mAdapter;
     private ListView mLstConvoList;
     private ListConversationListener mCallback;
+    private IConversation.Presenter mPresenter;
 
     public interface ListConversationListener {
         void showMessaging(Bundle bundle);
@@ -63,6 +67,9 @@ public class ConversationList_Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mPresenter = new ConversationList_Presenter(this);
+        mPresenter.getUsers();
+
         setRetainInstance(true);
         setHasOptionsMenu(true);
     }
@@ -80,8 +87,7 @@ public class ConversationList_Fragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_conversationlist, container, false);
 
-        getActivity().setTitle(Repository.getInstance().getCurrentUser().getName() + " " + Repository.getInstance().getCurrentUser().getSurname());
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActivity().setTitle(Repository.getInstance().getCurrentUser().getFormattedName());
 
         mLstConvoList = (ListView) rootView.findViewById(R.id.lstConvoList);
 
@@ -92,7 +98,7 @@ public class ConversationList_Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getUsers();
+        setData();
 
         mLstConvoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -133,35 +139,14 @@ public class ConversationList_Fragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getUsers() {
-        ApiClient.get(ApiClient.ASSISTS + "/" + Repository.getInstance().getCurrentUser().getId(), new JsonHttpResponseHandler() {
+    @Override
+    public void setData() {
+        mAdapter = new ConversationList_Adapter(getActivity());
+        mLstConvoList.setAdapter(mAdapter);
+    }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Result result;
-                Gson gson = new Gson();
-                result = gson.fromJson(String.valueOf(response), Result.class);
-                if (result != null) {
-                    if (result.getCode()) {
-                        Repository.getInstance().setUsers(result.getUsers());
-
-                        mAdapter = new ConversationList_Adapter(getActivity());
-                        mLstConvoList.setAdapter(mAdapter);
-                    } else {
-                        Log.e("Assist", result.getMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("Assist", responseString);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("Assist", throwable.getMessage());
-            }
-        });
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 }

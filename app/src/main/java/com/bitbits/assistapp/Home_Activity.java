@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bitbits.assistapp.fragments.About_Fragment;
 import com.bitbits.assistapp.fragments.ConversationList_Fragment;
 import com.bitbits.assistapp.fragments.MedicalRecord_Fragment;
 import com.bitbits.assistapp.fragments.Messaging_Fragment;
@@ -30,10 +31,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @version 1.0
  */
 public class Home_Activity extends AppCompatActivity implements ConversationList_Fragment.ListConversationListener {
+    private static final String MESSAGING_FRAGMENT = "Messaging";
+    private static final String CONVERSATION_LIST_FRAGMENT = "ConversationList";
+    private static final String MEDICAL_RECORD_FRAGMENT = "MedicalRecord";
+    private static final String SETTINGS_FRAGMENT = "Settings";
+    private static final String ABOUT_FRAGMENT = "About";
+
     Messaging_Fragment mMessagingFragment;
     ConversationList_Fragment mConversationListFragment;
     MedicalRecord_Fragment mMedicalRecordFragment;
     Settings_Fragment mSettingsFragment;
+    About_Fragment mAboutFragment;
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -106,17 +114,6 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                 .into(profileImage);
     }
 
-    private void showAbout() {
-        //TODO Improve about splash screen
-        View messageView = getLayoutInflater().inflate(R.layout.screen_about, null, false);
-        AlertDialog.Builder builder = new AlertDialog.Builder(Home_Activity.this);
-        builder.setIcon(R.drawable.logo);
-        builder.setTitle(R.string.app_name);
-        builder.setView(messageView);
-        builder.create();
-        builder.show();
-    }
-
     /**
      * Method which controls which optionMenuItem has been tapped on
      *
@@ -138,6 +135,12 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
+            Messaging_Fragment messaging = (Messaging_Fragment) getFragmentManager().findFragmentByTag(MESSAGING_FRAGMENT);
+            About_Fragment about = (About_Fragment) getFragmentManager().findFragmentByTag(ABOUT_FRAGMENT);
+            if ((messaging != null && messaging.isVisible()) || (about != null && about.isVisible())) {
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                getSupportActionBar().show();
+            }
             super.onBackPressed();
         }
     }
@@ -150,10 +153,12 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      */
     @Override
     public void showMessaging(Bundle bundle) {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         mMessagingFragment = new Messaging_Fragment();
         mMessagingFragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.framehome, mMessagingFragment).addToBackStack(null).commit();
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mMessagingFragment, MESSAGING_FRAGMENT).addToBackStack(MESSAGING_FRAGMENT).commit();
     }
 
     /**
@@ -165,7 +170,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         if (mConversationListFragment == null) {
             mConversationListFragment = new ConversationList_Fragment();
         }
-        getFragmentManager().beginTransaction().replace(R.id.framehome, mConversationListFragment).commit();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mConversationListFragment, CONVERSATION_LIST_FRAGMENT).commit();
     }
 
     /**
@@ -176,7 +182,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     public void showMedicalRecord() {
         //TODO
         mMedicalRecordFragment = new MedicalRecord_Fragment();
-        getFragmentManager().beginTransaction().replace(R.id.framehome, mMedicalRecordFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mMedicalRecordFragment, MEDICAL_RECORD_FRAGMENT).commit();
     }
 
     /**
@@ -188,7 +194,20 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         if (mSettingsFragment == null) {
             mSettingsFragment = new Settings_Fragment();
         }
-        getFragmentManager().beginTransaction().replace(R.id.framehome, mSettingsFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mSettingsFragment, SETTINGS_FRAGMENT).commit();
+    }
+
+    /**
+     * Method which shows the about splash screen
+     */
+    private void showAbout() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        getSupportActionBar().hide();
+
+        if (mAboutFragment == null) {
+            mAboutFragment = new About_Fragment();
+        }
+        getFragmentManager().beginTransaction().replace(R.id.framehome, mAboutFragment, ABOUT_FRAGMENT).addToBackStack(ABOUT_FRAGMENT).commit();
     }
 
     /**

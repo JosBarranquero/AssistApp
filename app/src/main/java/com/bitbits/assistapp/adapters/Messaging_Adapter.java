@@ -47,7 +47,7 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
             messageHolder = (MessageHolder) item.getTag();
         }
 
-        messageHolder.txvDate.setText(getItem(position).getDate());
+        messageHolder.txvDate.setText(getItem(position).getFormattedDate());
         messageHolder.txvContent.setText(getItem(position).getContent());
 
         if (getItem(position).getSender() == Repository.getInstance().getCurrentUser().getId()) {

@@ -26,29 +26,11 @@ import java.util.List;
  * @version 1.1
  */
 public class ConversationList_Adapter extends ArrayAdapter<User> {
-    Context context;
-    List<User> contacts = new ArrayList<>();
+    private Context context;
 
     public ConversationList_Adapter(Context context) {
-        super(context, R.layout.item_conversation);
+        super(context, R.layout.item_conversation, Repository.getInstance().getUsers());
         this.context = context;
-        /*for (User account : Repository.getInstance().getUsers()) {
-            if (!account.equals(Repository.getInstance().getCurrentUser())) {
-                contacts.add(account);
-            }
-        }*/
-        contacts = Repository.getInstance().getUsers();
-    }
-
-    @Nullable
-    @Override
-    public User getItem(int position) {
-        return contacts.get(position);
-    }
-
-    @Override
-    public int getCount() {
-        return contacts.size();
     }
 
     @NonNull
@@ -70,11 +52,13 @@ public class ConversationList_Adapter extends ArrayAdapter<User> {
             conversationHolder = (ConversationHolder) item.getTag();
         }
 
+        User currentUser = getItem(position);
+
         Picasso.with(context)
-                .load(AssistApp_Application.URL + contacts.get(position).getImg())
+                .load(AssistApp_Application.URL + currentUser.getImg())
                 .error(R.drawable.logo)
                 .into(conversationHolder.contact_image);
-        conversationHolder.txvName.setText(contacts.get(position).getName() + " " + contacts.get(position).getSurname());
+        conversationHolder.txvName.setText(currentUser.getFormattedName());
 
         return item;
     }

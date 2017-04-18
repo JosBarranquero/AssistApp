@@ -5,4 +5,5 @@
     <string name="password_case">Password must contain at least one character in uppercase/lowercase</string>
     <string name="password_length">Password must be at least 8 characters long</string>
     <string name="credentials_error">Incorrect username or password</string>
+    <string name="email_error">Invalid email address</string>
 </resources>

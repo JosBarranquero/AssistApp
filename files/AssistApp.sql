@@ -67,4 +67,14 @@ CREATE TABLE MedData (
     FOREIGN KEY (idData) REFERENCES MedData (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
+--Event
+SET GLOBAL event_scheduler = ON;
+DROP EVENT IF EXISTS ev_messages;
+CREATE EVENT ev_messages
+ON SCHEDULE EVERY 1 DAY STARTS '2017-04-15 00:00:00'
+ON COMPLETION PRESERVE
+DO
+	DELETE FROM Messages WHERE (DATEDIFF(CURDATE(), date) >= 14);
+
+
 INSERT INTO Users (idDoc, password, name, surname, type, img, email) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com';

@@ -1,7 +1,15 @@
 package com.bitbits.assistapp.models;
 
+import android.text.format.DateFormat;
+import android.util.Log;
+
+import com.bitbits.assistapp.AssistApp_Application;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Class which defines medical records
@@ -12,9 +20,9 @@ public class MedicalRecord implements Serializable {
     int idData;
     String reason, antecedents;
     boolean hospitalised;
-    Date date;
+    String date;
 
-    public MedicalRecord(int id, int idData, String reason, String antecedents, boolean hospitalised, Date date) {
+    public MedicalRecord(int id, int idData, String reason, String antecedents, boolean hospitalised, String date) {
         this.id = id;
         this.idData = idData;
         this.reason = reason;
@@ -43,7 +51,22 @@ public class MedicalRecord implements Serializable {
         return hospitalised;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
+    }
+
+    public String getFormattedDate() {
+        if (this.date != null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            try {
+                Date date = format.parse(this.date);
+                String dateFormat = DateFormat.getDateFormat(AssistApp_Application.getContext()).format(date) + " ";
+                dateFormat += DateFormat.getTimeFormat(AssistApp_Application.getContext()).format(date);
+                return dateFormat;
+            } catch (ParseException e) {
+                Log.e("Msg", e.getMessage());
+            }
+        }
+        return null;
     }
 }

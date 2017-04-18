@@ -21,7 +21,7 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
     }
 
     /**
-     * Method which loads the medical data and sends it to the view, so it can be shown to the user
+     * Method which loads the medical data and sends it to the mView, so it can be shown to the user
      */
     @Override
     public void loadData(int userId) {

@@ -13,5 +13,9 @@
 
     <dimen name="header_height">192dp</dimen>
     <dimen name="header_padding">16dp</dimen>
+
     <dimen name="profile_image">64dp</dimen>
+
+    <dimen name="name_margin">32dp</dimen>
+    <dimen name="img_margin">10dp</dimen>
 </resources>

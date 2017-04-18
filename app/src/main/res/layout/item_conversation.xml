@@ -6,7 +6,8 @@
         android:layout_height="@dimen/img_height"
         android:src="@drawable/logo"
 
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/img_margin"
+        android:layout_marginBottom="@dimen/img_margin"
         android:id="@+id/imgContact" />
 
     <TextView
@@ -18,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/name_margin"
         android:layout_toEndOf="@id/imgContact"
         android:layout_toRightOf="@id/imgContact"/>
 </RelativeLayout>
