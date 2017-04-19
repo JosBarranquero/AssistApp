@@ -93,6 +93,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         getMessages();
 
         mBtnSend.setBackground(getResources().getDrawable(R.drawable.ic_action_send));
+        mBtnSend.setEnabled(false);
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +106,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
                 mEdtContent.setText("");
             }
         });
+
         mEdtContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -55,9 +55,7 @@ public class Settings_Fragment extends PreferenceFragment {
                     if (password.length() < 8)  //If it's less than 8 characters
                         Toast.makeText(getActivity(), R.string.password_length, Toast.LENGTH_SHORT).show();
                     else {      //If it's valid
-                        User_Preferences.savePass(password, getActivity());
-                        updateUser();
-                        save = true;
+                        save = updateUser(User_Preferences.getEmail(getActivity()), password);
                     }
                 }
                 return save;
@@ -69,9 +67,7 @@ public class Settings_Fragment extends PreferenceFragment {
                 String email = String.valueOf(newValue);
                 boolean save = false;
                 if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {  //If it's a valid address
-                    User_Preferences.saveEmail(String.valueOf(email), getActivity());
-                    updateUser();
-                    save = true;
+                    save = updateUser(email, User_Preferences.getPass(getActivity()));
                 } else {                                                //If it's not a valid address
                     Toast.makeText(getActivity(), R.string.email_error, Toast.LENGTH_SHORT).show();
                 }
@@ -84,11 +80,13 @@ public class Settings_Fragment extends PreferenceFragment {
     /**
      * Method which updates the user password and email in the database
      */
-    private void updateUser() {
+    private boolean updateUser(final String email, final String password) {
         RequestParams params = new RequestParams();
-        params.put("email", User_Preferences.getEmail(getActivity()));
-        params.put("password", User_Preferences.getPass(getActivity()));
+        params.put("email", email);
+        params.put("password", password);
         params.put("id", Repository.getInstance().getCurrentUser().getId());
+
+        final boolean[] updated = new boolean[1];
 
         ApiClient.put(ApiClient.USERS, params, new JsonHttpResponseHandler() {
             @Override
@@ -97,8 +95,13 @@ public class Settings_Fragment extends PreferenceFragment {
                 Gson gson = new Gson();
                 result = gson.fromJson(String.valueOf(response), Result.class);
                 if (result != null) {
-                    if (!result.getCode()) {
+                    if (result.getCode()) {
+                        User_Preferences.savePass(password, getActivity());
+                        User_Preferences.saveEmail(email, getActivity());
+                        updated[0] = true;
+                    } else {
                         Toast.makeText(AssistApp_Application.getContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                        updated[0] = false;
                     }
                 }
             }
@@ -107,13 +110,18 @@ public class Settings_Fragment extends PreferenceFragment {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Toast.makeText(AssistApp_Application.getContext(), responseString, Toast.LENGTH_SHORT).show();
                 Log.e("Pref", responseString);
+
+                updated[0] = false;
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Toast.makeText(AssistApp_Application.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("Pref", throwable.getMessage());
+
+                updated[0] = false;
             }
         });
+        return updated[0];
     }
 }
