@@ -140,6 +140,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
             if ((messaging != null && messaging.isVisible()) || (about != null && about.isVisible())) {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 getSupportActionBar().show();
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
             super.onBackPressed();
         }
@@ -170,7 +171,6 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         if (mConversationListFragment == null) {
             mConversationListFragment = new ConversationList_Fragment();
         }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getFragmentManager().beginTransaction().replace(R.id.framehome, mConversationListFragment, CONVERSATION_LIST_FRAGMENT).commit();
     }
 
@@ -202,6 +202,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      */
     private void showAbout() {
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().hide();
 
         if (mAboutFragment == null) {

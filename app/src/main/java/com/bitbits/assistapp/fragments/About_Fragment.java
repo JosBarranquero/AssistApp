@@ -24,7 +24,10 @@ import com.bitbits.assistapp.R;
 public class About_Fragment extends Fragment {
     private TextView mTxvVersion;
     private ImageView mImgAppLogo;
-    private int mTaps;
+
+    private long mTimeTapped;
+
+    private static final long MAX_TIME = 400;
 
     @Nullable
     @Override
@@ -34,7 +37,8 @@ public class About_Fragment extends Fragment {
 
         mTxvVersion = (TextView)rootView.findViewById(R.id.txvAboutVersion);
         mImgAppLogo = (ImageView)rootView.findViewById(R.id.imgAppLogo);
-        mTaps = 0;
+
+        mTimeTapped = 0;
 
         return rootView;
     }
@@ -55,8 +59,8 @@ public class About_Fragment extends Fragment {
         mImgAppLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTaps++;
-                if (mTaps % 2 == 0) {
+                if (mTimeTapped + MAX_TIME > System.currentTimeMillis()) {
+                    mTimeTapped = 0;
                     View messageView = getActivity().getLayoutInflater().inflate(R.layout.screen_bitbits, null, false);
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setIcon(R.drawable.bitbits);
@@ -65,6 +69,7 @@ public class About_Fragment extends Fragment {
                     builder.create();
                     builder.show();
                 }
+                mTimeTapped = System.currentTimeMillis();
             }
         });
     }

@@ -52,6 +52,8 @@ public class Messaging_Adapter extends ArrayAdapter<Message> {
 
         if (getItem(position).getSender() == Repository.getInstance().getCurrentUser().getId()) {
             item.setBackground(context.getResources().getDrawable(R.drawable.shape_ownmsg));
+        } else {
+            item.setBackground(context.getResources().getDrawable(R.drawable.shape_othermsg));
         }
 
         return item;

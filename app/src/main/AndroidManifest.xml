@@ -14,9 +14,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <provider
+        <!--<provider
             android:authorities="com.bitbits.assistapp"
-            android:name=".provider.SelfContentProvider"/>
+            android:name=".provider.SelfContentProvider"/>-->
         <activity android:name=".Login_Activity" android:windowSoftInputMode="adjustPan" android:noHistory="true" android:theme="@style/LoginTheme" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

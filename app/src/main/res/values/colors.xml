@@ -5,8 +5,9 @@
     <color name="colorAccent">#03a9f4</color>
 
     <color name="colorOwnMessage">#c5e1a5</color>
+    <color name="colorOtherMessage">#fafafa</color>
 
     <color name="colorError">#b71c1c</color>
     <color name="colorButtonLogin">#ffffff</color>
-    <color name="white">#ffffff</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

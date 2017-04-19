@@ -2,6 +2,7 @@ package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -35,16 +36,19 @@ import cz.msebera.android.httpclient.Header;
 
 /**
  * Fragment which will show the messages in between users and allows to write new ones
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
 public class Messaging_Fragment extends Fragment implements IMessage.View {
-    ListView mLstMessages;
-    Messaging_Adapter mAdapter;
-    EditText mEdtContent;
-    ImageButton mBtnSend;
-    User receiver;
-    IMessage.Presenter mPresenter;
+    private EditText mEdtContent;
+    private ImageButton mBtnSend;
+    private ListView mLstMessages;
+
+    private Messaging_Adapter mAdapter;
+    private IMessage.Presenter mPresenter;
+
+    private User receiver;
 
     @Override
     public void onStart() {
@@ -73,6 +77,8 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         receiver = (User) getArguments().getSerializable("receiver");
         getActivity().setTitle(receiver.getFormattedName());
 
+        rootView.setBackgroundColor(getResources().getColor(R.color.colorOtherMessage));
+
         mLstMessages = (ListView) rootView.findViewById(R.id.lstMessages);
         mEdtContent = (EditText) rootView.findViewById(R.id.edtContent);
         mBtnSend = (ImageButton) rootView.findViewById(R.id.btnSend);
@@ -86,16 +92,17 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
         getMessages();
 
+        mBtnSend.setBackground(getResources().getDrawable(R.drawable.ic_action_send));
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String content = mEdtContent.getText().toString();
-                if (!TextUtils.isEmpty(content)) {
-                    Message message = new Message(content, Repository.getInstance().getCurrentUser().getId(), receiver.getId());
-                    mPresenter.sendMessage(message);
+                content = content.trim();
 
-                    mEdtContent.setText("");
-                }
+                Message message = new Message(content, Repository.getInstance().getCurrentUser().getId(), receiver.getId());
+                mPresenter.sendMessage(message);
+
+                mEdtContent.setText("");
             }
         });
         mEdtContent.addTextChangedListener(new TextWatcher() {
@@ -106,7 +113,15 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                String content = mEdtContent.getText().toString();
+                content = content.trim();
+                if (!TextUtils.isEmpty(content)) {
+                    mBtnSend.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_send_av));
+                    mBtnSend.setEnabled(true);
+                } else {
+                    mBtnSend.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_send));
+                    mBtnSend.setEnabled(false);
+                }
             }
 
             @Override
@@ -162,6 +177,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
     /**
      * Method which returns the Context
+     *
      * @return The context
      * @see Context
      */

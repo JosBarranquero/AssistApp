@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="30sp"/>
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:layout_below="@id/txvAboutTitle"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_marginTop="15dp"
@@ -55,7 +55,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp" />
 
     <!--<ImageView
