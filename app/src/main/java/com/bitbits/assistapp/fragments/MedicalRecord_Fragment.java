@@ -1,13 +1,13 @@
 package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,6 +16,7 @@ import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.adapters.MedicalRecord_Adapter;
 import com.bitbits.assistapp.interfaces.IRecord;
 import com.bitbits.assistapp.models.MedicalData;
+import com.bitbits.assistapp.models.User;
 import com.bitbits.assistapp.presenters.MedicalRecord_Presenter;
 
 /**
@@ -25,23 +26,33 @@ import com.bitbits.assistapp.presenters.MedicalRecord_Presenter;
  * @version 1.0
  */
 public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
-    TextView mTxvName, mTxvBirth, mTxvResidence, mTxvNationality, mTxvJob, mTxvSex;
-    CheckBox mCbxAlcohol, mCbxSmoker, mCbxDrugs;
-    ListView mLstRecord;
+    private TextView mTxvName, mTxvBirth, mTxvResidence, mTxvNationality, mTxvJob, mTxvSex;
+    private TextView mTxvAlcohol;
+    private TextView mTxvSmoker;
+    private TextView mTxvDrugs;
+    private ListView mLstRecord;
 
-    MedicalRecord_Adapter mAdapter;
-    IRecord.Presenter mPresenter;
+    private MedicalRecord_Adapter mAdapter;
+    private IRecord.Presenter mPresenter;
+
+    private User mPat;
+
+    private Repository mRepository = Repository.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mPresenter = new MedicalRecord_Presenter(this);
+        mPat = (User) getArguments().getSerializable(User.PATIENT);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         mPresenter = null;
+        mAdapter = null;
     }
 
     @Nullable
@@ -58,9 +69,9 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
         mTxvResidence = (TextView) rootView.findViewById(R.id.txvResidence);
         mTxvSex = (TextView) rootView.findViewById(R.id.txvSex);
 
-        mCbxAlcohol = (CheckBox) rootView.findViewById(R.id.cbxAlcohol);
-        mCbxDrugs = (CheckBox) rootView.findViewById(R.id.cbxDrugs);
-        mCbxSmoker = (CheckBox) rootView.findViewById(R.id.cbxSmoker);
+        mTxvAlcohol = (TextView) rootView.findViewById(R.id.txvAlcohol);
+        mTxvDrugs = (TextView) rootView.findViewById(R.id.tvxDrugs);
+        mTxvSmoker = (TextView) rootView.findViewById(R.id.txvSmoker);
 
         mLstRecord = (ListView) rootView.findViewById(R.id.lstRecord);
 
@@ -71,49 +82,42 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new MedicalRecord_Adapter(getActivity());
-        mLstRecord.setAdapter(mAdapter);
-
-        //TODO mPresenter.loadData();
+        mPresenter.getData(mPat.getId());
     }
 
     /**
      * Method which loads the MedicalData in its corresponding Views
      *
-     * @param name
-     * @param nationality
-     * @param job
-     * @param residence
-     * @param sex
-     * @param birth
-     * @param smoker
-     * @param alcoholic
-     * @param drugs
      * @see MedicalData
      */
     @Override
-    public void setDataInfo(String name, String nationality, String job, String residence, String sex, String birth, boolean smoker, boolean alcoholic, boolean drugs) {
-        mTxvName.setText(name);
-        mTxvNationality.setText(nationality);
-        mTxvJob.setText(job);
-        mTxvResidence.setText(residence);
-        switch (sex) {
-            case MedicalData.FEM:
-                mTxvSex.setText(R.string.feminine);
-                break;
-            case MedicalData.MASC:
-                mTxvSex.setText(R.string.masculine);
-                break;
-        }
-        mTxvBirth.setText(birth);
+    public void setData() {
+        mAdapter = new MedicalRecord_Adapter(getActivity());
+        mLstRecord.setAdapter(mAdapter);
 
-        mCbxAlcohol.setChecked(alcoholic);
-        mCbxAlcohol.setEnabled(false);
+        MedicalData data = mRepository.getMedData().get(0);
+        mTxvName.setText(mPat.getFormattedName());
+        mTxvNationality.setText(data.getNationality());
+        mTxvJob.setText(data.getJob());
+        mTxvResidence.setText(data.getResidence());
+        if (data.getSex().equalsIgnoreCase(MedicalData.FEM))
+            mTxvSex.setText(R.string.feminine);
+        else
+            mTxvSex.setText(R.string.masculine);
+        mTxvBirth.setText(data.getFormattedDate());
 
-        mCbxDrugs.setChecked(drugs);
-        mCbxDrugs.setEnabled(false);
+        mTxvAlcohol.setEnabled(data.isAlcoholic());
+        mTxvSmoker.setEnabled(data.isSmoker());
+        mTxvDrugs.setEnabled(data.usesDrugs());
+    }
 
-        mCbxSmoker.setChecked(smoker);
-        mCbxSmoker.setEnabled(false);
+    @Override
+    public void showError(String error) {
+        Snackbar.make(getView(), error, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 }

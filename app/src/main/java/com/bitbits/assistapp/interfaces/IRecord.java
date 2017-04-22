@@ -1,5 +1,7 @@
 package com.bitbits.assistapp.interfaces;
 
+import android.content.Context;
+
 import com.bitbits.assistapp.fragments.MedicalRecord_Fragment;
 
 /**
@@ -11,10 +13,13 @@ import com.bitbits.assistapp.fragments.MedicalRecord_Fragment;
  */
 public interface IRecord {
     interface View {
-        void setDataInfo(String name, String nationality, String job, String residence, String sex, String birth, boolean smoker, boolean alcoholic, boolean drugs);
+        void setData();
+        void showError(String error);
+        Context getContext();
     }
 
     interface Presenter {
-        void loadData(int userId);
+        void getData(int userId);
+        void getRecord(int dataId);
     }
 }

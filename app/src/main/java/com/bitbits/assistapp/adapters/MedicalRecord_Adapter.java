@@ -6,18 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.models.MedicalRecord;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 /**
  * Adapter which manages the Medical Record shown on its lists
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  * @see MedicalRecord
@@ -42,7 +39,7 @@ public class MedicalRecord_Adapter extends ArrayAdapter<MedicalRecord> {
             item = inflater.inflate(R.layout.item_record, null);
             holder = new RecordHolder();
 
-            holder.cbxHospitalised = (CheckBox) item.findViewById(R.id.cbxHospitalised);
+            holder.txvHospitalised = (TextView) item.findViewById(R.id.txvHospitalised);
             holder.txvAntecents = (TextView) item.findViewById(R.id.txvAntecedents);
             holder.txvDate = (TextView) item.findViewById(R.id.txvDate);
             holder.txvReason = (TextView) item.findViewById(R.id.txvReason);
@@ -56,14 +53,15 @@ public class MedicalRecord_Adapter extends ArrayAdapter<MedicalRecord> {
         holder.txvReason.setText(currentRecord.getReason());
         holder.txvDate.setText(currentRecord.getFormattedDate());
         holder.txvAntecents.setText(currentRecord.getAntecedents());
-        holder.cbxHospitalised.setChecked(currentRecord.isHospitalised());
-        holder.cbxHospitalised.setEnabled(false);
+        if (currentRecord.isHospitalised())
+            holder.txvHospitalised.setVisibility(View.VISIBLE);
+        else
+            holder.txvHospitalised.setVisibility(View.INVISIBLE);
 
         return item;
     }
 
     class RecordHolder {
-        TextView txvReason, txvAntecents, txvDate;
-        CheckBox cbxHospitalised;
+        TextView txvReason, txvAntecents, txvDate, txvHospitalised;
     }
 }

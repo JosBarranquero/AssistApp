@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 
-import com.bitbits.assistapp.AssistApp_Application;
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.models.Result;
@@ -25,6 +25,7 @@ import cz.msebera.android.httpclient.Header;
 
 /**
  * Fragment which manages the app settings
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
@@ -37,8 +38,8 @@ public class Settings_Fragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings_app);
 
-        edtPassword = (EditTextPreference)findPreference("password");
-        edtEmail = (EditTextPreference)findPreference("email");
+        edtPassword = (EditTextPreference) findPreference("password");
+        edtEmail = (EditTextPreference) findPreference("email");
 
         edtPassword.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -100,7 +101,7 @@ public class Settings_Fragment extends PreferenceFragment {
                         User_Preferences.saveEmail(email, getActivity());
                         updated[0] = true;
                     } else {
-                        Toast.makeText(AssistApp_Application.getContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), result.getMessage(), Snackbar.LENGTH_SHORT).show();
                         updated[0] = false;
                     }
                 }
@@ -108,7 +109,7 @@ public class Settings_Fragment extends PreferenceFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Toast.makeText(AssistApp_Application.getContext(), responseString, Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), responseString, Snackbar.LENGTH_LONG).show();
                 Log.e("Pref", responseString);
 
                 updated[0] = false;
@@ -116,7 +117,7 @@ public class Settings_Fragment extends PreferenceFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Toast.makeText(AssistApp_Application.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), throwable.getMessage(), Snackbar.LENGTH_SHORT).show();
                 Log.e("Pref", throwable.getMessage());
 
                 updated[0] = false;

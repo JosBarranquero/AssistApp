@@ -5,8 +5,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,18 +16,10 @@ import android.widget.ListView;
 
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
-import com.bitbits.assistapp.adapters.ConversationList_Adapter;
+import com.bitbits.assistapp.adapters.UsersList_Adapter;
 import com.bitbits.assistapp.interfaces.IConversation;
-import com.bitbits.assistapp.models.Result;
 import com.bitbits.assistapp.models.User;
 import com.bitbits.assistapp.presenters.ConversationList_Presenter;
-import com.bitbits.assistapp.utilities.ApiClient;
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Fragment which will list the available conversations
@@ -38,10 +28,12 @@ import cz.msebera.android.httpclient.Header;
  * @version 1.0
  */
 public class ConversationList_Fragment extends Fragment implements IConversation.View {
-    private ConversationList_Adapter mAdapter;
+    private UsersList_Adapter mAdapter;
     private ListView mLstConvoList;
     private ListConversationListener mCallback;
     private IConversation.Presenter mPresenter;
+
+    Repository mRepository = Repository.getInstance();
 
     public interface ListConversationListener {
         void showMessaging(Bundle bundle);
@@ -87,7 +79,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_conversationlist, container, false);
 
-        getActivity().setTitle(Repository.getInstance().getCurrentUser().getFormattedName());
+        getActivity().setTitle(mRepository.getCurrentUser().getFormattedName());
 
         mLstConvoList = (ListView) rootView.findViewById(R.id.lstConvoList);
 
@@ -133,7 +125,11 @@ public class ConversationList_Fragment extends Fragment implements IConversation
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //TODO Implement search option
+            //TODO
+            case R.id.action_search:
+                break;
+            case R.id.action_order:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -141,7 +137,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
 
     @Override
     public void setData() {
-        mAdapter = new ConversationList_Adapter(getActivity());
+        mAdapter = new UsersList_Adapter(getActivity());
         mLstConvoList.setAdapter(mAdapter);
     }
 

@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/pref_notifications">
         <SwitchPreference
             android:defaultValue="true"
-            android:title="@string/pref_sound_title"
+            android:key="notifications_sound"
             android:summary="@string/pref_sound_summary"
-            android:key="notifications_sound"/>
+            android:title="@string/pref_sound_title" />
         <SwitchPreference
             android:defaultValue="true"
-            android:title="@string/pref_vibrate_title"
+            android:key="notifications_vibrate"
             android:summary="@string/pref_vibrate_summary"
-            android:key="notifications_vibrate"/>
+            android:title="@string/pref_vibrate_title" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_account">
         <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="@string/pref_password_title"
+            android:inputType="textPassword"
             android:key="password"
-            android:inputType="textPassword" />
-        <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="@string/pref_email_title"
+            android:title="@string/pref_password_title" />
+        <EditTextPreference
+            android:inputType="textEmailAddress"
             android:key="email"
-            android:inputType="textEmailAddress" />
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_email_title" />
     </PreferenceCategory>
 
     <!--<PreferenceCategory android:title="@string/pref_support">

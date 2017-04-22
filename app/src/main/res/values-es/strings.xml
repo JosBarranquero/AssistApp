@@ -11,16 +11,13 @@
     <string name="pref_sound_title">Sonido</string>
     <string name="pref_vibrate_summary">Vibrar cuando se reciba un mensaje</string>
     <string name="pref_vibrate_title">Vibración</string>
-    <string name="pref_about_title">Acerca de AssistApp</string>
+    <string name="nav_about">Acerca de AssistApp</string>
     <string name="pref_email_title">Cambiar dirección de email</string>
     <string name="pref_password_title">Cambiar contraseña</string>
-    <string name="nav_settings">Ajustes</string>
-    <string name="nav_logout">Cerrar sesión</string>
-    <string name="nav_med_record">Historia clínica</string>
+    <string name="settings">Ajustes</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="med_record">Historia clínica</string>
     <string name="send">Enviar</string>
-    <string name="content">Contenido</string>
-    <string name="receiver">Destinatario</string>
-    <string name="sender">De</string>
     <string name="masculine">Masculino</string>
     <string name="feminine">Femenino</string>
     <string name="options">Opciones</string>
@@ -28,8 +25,8 @@
     <string name="username">Usuario</string>
     <string name="speciality">Especialidad</string>
     <string name="drugs">Drogas</string>
-    <string name="alcoholic">Alcohólico</string>
-    <string name="smoker">Fumador</string>
+    <string name="alcoholic">Alcohol</string>
+    <string name="smoker">Tabaco</string>
     <string name="hospitalised">Hospitalizado</string>
     <string name="no_network">AssistApp necesita conexión a Internet para funcionar</string>
     <string name="loggingin">Iniciando sesión</string>
@@ -38,4 +35,15 @@
     <string name="about_company">BitBits, 2016–2017</string>
     <string name="about_Version">Versión %1$s</string>
     <string name="about_developed">Desarrollado por BitBits</string>
+    <string name="birthdate">"Fecha de nacimiento: "</string>
+    <string name="job">"Ocupación: "</string>
+    <string name="nationality">"Nacionalidad: "</string>
+    <string name="patient_name">"Nombre del paciente: "</string>
+    <string name="residence">"Residencia: "</string>
+    <string name="sex">"Sexo: "</string>
+    <string name="orderName">Ordenar por nombre</string>
+    <string name="orderSurname">Ordenar por apellido</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="no_data">No hay datos</string>
+    <string name="no_record">No hay historia</string>
 </resources>

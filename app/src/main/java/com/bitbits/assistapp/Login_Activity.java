@@ -3,9 +3,8 @@ package com.bitbits.assistapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +20,7 @@ import com.bitbits.assistapp.presenters.Login_Presenter;
 
 /**
  * Activity which will manage the system login
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
@@ -33,69 +33,78 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
     private IAccount.Presenter mLogin;
 
+    private Repository mRepository = Repository.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        //TODO
 
-        mLogin = new Login_Presenter(this);
-
-        if (User_Preferences.getPass(this) != null && User_Preferences.getUser(this) != null) {
-            validateCredentials(User_Preferences.getUser(this), User_Preferences.getPass(this));
+        if (!mRepository.isNetworkAvailable()) {
+            showNetworkError();
         } else {
-            mTilUser = (TextInputLayout) findViewById(R.id.tilUser);
-            mTilPassword = (TextInputLayout) findViewById(R.id.tilPassword);
+            setContentView(R.layout.activity_login);
 
-            mEdtUser = (EditText) findViewById(R.id.edtUser);
-            mEdtUser.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (User_Preferences.getPass(this) != null && User_Preferences.getUser(this) != null) {
+                launchActivity();
+            } else {
+                mLogin = new Login_Presenter(this);
 
-                }
+                mTilUser = (TextInputLayout) findViewById(R.id.tilUser);
+                mTilPassword = (TextInputLayout) findViewById(R.id.tilPassword);
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    mTilUser.setError(null);
-                }
+                mEdtUser = (EditText) findViewById(R.id.edtUser);
+                mEdtUser.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                @Override
-                public void afterTextChanged(Editable editable) {
+                    }
 
-                }
-            });
-            mEdtPassword = (EditText) findViewById(R.id.edtPassword);
-            mEdtPassword.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        mTilUser.setError(null);
+                    }
 
-                }
+                    @Override
+                    public void afterTextChanged(Editable editable) {
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    mTilPassword.setError(null);
-                }
+                    }
+                });
+                mEdtPassword = (EditText) findViewById(R.id.edtPassword);
+                mEdtPassword.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                @Override
-                public void afterTextChanged(Editable editable) {
+                    }
 
-                }
-            });
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        mTilPassword.setError(null);
+                    }
 
-            mBtnLogin = (Button) findViewById(R.id.btnLogin);
-            mBtnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+
+                mBtnLogin = (Button) findViewById(R.id.btnLogin);
+                mBtnLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         String user = mEdtUser.getText().toString();
                         String password = mEdtPassword.getText().toString();
                         validateCredentials(user, password);
-                }
-            });
+                    }
+                });
+            }
         }
     }
 
     /**
      * Method which shows and error message on the corresponding EditText
-     * @param error The text of the error
+     *
+     * @param error  The text of the error
      * @param idView The EditText where to show the error
      */
     @Override
@@ -106,11 +115,21 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
                 break;
             case R.id.edtUser:
                 mTilUser.setError(error);
+                break;
+            case R.id.activity_login:
+                Snackbar.make(findViewById(idView), error, Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        (Login_Activity.this).finish();
+                    }
+                }).show();
+                break;
         }
     }
 
     /**
      * Medthod which launches the Home_Activity after the credentials have been validated
+     *
      * @see Home_Activity
      */
     @Override
@@ -121,6 +140,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
     /**
      * Method which returns the Context
+     *
      * @return The context
      * @see Context
      */
@@ -132,35 +152,33 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
     /**
      * Method which validates the credential, but checks if the network is available beforehand
-     * @param user      The user name
-     * @param password  The password
+     *
+     * @param user     The user name
+     * @param password The password
      */
     private void validateCredentials(String user, String password) {
-        if (isNetworkAvailable()) {
+        if (mRepository.isNetworkAvailable()) {
             mLogin.validateCredentials(user, password);
         } else {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.app_name);
-            builder.setMessage(R.string.no_network);
-            builder.setCancelable(false);
-            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    finish();
-                }
-            });
-            builder.show();
+            showNetworkError();
         }
     }
 
     /**
-     * Method which checks for internet connectivity
-     * @return True if it network is available, false if it is not
+     * Method which shows an AlertDialog telling the user that the application needs a network connection
      */
-    private boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+    private void showNetworkError() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.app_name);
+        builder.setMessage(R.string.no_network);
+        builder.setCancelable(false);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        builder.show();
     }
 }

@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Model class for users
+ *
  * @author José Antonio Barranquero Fernández
  */
 public class User implements Serializable {
@@ -18,7 +19,9 @@ public class User implements Serializable {
 
     @Retention(RetentionPolicy.RUNTIME)
     @StringDef({NURSE, PATIENT})
-    public @interface Type {}
+    public @interface Type {
+    }
+
     public static final String NURSE = "Nurse";
     public static final String PATIENT = "Patient";
 

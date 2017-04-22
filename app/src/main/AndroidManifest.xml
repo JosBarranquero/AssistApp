@@ -14,9 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<provider
-            android:authorities="com.bitbits.assistapp"
-            android:name=".provider.SelfContentProvider"/>-->
+
         <activity android:name=".Login_Activity" android:windowSoftInputMode="adjustPan" android:noHistory="true" android:theme="@style/LoginTheme" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home_Activity" android:noHistory="true" android:screenOrientation="portrait"/>
+        <activity android:name=".Home_Activity" android:windowSoftInputMode="adjustResize" android:noHistory="true" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

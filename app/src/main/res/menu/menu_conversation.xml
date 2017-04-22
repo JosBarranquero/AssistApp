@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="@string/search"
-        android:icon="@drawable/ic_menu_search"
+    <item
         android:id="@+id/action_search"
-        app:showAsAction="ifRoom"/>
-    <!--<item android:icon="@android:drawable/ic_menu_more"
-        android:title="@string/provisional"
-        android:id="@+id/action_navDrawer"
-        app:showAsAction="collapseActionView"/>-->
+        android:icon="@drawable/ic_menu_search"
+        android:title="@string/search"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_order"
+        android:icon="@android:drawable/ic_menu_more"
+        android:title="@string/orderName"
+        app:showAsAction="never" />
 </menu>

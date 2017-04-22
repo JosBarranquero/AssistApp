@@ -40,6 +40,7 @@ public class Message implements Serializable {
 
     /**
      * Method which sets the Message date to the current date
+     *
      * @return The current date in yyyy-MM-dd HH:mm:ss format
      */
     private String setCurrentDate() {

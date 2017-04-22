@@ -17,6 +17,7 @@ import com.bitbits.assistapp.R;
 
 /**
  * About application fragment
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
@@ -35,8 +36,8 @@ public class About_Fragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_about, container, false);
 
-        mTxvVersion = (TextView)rootView.findViewById(R.id.txvAboutVersion);
-        mImgAppLogo = (ImageView)rootView.findViewById(R.id.imgAppLogo);
+        mTxvVersion = (TextView) rootView.findViewById(R.id.txvAboutVersion);
+        mImgAppLogo = (ImageView) rootView.findViewById(R.id.imgAppLogo);
 
         mTimeTapped = 0;
 

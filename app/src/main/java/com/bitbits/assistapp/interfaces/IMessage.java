@@ -1,8 +1,6 @@
 package com.bitbits.assistapp.interfaces;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.widget.CursorAdapter;
 
 import com.bitbits.assistapp.fragments.Messaging_Fragment;
 import com.bitbits.assistapp.models.Message;
@@ -18,12 +16,12 @@ import com.bitbits.assistapp.models.Message;
 public interface IMessage {
     interface View {
         void message();
-        //void setCursor(Cursor cursor);
         Context getContext();
+        void setData();
     }
 
     interface Presenter {
+        void getMessages(int receiver, int sender);
         void sendMessage(Message message);
-        //void getAllMessages(CursorAdapter adapter);
     }
 }

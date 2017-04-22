@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorOtherMessage">
 
     <ImageButton
         android:id="@+id/btnSend"
@@ -10,10 +11,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@color/colorOtherMessage"
-        android:src="@drawable/ic_action_send"
-        android:text="@string/send"
-        android:contentDescription="@string/send" />
+        android:background="@drawable/ic_action_send"
+        android:contentDescription="@string/send"
+        android:text="@string/send" />
 
     <EditText
         android:id="@+id/edtContent"
@@ -26,8 +26,8 @@
         android:layout_toStartOf="@+id/btnSend"
         android:ems="10"
         android:inputType="textCapSentences|textMultiLine"
-        android:maxLines="10"
-        android:maxLength="200" />
+        android:maxLength="200"
+        android:maxLines="10" />
 
     <ListView
         android:id="@+id/lstMessages"

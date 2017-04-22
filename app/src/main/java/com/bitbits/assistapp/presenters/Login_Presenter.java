@@ -26,12 +26,12 @@ import cz.msebera.android.httpclient.Header;
  * @version 1.0
  */
 public class Login_Presenter implements IAccount.Presenter {
-    Repository data = Repository.getInstance();
-    IAccount.View view;
+    Repository mData = Repository.getInstance();
+    IAccount.View mView;
     Context context;
 
     public Login_Presenter(IAccount.View view) {
-        this.view = view;
+        this.mView = view;
         context = view.getContext();
     }
 
@@ -46,7 +46,7 @@ public class Login_Presenter implements IAccount.Presenter {
     public boolean validateUser(String user) {
         boolean valid = false;
         if (TextUtils.isEmpty(user)) {
-            view.setErrorMessage(((Context) view).getResources().getString(R.string.data_empty), R.id.edtUser);
+            mView.setErrorMessage(((Context) mView).getResources().getString(R.string.data_empty), R.id.edtUser);
         } else {
             valid = true;
         }
@@ -65,19 +65,19 @@ public class Login_Presenter implements IAccount.Presenter {
         String error = "";
         boolean valid = false;
         if (TextUtils.isEmpty(password)) {
-            error = ((Context) view).getResources().getString(R.string.data_empty);
+            error = ((Context) mView).getResources().getString(R.string.data_empty);
         } else {
             if (!(password.matches("(.*)\\d(.*)")))
-                error = ((Context) view).getResources().getString(R.string.password_digit);
+                error = ((Context) mView).getResources().getString(R.string.password_digit);
             if (!(password.matches("(.*)\\p{Lower}(.*)") && password.matches("(.*)\\p{Upper}(.*)")))
-                error = ((Context) view).getResources().getString(R.string.password_case);
+                error = ((Context) mView).getResources().getString(R.string.password_case);
             if (password.length() < 8)
-                error = ((Context) view).getResources().getString(R.string.password_length);
+                error = ((Context) mView).getResources().getString(R.string.password_length);
             else
                 valid = true;
         }
         if (!valid)
-            view.setErrorMessage(error, R.id.edtPassword);
+            mView.setErrorMessage(error, R.id.edtPassword);
         return valid;
     }
 
@@ -90,7 +90,7 @@ public class Login_Presenter implements IAccount.Presenter {
      */
     public void validateCredentials(final String user, final String password) {
         if (validateUser(user) && validatePassword(password)) {
-            final ProgressDialog progressDialog = new ProgressDialog(view.getContext());
+            final ProgressDialog progressDialog = new ProgressDialog(mView.getContext());
 
             RequestParams params = new RequestParams();
             params.put("idDoc", user);
@@ -102,7 +102,7 @@ public class Login_Presenter implements IAccount.Presenter {
                     super.onStart();
                     if (User_Preferences.getPass(context) == null && User_Preferences.getUser(context) == null) {
                         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        progressDialog.setMessage(view.getContext().getString(R.string.loggingin));
+                        progressDialog.setMessage(mView.getContext().getString(R.string.loggingin));
                         progressDialog.setCancelable(false);
                         progressDialog.show();
                     }
@@ -116,16 +116,16 @@ public class Login_Presenter implements IAccount.Presenter {
                     result = gson.fromJson(String.valueOf(responseBody), Result.class);
                     if (result != null) {
                         if (result.getCode()) {
-                            data.setCurrentUser(result.getUsers().get(0));
-                            data.getCurrentUser().setPassword(password);
+                            mData.setCurrentUser(result.getUsers().get(0));
+                            mData.getCurrentUser().setPassword(password);
                             if (User_Preferences.getPass(context) == null && User_Preferences.getUser(context) == null) {
-                                User_Preferences.saveUser(data.getCurrentUser().getIdDoc(), context);
-                                User_Preferences.savePass(data.getCurrentUser().getPassword(), context);
-                                User_Preferences.saveEmail(data.getCurrentUser().getEmail(), context);
+                                User_Preferences.saveUser(mData.getCurrentUser().getIdDoc(), context);
+                                User_Preferences.savePass(mData.getCurrentUser().getPassword(), context);
+                                User_Preferences.saveEmail(mData.getCurrentUser().getEmail(), context);
                             }
-                            view.launchActivity();
+                            mView.launchActivity();
                         } else {
-                            view.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
+                            mView.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
                         }
                     }
                 }
@@ -133,12 +133,14 @@ public class Login_Presenter implements IAccount.Presenter {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     progressDialog.dismiss();
+                    mView.setErrorMessage(context.getString(R.string.connection_error), R.id.activity_login);
                     Log.e("Login", responseString);
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     progressDialog.dismiss();
+                    mView.setErrorMessage(context.getString(R.string.connection_error), R.id.activity_login);
                     Log.e("Login", throwable.getMessage());
                 }
             });

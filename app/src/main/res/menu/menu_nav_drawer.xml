@@ -3,28 +3,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navConvo"
+            android:checked="true"
             android:icon="@drawable/ic_action_convo"
-            android:title="@string/conversations"
-            android:checked="true"/>
+            android:title="@string/conversations" />
         <item
             android:id="@+id/navHistory"
             android:icon="@drawable/ic_action_record"
-            android:title="@string/nav_med_record" />
+            android:title="@string/med_record" />
         <item
             android:id="@+id/navSettings"
             android:icon="@drawable/ic_action_settings"
-            android:title="@string/nav_settings" />
+            android:title="@string/settings" />
     </group>
     <item android:title="@string/options">
         <menu>
             <item
                 android:id="@+id/navAbout"
                 android:icon="@drawable/ic_action_about"
-                android:title="@string/pref_about_title"/>
+                android:title="@string/nav_about" />
             <item
                 android:id="@+id/navLogout"
                 android:icon="@drawable/ic_action_logout"
-                android:title="@string/nav_logout" />
+                android:title="@string/logout" />
         </menu>
     </item>
 </menu>

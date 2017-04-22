@@ -4,77 +4,164 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/patient_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/record_top_margin"
+        android:layout_marginStart="@dimen/record_top_margin"
+        android:layout_marginTop="@dimen/record_top_margin"/>
+
+    <TextView
         android:id="@+id/txvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_toEndOf="@id/textView1"
+        android:layout_toRightOf="@id/textView1"
+        android:layout_alignBaseline="@id/textView1"
+        android:layout_marginEnd="@dimen/spacing_margin"
+        android:layout_marginRight="@dimen/spacing_margin" />
 
     <TextView
-        android:id="@+id/txvNationality"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txvName"
-        android:text="TextView" />
+        android:layout_below="@id/textView1"
+        android:layout_alignStart="@id/textView1"
+        android:layout_alignLeft="@id/textView1"
+        android:text="@string/birthdate"/>
 
     <TextView
         android:id="@+id/txvBirth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_toEndOf="@+id/txvName"
-        android:layout_toRightOf="@+id/txvName"
-        android:text="TextView" />
+        android:layout_toEndOf="@id/textView2"
+        android:layout_toRightOf="@id/textView2"
+        android:layout_alignBaseline="@id/textView2"
+        android:layout_marginEnd="@dimen/spacing_margin"
+        android:layout_marginRight="@dimen/spacing_margin" />
 
     <TextView
-        android:id="@+id/txvResidence"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/txvBirth"
-        android:layout_alignRight="@+id/txvBirth"
-        android:layout_below="@+id/txvBirth"
-        android:text="TextView" />
+        android:layout_below="@id/textView2"
+        android:layout_alignStart="@id/textView2"
+        android:layout_alignLeft="@id/textView2"
+        android:text="@string/nationality"/>
 
     <TextView
-        android:id="@+id/txvJob"
+        android:id="@+id/txvNationality"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txvNationality"
-        android:text="TextView" />
+        android:layout_toEndOf="@id/textView3"
+        android:layout_toRightOf="@id/textView3"
+        android:layout_alignBaseline="@id/textView3"
+        android:layout_marginEnd="@dimen/spacing_margin"
+        android:layout_marginRight="@dimen/spacing_margin" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txvJob">
-
-        <CheckBox
-            android:id="@+id/cbxAlcohol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/alcoholic" />
-
-        <CheckBox
-            android:id="@+id/cbxSmoker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/smoker" />
-
-        <CheckBox
-            android:id="@+id/cbxDrugs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/drugs" />
-
-    </LinearLayout>
+        android:layout_below="@id/textView3"
+        android:layout_alignStart="@id/textView3"
+        android:layout_alignLeft="@id/textView3"
+        android:text="@string/nationality"/>
 
     <TextView
         android:id="@+id/txvSex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_below="@+id/txvResidence"
-        android:layout_alignLeft="@+id/txvResidence"
-        android:layout_alignStart="@+id/txvResidence" />
+        android:layout_toEndOf="@id/textView4"
+        android:layout_toRightOf="@id/textView4"
+        android:layout_alignBaseline="@id/textView4"
+        android:layout_marginEnd="@dimen/spacing_margin"
+        android:layout_marginRight="@dimen/spacing_margin" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView4"
+        android:layout_alignStart="@id/textView4"
+        android:layout_alignLeft="@id/textView4"
+        android:text="@string/residence"/>
+
+    <TextView
+        android:id="@+id/txvResidence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/textView5"
+        android:layout_toRightOf="@id/textView5"
+        android:layout_alignBaseline="@id/textView5"
+        android:layout_marginEnd="@dimen/spacing_margin"
+        android:layout_marginRight="@dimen/spacing_margin" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView5"
+        android:layout_alignStart="@id/textView5"
+        android:layout_alignLeft="@id/textView5"
+        android:text="@string/job"/>
+
+    <TextView
+        android:id="@+id/txvJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/textView6"
+        android:layout_toRightOf="@id/textView6"
+        android:layout_alignBaseline="@id/textView6"
+        android:layout_marginEnd="@dimen/spacing_margin"
+        android:layout_marginRight="@dimen/spacing_margin" />
+
+    <RelativeLayout
+        android:id="@+id/rlCharacteristics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView6"
+        android:layout_marginEnd="@dimen/horizontal_margin"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginStart="@dimen/horizontal_margin"
+        android:layout_marginBottom="@dimen/spacing_margin">
+
+        <TextView
+            android:id="@+id/txvAlcohol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:enabled="false"
+            android:text="@string/alcoholic" />
+
+        <TextView
+            android:id="@+id/txvSmoker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:enabled="false"
+            android:text="@string/smoker" />
+
+        <TextView
+            android:id="@+id/tvxDrugs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:enabled="false"
+            android:text="@string/drugs" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/rlCharacteristics"
+        android:background="@color/colorPrimary"/>
 
 </RelativeLayout>

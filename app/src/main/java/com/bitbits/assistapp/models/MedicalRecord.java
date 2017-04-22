@@ -13,13 +13,14 @@ import java.util.Locale;
 
 /**
  * Class which defines medical records
+ *
  * @author José Antonio Barranquero Fernández
  */
 public class MedicalRecord implements Serializable {
     int id;
     int idData;
     String reason, antecedents;
-    boolean hospitalised;
+    int hospitalised;
     String date;
 
     public MedicalRecord(int id, int idData, String reason, String antecedents, boolean hospitalised, String date) {
@@ -27,8 +28,11 @@ public class MedicalRecord implements Serializable {
         this.idData = idData;
         this.reason = reason;
         this.antecedents = antecedents;
-        this.hospitalised = hospitalised;
         this.date = date;
+        if (hospitalised)
+            this.hospitalised = 1;
+        else
+            this.hospitalised = 0;
     }
 
     public int getId() {
@@ -48,7 +52,7 @@ public class MedicalRecord implements Serializable {
     }
 
     public boolean isHospitalised() {
-        return hospitalised;
+        return hospitalised == 1;
     }
 
     public String getDate() {
@@ -64,7 +68,7 @@ public class MedicalRecord implements Serializable {
                 dateFormat += DateFormat.getTimeFormat(AssistApp_Application.getContext()).format(date);
                 return dateFormat;
             } catch (ParseException e) {
-                Log.e("Msg", e.getMessage());
+                Log.e("Record", e.getMessage());
             }
         }
         return null;

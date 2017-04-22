@@ -2,14 +2,12 @@ package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +20,8 @@ import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.adapters.Messaging_Adapter;
 import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
-import com.bitbits.assistapp.models.Result;
 import com.bitbits.assistapp.models.User;
 import com.bitbits.assistapp.presenters.Messaging_Presenter;
-import com.bitbits.assistapp.utilities.ApiClient;
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Fragment which will show the messages in between users and allows to write new ones
@@ -47,6 +36,8 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
     private Messaging_Adapter mAdapter;
     private IMessage.Presenter mPresenter;
+
+    private Repository mRepository = Repository.getInstance();
 
     private User receiver;
 
@@ -65,7 +56,9 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         mPresenter = null;
+        mAdapter = null;
     }
 
     @Nullable
@@ -76,6 +69,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
         receiver = (User) getArguments().getSerializable("receiver");
         getActivity().setTitle(receiver.getFormattedName());
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
 
         rootView.setBackgroundColor(getResources().getColor(R.color.colorOtherMessage));
 
@@ -90,9 +84,9 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getMessages();
+        mPresenter.getMessages(receiver.getId(), mRepository.getCurrentUser().getId());
 
-        mBtnSend.setBackground(getResources().getDrawable(R.drawable.ic_action_send));
+        mBtnSend.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_send));
         mBtnSend.setEnabled(false);
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +94,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
                 String content = mEdtContent.getText().toString();
                 content = content.trim();
 
-                Message message = new Message(content, Repository.getInstance().getCurrentUser().getId(), receiver.getId());
+                Message message = new Message(content, mRepository.getCurrentUser().getId(), receiver.getId());
                 mPresenter.sendMessage(message);
 
                 mEdtContent.setText("");
@@ -142,41 +136,6 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         mLstMessages.setSelection(mLstMessages.getCount());
     }
 
-    private void getMessages() {
-        RequestParams params = new RequestParams();
-        params.put("receiver", receiver.getId());
-        params.put("sender", Repository.getInstance().getCurrentUser().getId());
-        ApiClient.post(ApiClient.MESSAGES, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Result result;
-                Gson gson = new Gson();
-                result = gson.fromJson(String.valueOf(response), Result.class);
-                if (result != null) {
-                    if (result.getCode()) {
-                        Repository.getInstance().setMessages(result.getMessages());
-
-                        mAdapter = new Messaging_Adapter(getActivity());
-                        mLstMessages.setAdapter(mAdapter);
-                        mLstMessages.setSelection(mLstMessages.getCount());
-                    } else {
-                        Log.e("MSG", result.getMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("MSG", responseString);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("MSG", throwable.getMessage());
-            }
-        });
-    }
-
     /**
      * Method which returns the Context
      *
@@ -186,5 +145,12 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public Context getContext() {
         return getActivity();
+    }
+
+    @Override
+    public void setData() {
+        mAdapter = new Messaging_Adapter(getActivity());
+        mLstMessages.setAdapter(mAdapter);
+        mLstMessages.setSelection(mLstMessages.getCount());
     }
 }

@@ -47,6 +47,7 @@ CREATE TABLE MedData (
     idPat INTEGER UNIQUE NOT NULL,
     sex ENUM("m", "f") NOT NULL,
     nationality VARCHAR(30) NOT NULL,
+    birthdate DATE NOT NULL,
     residence VARCHAR(100) NOT NULL,
     job VARCHAR(30) NOT NULL,
     smoker BOOLEAN NOT NULL,

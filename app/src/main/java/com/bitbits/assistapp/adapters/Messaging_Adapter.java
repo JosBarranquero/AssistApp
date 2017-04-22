@@ -14,6 +14,7 @@ import com.bitbits.assistapp.models.Message;
 
 /**
  * Adapter which manages the messages listed in Messaging_Fragment
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  * @see Message

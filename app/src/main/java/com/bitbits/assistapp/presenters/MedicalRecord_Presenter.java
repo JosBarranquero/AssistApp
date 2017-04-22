@@ -1,11 +1,19 @@
 package com.bitbits.assistapp.presenters;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.interfaces.IRecord;
-import com.bitbits.assistapp.models.MedicalData;
+import com.bitbits.assistapp.models.Result;
+import com.bitbits.assistapp.utilities.ApiClient;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Presenter for MedicalRecord_Fragment
@@ -14,21 +22,84 @@ import java.util.Locale;
  */
 
 public class MedicalRecord_Presenter implements IRecord.Presenter {
-    IRecord.View view;
+    private IRecord.View mView;
+    private Context mContext;
 
     public MedicalRecord_Presenter(IRecord.View view) {
-        this.view = view;
+        this.mView = view;
+        this.mContext = mView.getContext();
     }
 
     /**
-     * Method which loads the medical data and sends it to the mView, so it can be shown to the user
+     * Method which loads the medical mData and sends it to the mView, so it can be shown to the user
      */
     @Override
-    public void loadData(int userId) {
-        //TODO load medical data
-        MedicalData data = Repository.getInstance().getMedData().get(0);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    public void getData(int userId) {
+        ApiClient.get(ApiClient.MEDDATA + "/" + userId, new JsonHttpResponseHandler() {
 
-        view.setDataInfo(String.valueOf(data.getIdPat()), data.getNationality(), data.getJob(), data.getResidence(), data.getSex(), dateFormat.format(data.getBirthdate()), data.isSmoker(), data.isAlcoholic(), data.usesDrugs());
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Result result;
+                Gson gson = new Gson();
+                result = gson.fromJson(String.valueOf(response), Result.class);
+                if (result != null) {
+                    if (result.getCode()) {
+                        Repository.getInstance().setMedData(result.getMeddata());
+
+                        getRecord(result.getMeddata().get(0).getId());
+                    } else {
+                        mView.showError(mContext.getString(R.string.no_data));
+                        Log.e("Data", result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mView.showError(mContext.getString(R.string.connection_error));
+                Log.e("Data", responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                mView.showError(mContext.getString(R.string.connection_error));
+                Log.e("Data", throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getRecord(int dataId) {
+        ApiClient.get(ApiClient.MEDRECORD + "/" + dataId, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Result result;
+                Gson gson = new Gson();
+                result = gson.fromJson(String.valueOf(response), Result.class);
+                if (result != null) {
+                    if (result.getCode()) {
+                        Repository.getInstance().setRecord(result.getMedrecord());
+
+                        mView.setData();
+                    } else {
+                        mView.showError(mContext.getString(R.string.no_record));
+                        Log.e("Record", result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mView.showError(mContext.getString(R.string.connection_error));
+                Log.e("Record", responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                mView.showError(mContext.getString(R.string.connection_error));
+                Log.e("Record", throwable.getMessage());
+            }
+        });
     }
 }
