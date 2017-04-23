@@ -69,7 +69,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
         receiver = (User) getArguments().getSerializable("receiver");
         getActivity().setTitle(receiver.getFormattedName());
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);  //We set a back arrow in the top left of the screen
 
         rootView.setBackgroundColor(getResources().getColor(R.color.colorOtherMessage));
 
@@ -149,8 +149,10 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
     @Override
     public void setData() {
-        mAdapter = new Messaging_Adapter(getActivity());
-        mLstMessages.setAdapter(mAdapter);
-        mLstMessages.setSelection(mLstMessages.getCount());
+        if (getActivity() != null) {    // We make sure the fragment is visible by trying to get its activity
+            mAdapter = new Messaging_Adapter(getActivity());
+            mLstMessages.setAdapter(mAdapter);
+            mLstMessages.setSelection(mLstMessages.getCount());
+        }
     }
 }

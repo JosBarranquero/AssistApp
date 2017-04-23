@@ -3,10 +3,10 @@
     <string name="conversations">Conversations</string>
     <string name="credentials_error">Identifiant ou mot de passe erronés</string>
     <string name="data_empty">Le champ doit être saisi</string>
-    <string name="feminine">Féminin</string>
+    <string name="feminine">Femme</string>
     <string name="id_card">Numéro de carte d\'identité</string>
     <string name="login">S\'identifier</string>
-    <string name="masculine">Masculin</string>
+    <string name="masculine">Homme</string>
     <string name="logout">Se déconnecter</string>
     <string name="med_record">Dossier médical</string>
     <string name="settings">Paramètres</string>

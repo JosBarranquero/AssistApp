@@ -18,8 +18,8 @@
     <string name="logout">Cerrar sesión</string>
     <string name="med_record">Historia clínica</string>
     <string name="send">Enviar</string>
-    <string name="masculine">Masculino</string>
-    <string name="feminine">Femenino</string>
+    <string name="masculine">Hombre</string>
+    <string name="feminine">Mujer</string>
     <string name="options">Opciones</string>
     <string name="conversations">Conversaciones</string>
     <string name="username">Usuario</string>

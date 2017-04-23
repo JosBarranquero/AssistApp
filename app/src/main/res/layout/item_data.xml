@@ -69,7 +69,7 @@
         android:layout_below="@id/textView3"
         android:layout_alignStart="@id/textView3"
         android:layout_alignLeft="@id/textView3"
-        android:text="@string/nationality"/>
+        android:text="@string/sex"/>
 
     <TextView
         android:id="@+id/txvSex"
@@ -160,7 +160,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="1dp"
         android:layout_below="@id/rlCharacteristics"
         android:background="@color/colorPrimary"/>
 

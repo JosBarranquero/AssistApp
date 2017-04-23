@@ -17,8 +17,8 @@
     <string name="sex">"Sex: "</string>
     <string name="birthdate">"Birthdate: "</string>
 
-    <string name="masculine">Masculine</string>
-    <string name="feminine">Feminine</string>
+    <string name="masculine">Male</string>
+    <string name="feminine">Female</string>
 
     <string name="alcoholic">Alcohol</string>
     <string name="smoker">Tobbaco</string>

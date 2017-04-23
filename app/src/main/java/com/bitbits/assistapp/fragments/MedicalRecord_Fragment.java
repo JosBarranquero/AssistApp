@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,10 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
 
         View rootView = inflater.inflate(R.layout.fragment_medrecord, container, false);
 
+        if (mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE)) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);  //We set a back arrow in the top left of the screen
+        }
+
         mTxvBirth = (TextView) rootView.findViewById(R.id.txvBirth);
         mTxvJob = (TextView) rootView.findViewById(R.id.txvJob);
         mTxvName = (TextView) rootView.findViewById(R.id.txvName);
@@ -92,23 +97,25 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
      */
     @Override
     public void setData() {
-        mAdapter = new MedicalRecord_Adapter(getActivity());
-        mLstRecord.setAdapter(mAdapter);
+        if (getActivity() != null) {        // We make sure the fragment is visible by trying to get its activity
+            mAdapter = new MedicalRecord_Adapter(getActivity());
+            mLstRecord.setAdapter(mAdapter);
 
-        MedicalData data = mRepository.getMedData().get(0);
-        mTxvName.setText(mPat.getFormattedName());
-        mTxvNationality.setText(data.getNationality());
-        mTxvJob.setText(data.getJob());
-        mTxvResidence.setText(data.getResidence());
-        if (data.getSex().equalsIgnoreCase(MedicalData.FEM))
-            mTxvSex.setText(R.string.feminine);
-        else
-            mTxvSex.setText(R.string.masculine);
-        mTxvBirth.setText(data.getFormattedDate());
+            MedicalData data = mRepository.getMedData().get(0);
+            mTxvName.setText(mPat.getFormattedName());
+            mTxvNationality.setText(data.getNationality());
+            mTxvJob.setText(data.getJob());
+            mTxvResidence.setText(data.getResidence());
+            if (data.getSex().equalsIgnoreCase(MedicalData.FEM))
+                mTxvSex.setText(R.string.feminine);
+            else
+                mTxvSex.setText(R.string.masculine);
+            mTxvBirth.setText(data.getFormattedDate());
 
-        mTxvAlcohol.setEnabled(data.isAlcoholic());
-        mTxvSmoker.setEnabled(data.isSmoker());
-        mTxvDrugs.setEnabled(data.usesDrugs());
+            mTxvAlcohol.setEnabled(data.isAlcoholic());
+            mTxvSmoker.setEnabled(data.isSmoker());
+            mTxvDrugs.setEnabled(data.usesDrugs());
+        }
     }
 
     @Override
