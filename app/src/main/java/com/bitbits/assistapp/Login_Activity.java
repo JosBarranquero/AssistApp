@@ -3,6 +3,7 @@ package com.bitbits.assistapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -38,14 +39,12 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO
 
         if (!mRepository.isNetworkAvailable()) {
             showNetworkError();
         } else {
             setContentView(R.layout.activity_login);
-
-            if (User_Preferences.getPass(this) != null && User_Preferences.getUser(this) != null) {
+            if (User_Preferences.getPass(this) != null && User_Preferences.getUser(this) != null) { //If the user has already logged in we launch the next activity
                 launchActivity();
             } else {
                 mLogin = new Login_Presenter(this);
@@ -124,6 +123,8 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
                     }
                 }).show();
                 break;
+            case 0:
+                break;
         }
     }
 
@@ -177,6 +178,22 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 finish();
+            }
+        });
+        builder.show();
+    }
+
+    private void showVersionError() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.app_name);
+        builder.setMessage(R.string.old_version);
+        builder.setCancelable(false);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(AssistApp_Application.URL+"apk/AssistApp.apk"));
+                startActivity(i);
             }
         });
         builder.show();

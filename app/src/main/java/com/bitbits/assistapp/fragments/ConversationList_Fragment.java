@@ -33,6 +33,8 @@ public class ConversationList_Fragment extends Fragment implements IConversation
     private ListConversationListener mCallback;
     private IConversation.Presenter mPresenter;
 
+    private static boolean BY_NAME = true;
+
     Repository mRepository = Repository.getInstance();
 
     public interface ListConversationListener {
@@ -125,10 +127,16 @@ public class ConversationList_Fragment extends Fragment implements IConversation
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //TODO
             case R.id.action_search:
+                //TODO
                 break;
             case R.id.action_order:
+                BY_NAME = !BY_NAME;
+                mAdapter.sortUsers(BY_NAME);
+                if (BY_NAME)
+                    item.setTitle(R.string.orderSurname);   //If current sort is by name, we have to show the option to order by surname
+                else
+                    item.setTitle(R.string.orderName);
                 break;
         }
 

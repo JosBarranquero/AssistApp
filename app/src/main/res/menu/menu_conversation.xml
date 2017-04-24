@@ -5,10 +5,10 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_menu_search"
         android:title="@string/search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_order"
-        android:icon="@android:drawable/ic_menu_more"
-        android:title="@string/orderName"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_menu_order"
+        android:title="@string/orderSurname"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -13,7 +13,7 @@ import com.loopj.android.http.RequestParams;
  *          AssistApp
  */
 public class ApiClient {
-    public static final String BASE_URL = AssistApp_Application.URL + "API/";
+    private static final String BASE_URL = AssistApp_Application.URL + "API/";
     public static final String USERS = "user";
     public static final String MEDDATA = "meddata";
     public static final String MEDRECORD = "medrecord";
@@ -22,14 +22,15 @@ public class ApiClient {
 
     private static final String APIKEY = "assistapp";
 
-    private static final int MAX_TIMEOUT = 5000;
+    private static final int MAX_TIMEOUT = 3000;
     private static final int RETRIES = 3;
-    private static final int TIMEOUT_BETWEEN_RETRIES = 3000;
+    private static final int TIMEOUT_BETWEEN_RETRIES = 1500;
 
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
     public static void get(String url, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", APIKEY);
+        client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.get(getAbsoluteUrl(url), responseHandler);
@@ -37,6 +38,7 @@ public class ApiClient {
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", APIKEY);
+        client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.get(getAbsoluteUrl(url), params, responseHandler);
@@ -44,6 +46,7 @@ public class ApiClient {
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", APIKEY);
+        client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.post(getAbsoluteUrl(url), params, responseHandler);
@@ -51,6 +54,7 @@ public class ApiClient {
 
     public static void put(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", APIKEY);
+        client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.put(getAbsoluteUrl(url), params, responseHandler);
@@ -58,6 +62,7 @@ public class ApiClient {
 
     public static void delete(String url, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", APIKEY);
+        client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.delete(getAbsoluteUrl(url), responseHandler);

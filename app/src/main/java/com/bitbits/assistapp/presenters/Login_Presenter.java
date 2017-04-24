@@ -125,7 +125,10 @@ public class Login_Presenter implements IAccount.Presenter {
                             }
                             mView.launchActivity();
                         } else {
-                            mView.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
+                            if (result.getStatus() == 421)
+                                mView.setErrorMessage("", 0);
+                            else
+                                mView.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
                         }
                     }
                 }

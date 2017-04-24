@@ -28,7 +28,6 @@
     <string name="search">Chercher</string>
     <string name="send">Envoyer</string>
     <string name="username">Utilisateur</string>
-    <string name="speciality">Spécialité</string>
     <string name="drugs">Drogues</string>
     <string name="alcoholic">Alcool</string>
     <string name="smoker">Tabac</string>
@@ -51,4 +50,5 @@
     <string name="connection_error">Erreur de connexion</string>
     <string name="no_record">Pas de dossier</string>
     <string name="no_data">Pas d\'information</string>
+    <string name="old_version">Nouvelle version disponible, veuillez mettre à jour</string>
 </resources>

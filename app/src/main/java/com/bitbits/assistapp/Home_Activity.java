@@ -2,7 +2,9 @@ package com.bitbits.assistapp;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -124,15 +127,18 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
         View header = mNavigationView.getHeaderView(0);
 
-        TextView username = (TextView) header.findViewById(R.id.username);
-        username.setText(mRepository.getCurrentUser().getFormattedName());
-
         CircleImageView profileImage = (CircleImageView) header.findViewById(R.id.profile_image);
         Picasso.with(Home_Activity.this)
                 .load(AssistApp_Application.URL + mRepository.getCurrentUser().getImg())
                 .error(R.drawable.logo)
                 .placeholder(R.drawable.user)
                 .into(profileImage);
+
+        TextView username = (TextView) header.findViewById(R.id.username);
+        username.setText(mRepository.getCurrentUser().getFormattedName());
+
+        TextView doc = (TextView) header.findViewById(R.id.doc);
+        doc.setText(mRepository.getCurrentUser().getIdDoc());
     }
 
     /**
@@ -347,12 +353,15 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                         setupDrawer();
                         showConversations();
                     } else {
-                        Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.credentials_error), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                logOut();
-                            }
-                        }).show();
+                        if (result.getStatus() == 421)
+                            showVersionError();
+                        else
+                            Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.credentials_error), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    logOut();
+                                }
+                            }).show();
                     }
                 }
             }
@@ -379,5 +388,21 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                 Log.e("Login", throwable.getMessage());
             }
         });
+    }
+
+    private void showVersionError() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.app_name);
+        builder.setMessage(R.string.old_version);
+        builder.setCancelable(false);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(AssistApp_Application.URL + "apk/AssistApp.apk"));
+                startActivity(i);
+            }
+        });
+        builder.show();
     }
 }

@@ -11,11 +11,15 @@ import android.content.Context;
 
 public class AssistApp_Application extends Application {
     private static Context context;
-    public static String URL = "https://bitbits.hopto.org/AssistApp/";
+    public static final String URL = "https://bitbits.hopto.org/AssistApp/";
 
     public AssistApp_Application() {
         super();
         context = this;
+    }
+
+    public static String getCodename() {
+        return context.getString(R.string.codename);
     }
 
     public static Context getContext() {

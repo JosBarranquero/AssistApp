@@ -65,7 +65,7 @@ public class About_Fragment extends Fragment {
                     View messageView = getActivity().getLayoutInflater().inflate(R.layout.screen_bitbits, null, false);
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setIcon(R.drawable.bitbits);
-                    builder.setTitle(R.string.about_company);
+                    builder.setTitle(R.string.about_developed);
                     builder.setView(messageView);
                     builder.create();
                     builder.show();

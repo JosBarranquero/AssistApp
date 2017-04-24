@@ -60,6 +60,13 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
         return item;
     }
 
+    public void sortUsers(boolean byName) {
+        if (byName)
+            sort(User.NAME_COMPARATOR);
+        else
+            sort(User.SURNAME_COMPARATOR);
+    }
+
     class UserHolder {
         ImageView contact_image;
         TextView txvName;

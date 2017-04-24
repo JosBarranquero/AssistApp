@@ -1,10 +1,7 @@
 package com.bitbits.assistapp.models;
 
-import android.support.annotation.StringDef;
-
 import java.io.Serializable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.Comparator;
 
 /**
  * Model class for users
@@ -17,13 +14,22 @@ public class User implements Serializable {
     String type;
     String img;
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @StringDef({NURSE, PATIENT})
-    public @interface Type {
-    }
-
     public static final String NURSE = "Nurse";
     public static final String PATIENT = "Patient";
+
+    public static final Comparator<User> NAME_COMPARATOR = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    };
+
+    public static final Comparator<User> SURNAME_COMPARATOR = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            return o1.getSurname().compareTo(o2.getSurname());
+        }
+    };
 
     public User(int id, String pass, String doc, String name, String surname, String email, String type, String img) {
         this.id = id;
