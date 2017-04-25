@@ -124,6 +124,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
                 }).show();
                 break;
             case 0:
+                showVersionError();
                 break;
         }
     }
@@ -186,6 +187,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     private void showVersionError() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.app_name);
+        builder.setIcon(R.drawable.logo);
         builder.setMessage(R.string.old_version);
         builder.setCancelable(false);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

@@ -3,6 +3,7 @@ package com.bitbits.assistapp.utilities;
 import android.content.Context;
 
 import com.bitbits.assistapp.AssistApp_Application;
+import com.bitbits.assistapp.preferences.User_Preferences;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -20,7 +21,7 @@ public class ApiClient {
     public static final String ASSISTS = "assist";
     public static final String MESSAGES = "messages";
 
-    private static final String APIKEY = "assistapp";
+    public static final String DEFAULT_APIKEY = "assistapp";
 
     private static final int MAX_TIMEOUT = 3000;
     private static final int RETRIES = 3;
@@ -29,7 +30,7 @@ public class ApiClient {
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
     public static void get(String url, AsyncHttpResponseHandler responseHandler) {
-        client.addHeader("apikey", APIKEY);
+        client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -37,7 +38,7 @@ public class ApiClient {
     }
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.addHeader("apikey", APIKEY);
+        client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -45,7 +46,7 @@ public class ApiClient {
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.addHeader("apikey", APIKEY);
+        client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -53,7 +54,7 @@ public class ApiClient {
     }
 
     public static void put(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.addHeader("apikey", APIKEY);
+        client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -61,7 +62,7 @@ public class ApiClient {
     }
 
     public static void delete(String url, AsyncHttpResponseHandler responseHandler) {
-        client.addHeader("apikey", APIKEY);
+        client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);

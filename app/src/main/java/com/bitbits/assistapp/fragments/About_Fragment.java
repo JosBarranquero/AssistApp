@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bitbits.assistapp.AssistApp_Application;
 import com.bitbits.assistapp.R;
 
 /**
@@ -48,14 +49,7 @@ public class About_Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        try {
-            PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
-            String version = pInfo.versionName;
-
-            mTxvVersion.setText(String.format(getString(R.string.about_Version), version));
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("About", e.getMessage());
-        }
+        mTxvVersion.setText(String.format(getString(R.string.about_Version), AssistApp_Application.getVersion()));
 
         mImgAppLogo.setOnClickListener(new View.OnClickListener() {
             @Override

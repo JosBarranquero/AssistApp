@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.bitbits.assistapp.utilities.ApiClient;
+
 /**
  * Class which saves the User name and Password on a preferences file for logging in automatically
  *
@@ -15,6 +17,7 @@ public class User_Preferences {
     private static final String USER_KEY = "username";
     private static final String PASS_KEY = "password";
     private static final String EMAIL_KEY = "email";
+    private static final String APIKEY_KEY = "apikey";
     private static final String SOUND_KEY = "notifications_sound";
     private static final String VIBRA_KEY = "notifications_vibrate";
 
@@ -58,6 +61,18 @@ public class User_Preferences {
     }
 
     /**
+     * Method which saves the user apikey in yhe app preferences file
+     * @param apikey
+     * @param context
+     */
+    public static void saveApikey(String apikey, Context context) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(APIKEY_KEY, apikey);
+        editor.apply();
+    }
+
+    /**
      * Method which retrieves the username from the app preferences file
      *
      * @param context
@@ -88,6 +103,17 @@ public class User_Preferences {
     public static String getEmail(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getString(EMAIL_KEY, null);
+    }
+
+    /**
+     * Method which retrieves the user apikey from the app preferences file
+     *
+     * @param context
+     * @return The email
+     */
+    public static String getApikey(Context context) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(APIKEY_KEY, ApiClient.DEFAULT_APIKEY);
     }
 
     /**

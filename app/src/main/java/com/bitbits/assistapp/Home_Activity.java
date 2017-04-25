@@ -309,7 +309,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     }
 
     /**
-     * Method which deletes the saved user and password, and goes back to the Login_Activity
+     * Method which deletes the saved user information, and goes back to the Login_Activity
      *
      * @see User_Preferences
      * @see Login_Activity
@@ -318,6 +318,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         User_Preferences.savePass(null, this);
         User_Preferences.saveUser(null, this);
         User_Preferences.saveEmail(null, this);
+        User_Preferences.saveApikey(null, this);
+
         Intent intent = new Intent(Home_Activity.this, Login_Activity.class);
         startActivity(intent);
     }
@@ -393,6 +395,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     private void showVersionError() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.app_name);
+        builder.setIcon(R.drawable.logo);
         builder.setMessage(R.string.old_version);
         builder.setCancelable(false);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

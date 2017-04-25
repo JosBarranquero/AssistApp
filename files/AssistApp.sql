@@ -20,6 +20,7 @@ CREATE TABLE Users (
     type ENUM("patient", "nurse") NOT NULL,
     img VARCHAR(60) NOT NULL,
     email VARCHAR(40) NOT NULL,
+	apikey VARCHAR(16) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -78,4 +79,4 @@ DO
 	DELETE FROM Messages WHERE (DATEDIFF(CURDATE(), date) >= 14);
 
 
-INSERT INTO Users (idDoc, password, name, surname, type, img, email) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com';
+INSERT INTO Users (idDoc, password, name, surname, type, img, email, apikey) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com', SHA2('12345678A', 256);

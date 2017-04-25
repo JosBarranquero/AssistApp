@@ -122,6 +122,7 @@ public class Login_Presenter implements IAccount.Presenter {
                                 User_Preferences.saveUser(mData.getCurrentUser().getIdDoc(), context);
                                 User_Preferences.savePass(mData.getCurrentUser().getPassword(), context);
                                 User_Preferences.saveEmail(mData.getCurrentUser().getEmail(), context);
+                                User_Preferences.saveApikey(mData.getCurrentUser().getApikey(), context);
                             }
                             mView.launchActivity();
                         } else {

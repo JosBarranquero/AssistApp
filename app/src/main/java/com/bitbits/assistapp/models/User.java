@@ -13,6 +13,7 @@ public class User implements Serializable {
     String password, idDoc, name, surname, email;
     String type;
     String img;
+    String apikey;
 
     public static final String NURSE = "Nurse";
     public static final String PATIENT = "Patient";
@@ -31,7 +32,7 @@ public class User implements Serializable {
         }
     };
 
-    public User(int id, String pass, String doc, String name, String surname, String email, String type, String img) {
+    public User(int id, String pass, String doc, String name, String surname, String email, String type, String img, String apikey) {
         this.id = id;
         this.password = pass;
         this.idDoc = doc;
@@ -40,6 +41,7 @@ public class User implements Serializable {
         this.email = email;
         this.type = type;
         this.img = img;
+        this.apikey = apikey;
     }
 
     public int getId() {
@@ -108,5 +110,13 @@ public class User implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getApikey() {
+        return apikey;
+    }
+
+    public void setApikey(String apikey) {
+        this.apikey = apikey;
     }
 }
