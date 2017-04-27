@@ -42,7 +42,7 @@
     <string name="birthdate">"Date de naissance: "</string>
     <string name="job">"Job: "</string>
     <string name="nationality">"Nationalité: "</string>
-    <string name="patient_name">"Nom du patient: "</string>
+    <string name="patient">"Patient: "</string>
     <string name="residence">"Résidence: "</string>
     <string name="sex">"Sexe: "</string>
     <string name="orderName">Trier par prénom</string>

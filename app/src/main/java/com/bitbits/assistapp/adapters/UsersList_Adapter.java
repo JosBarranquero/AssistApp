@@ -15,6 +15,9 @@ import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.models.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 /**
  * Adapter which manages the contacts shown on the ConversationList_Fragment and the patients show in the PatientList_Fragment
  *
@@ -25,7 +28,7 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
     private Context context;
 
     public UsersList_Adapter(Context context) {
-        super(context, R.layout.item_userlist, Repository.getInstance().getUsers());
+        super(context, R.layout.item_userlist, new ArrayList<>(Repository.getInstance().getUsers()));
         this.context = context;
     }
 
@@ -65,6 +68,23 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
             sort(User.NAME_COMPARATOR);
         else
             sort(User.SURNAME_COMPARATOR);
+    }
+
+    public void searchUser(String query) {
+        String myQuery = query.toLowerCase(Locale.getDefault());
+        clear();
+        if (myQuery.length() == 0) {
+            addAll(Repository.getInstance().getUsers());
+        } else {
+            for (User user : Repository.getInstance().getUsers()) {
+                if (user.getName().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
+                        user.getSurname().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
+                        user.getIdDoc().toLowerCase(Locale.getDefault()).startsWith(myQuery)) {
+                    add(user);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     class UserHolder {

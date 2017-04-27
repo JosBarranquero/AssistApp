@@ -5,14 +5,22 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
@@ -28,8 +36,10 @@ import com.bitbits.assistapp.presenters.ConversationList_Presenter;
  * @version 1.0
  */
 public class ConversationList_Fragment extends Fragment implements IConversation.View {
-    private UsersList_Adapter mAdapter;
     private ListView mLstConvoList;
+    private EditText mEdtSearch;
+
+    private UsersList_Adapter mAdapter;
     private ListConversationListener mCallback;
     private IConversation.Presenter mPresenter;
 
@@ -72,6 +82,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
     public void onDestroy() {
         super.onDestroy();
 
+        mPresenter = null;
         mAdapter = null;
     }
 
@@ -84,6 +95,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
         getActivity().setTitle(mRepository.getCurrentUser().getFormattedName());
 
         mLstConvoList = (ListView) rootView.findViewById(R.id.lstConvoList);
+        mEdtSearch = (EditText) rootView.findViewById(R.id.edtSearch);
 
         return rootView;
     }
@@ -100,6 +112,34 @@ public class ConversationList_Fragment extends Fragment implements IConversation
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("receiver", (User) parent.getItemAtPosition(position));
                 mCallback.showMessaging(bundle);
+            }
+        });
+        mEdtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {       // When the EditText content changes
+                mAdapter.searchUser(mEdtSearch.getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mEdtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean action = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mEdtSearch.getWindowToken(), 0);
+                    action = true;
+                }
+                return action;
             }
         });
     }
@@ -128,7 +168,16 @@ public class ConversationList_Fragment extends Fragment implements IConversation
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                //TODO
+                if (mEdtSearch.getVisibility() == View.GONE) {
+                    mEdtSearch.setVisibility(View.VISIBLE);
+                    mEdtSearch.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(mEdtSearch, InputMethodManager.SHOW_IMPLICIT);
+                } else {
+                    mEdtSearch.setVisibility(View.GONE);
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mEdtSearch.getWindowToken(), 0);
+                }
                 break;
             case R.id.action_order:
                 BY_NAME = !BY_NAME;

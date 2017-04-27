@@ -4,9 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/edtSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:imeOptions="actionSearch"
+        android:inputType="textCapSentences"
+        android:maxLength="200"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/lstConvoList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/edtSearch" />
 
 </RelativeLayout>

@@ -26,7 +26,7 @@ public class Repository {
     private ArrayList<MedicalRecord> records;
     private User current;
 
-    public static Repository getInstance() {
+    public synchronized static Repository getInstance() {
         if (myInstance == null) {
             myInstance = new Repository();
         }
@@ -59,7 +59,7 @@ public class Repository {
         return current;
     }
 
-    public List<User> getUsers() {
+    public ArrayList<User> getUsers() {
         return users;
     }
 
@@ -71,7 +71,7 @@ public class Repository {
         messages.add(m);
     }
 
-    public List<Message> getMessages() {
+    public ArrayList<Message> getMessages() {
         return messages;
     }
 
@@ -79,7 +79,7 @@ public class Repository {
         this.messages = messages;
     }
 
-    public List<MedicalData> getMedData() {
+    public ArrayList<MedicalData> getMedData() {
         return data;
     }
 

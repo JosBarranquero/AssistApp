@@ -13,7 +13,7 @@
 
     <string name="date">Date</string>
 
-    <string name="patient_name">"Patient name: "</string>
+    <string name="patient">\"Patient: \"</string>
     <string name="nationality">"Nationality: "</string>
     <string name="residence">"Residence: "</string>
     <string name="job">"Job: "</string>
