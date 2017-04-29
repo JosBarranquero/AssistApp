@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -13,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
@@ -32,7 +33,7 @@ import com.bitbits.assistapp.presenters.Messaging_Presenter;
 public class Messaging_Fragment extends Fragment implements IMessage.View {
     private EditText mEdtContent;
     private ImageButton mBtnSend;
-    private ListView mLstMessages;
+    private RecyclerView mLstMessages;
 
     private Messaging_Adapter mAdapter;
     private IMessage.Presenter mPresenter;
@@ -71,9 +72,11 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         getActivity().setTitle(receiver.getFormattedName());
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);  //We set a back arrow in the top left of the screen
 
+        mPresenter.readMessage(receiver);   // We read our receiver messages
+
         rootView.setBackgroundColor(getResources().getColor(R.color.colorOtherMessage));
 
-        mLstMessages = (ListView) rootView.findViewById(R.id.lstMessages);
+        mLstMessages = (RecyclerView) rootView.findViewById(R.id.lstMessages);
         mEdtContent = (EditText) rootView.findViewById(R.id.edtContent);
         mBtnSend = (ImageButton) rootView.findViewById(R.id.btnSend);
 
@@ -85,6 +88,11 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         super.onViewCreated(view, savedInstanceState);
 
         mPresenter.getMessages(receiver.getId(), mRepository.getCurrentUser().getId());
+
+        mLstMessages.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setStackFromEnd(true);
+        mLstMessages.setLayoutManager(linearLayoutManager);
 
         mBtnSend.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_send));
         mBtnSend.setEnabled(false);
@@ -133,7 +141,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void message() {
         mAdapter.notifyDataSetChanged();
-        mLstMessages.setSelection(mLstMessages.getCount());
+        mLstMessages.scrollToPosition(mRepository.getMessages().size()-1);
     }
 
     /**
@@ -152,7 +160,6 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         if (getActivity() != null) {    // We make sure the fragment is visible by trying to get its activity
             mAdapter = new Messaging_Adapter(getActivity());
             mLstMessages.setAdapter(mAdapter);
-            mLstMessages.setSelection(mLstMessages.getCount());
         }
     }
 }

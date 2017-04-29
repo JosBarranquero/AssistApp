@@ -18,7 +18,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -174,6 +173,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(mEdtSearch, InputMethodManager.SHOW_IMPLICIT);
                 } else {
+                    mEdtSearch.setText("");
                     mEdtSearch.setVisibility(View.GONE);
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mEdtSearch.getWindowToken(), 0);
@@ -194,8 +194,10 @@ public class ConversationList_Fragment extends Fragment implements IConversation
 
     @Override
     public void setData() {
-        mAdapter = new UsersList_Adapter(getActivity());
-        mLstConvoList.setAdapter(mAdapter);
+        if (getActivity() != null) {
+            mAdapter = new UsersList_Adapter(getActivity(), true);
+            mLstConvoList.setAdapter(mAdapter);
+        }
     }
 
     @Override

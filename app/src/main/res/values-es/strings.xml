@@ -46,4 +46,6 @@
     <string name="no_data">No hay datos</string>
     <string name="no_record">No hay historia</string>
     <string name="old_version">Disponible nueva versión, actualiza por favor</string>
+    <string name="new_messages">%1$s mensajes nuevos</string>
+    <string name="new_message">%1$s mensaje nuevo</string>
 </resources>

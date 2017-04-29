@@ -68,6 +68,13 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     private NavigationView mNavigationView;
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        showConversations();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_nav);
@@ -216,9 +223,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     public void showConversations() {
         FragmentManager fragmentManager = getFragmentManager();
 
-        if (mConversationListFragment == null) {
-            mConversationListFragment = new ConversationList_Fragment();
-        }
+        mConversationListFragment = new ConversationList_Fragment();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framehome, mConversationListFragment, CONVERSATION_LIST_FRAGMENT);
@@ -315,6 +320,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * @see Login_Activity
      */
     public void logOut() {
+        User_Preferences.saveId(0, this);
         User_Preferences.savePass(null, this);
         User_Preferences.saveUser(null, this);
         User_Preferences.saveEmail(null, this);
@@ -350,7 +356,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                 if (result != null) {
                     if (result.getCode()) {
                         mRepository.setCurrentUser(result.getUsers().get(0));
-                        mRepository.getCurrentUser().setPassword(password);
+
+                        User_Preferences.saveId(mRepository.getCurrentUser().getId(), Home_Activity.this); // TODO remove
 
                         setupDrawer();
                         showConversations();

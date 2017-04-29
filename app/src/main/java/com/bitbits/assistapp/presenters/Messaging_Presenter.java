@@ -7,12 +7,16 @@ import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.Result;
+import com.bitbits.assistapp.models.User;
 import com.bitbits.assistapp.utilities.ApiClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -24,10 +28,9 @@ import cz.msebera.android.httpclient.Header;
  *          25/12/16
  */
 public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.LoaderCallbacks<Cursor>*/ {
-    public static final int MESSAGES = 1;
-
-    IMessage.View mView;
-    Context context;
+    private IMessage.View mView;
+    private Context context;
+    private Repository mRepository = Repository.getInstance();
 
     public Messaging_Presenter(IMessage.View view) {
         mView = view;
@@ -55,7 +58,7 @@ public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.
                     if (!result.getCode()) {
                         Log.e("MSG", result.getMessage());
                     } else {
-                        Repository.getInstance().writeMessage(message);
+                        mRepository.writeMessage(message);
                         mView.message();
                     }
                 }
@@ -73,6 +76,25 @@ public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.
         });
     }
 
+    /**
+     * Method which sets the received messages from sender as read, removing them from out list
+     * @param sender The user which sends the message
+     */
+    @Override
+    public void readMessage(User sender) {
+        ArrayList<Message> unread = mRepository.getUnread();
+        Iterator<Message> iter = unread.iterator();
+
+        while (iter.hasNext()) {
+            Message message = iter.next();
+
+            if (message.getSender() == sender.getId()) {
+                iter.remove();
+                mRepository.getUnread().remove(message);
+            }
+        }
+    }
+
     public void getMessages(int receiver, int sender) {
         RequestParams params = new RequestParams();
         params.put("receiver", receiver);
@@ -85,7 +107,7 @@ public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.
                 result = gson.fromJson(String.valueOf(response), Result.class);
                 if (result != null) {
                     if (result.getCode()) {
-                        Repository.getInstance().setMessages(result.getMessages());
+                        mRepository.setMessages(result.getMessages());
 
                         mView.setData();
                     } else {

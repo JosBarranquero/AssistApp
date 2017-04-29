@@ -14,6 +14,7 @@ import com.bitbits.assistapp.utilities.ApiClient;
  */
 public class User_Preferences {
     private static SharedPreferences sharedPreferences;
+    private static final String ID_KEY = "id";
     private static final String USER_KEY = "username";
     private static final String PASS_KEY = "password";
     private static final String EMAIL_KEY = "email";
@@ -44,6 +45,13 @@ public class User_Preferences {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(PASS_KEY, password);
+        editor.apply();
+    }
+
+    public static void saveId(int id, Context context) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(ID_KEY, id);
         editor.apply();
     }
 
@@ -92,6 +100,11 @@ public class User_Preferences {
     public static String getPass(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getString(PASS_KEY, null);
+    }
+
+    public static int getId(Context context) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getInt(ID_KEY, 0);
     }
 
     /**

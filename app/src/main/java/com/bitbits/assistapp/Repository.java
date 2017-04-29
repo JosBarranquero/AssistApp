@@ -20,10 +20,13 @@ import java.util.List;
  */
 public class Repository {
     private static Repository myInstance;
+
     private ArrayList<User> users;
     private ArrayList<Message> messages;
     private ArrayList<MedicalData> data;
     private ArrayList<MedicalRecord> records;
+    private ArrayList<Message> unread;
+
     private User current;
 
     public synchronized static Repository getInstance() {
@@ -38,6 +41,7 @@ public class Repository {
         messages = new ArrayList<>();
         data = new ArrayList<>();
         records = new ArrayList<>();
+        unread = new ArrayList<>();
     }
 
     /**
@@ -93,5 +97,13 @@ public class Repository {
 
     public void setRecord(ArrayList<MedicalRecord> records) {
         this.records = records;
+    }
+
+    public void setUnread(ArrayList<Message> unread) {
+        this.unread = unread;
+    }
+
+    public ArrayList<Message> getUnread() {
+        return unread;
     }
 }

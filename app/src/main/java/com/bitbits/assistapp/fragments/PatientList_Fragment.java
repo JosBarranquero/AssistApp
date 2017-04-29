@@ -83,7 +83,7 @@ public class PatientList_Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new UsersList_Adapter(getActivity());
+        mAdapter = new UsersList_Adapter(getActivity(), false);
         mLstPatientList.setAdapter(mAdapter);
 
         mLstPatientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -153,6 +153,7 @@ public class PatientList_Fragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(mEdtSearch, InputMethodManager.SHOW_IMPLICIT);    // Show soft keyboard
                 } else {
+                    mEdtSearch.setText("");
                     mEdtSearch.setVisibility(View.GONE);            // Hide search bar
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mEdtSearch.getWindowToken(), 0);        // Hide soft keyboard

@@ -1,5 +1,5 @@
 <!DOCTYPE resources [
-    <!ENTITY codename "Sonata">
+    <!ENTITY codename "Harmony">
     ]>
 
 <resources>
@@ -24,7 +24,7 @@
     <string name="feminine">Female</string>
 
     <string name="alcoholic">Alcohol</string>
-    <string name="smoker">Tobbaco</string>
+    <string name="smoker">Tobacco</string>
     <string name="drugs">Drugs</string>
 
     <string name="hospitalised">Hospitalised</string>
@@ -67,4 +67,7 @@
     <string name="no_record">No records registered</string>
 
     <string name="old_version">New version available, please update</string>
+
+    <string name="new_messages">%1$s new messages</string>
+    <string name="new_message">%1$s new message</string>
 </resources>

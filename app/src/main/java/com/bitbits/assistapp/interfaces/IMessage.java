@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.bitbits.assistapp.fragments.Messaging_Fragment;
 import com.bitbits.assistapp.models.Message;
+import com.bitbits.assistapp.models.User;
 
 /**
  * Interface to be implemented by Messaging_Fragment and Messaging_Presenter
@@ -23,5 +24,6 @@ public interface IMessage {
     interface Presenter {
         void getMessages(int receiver, int sender);
         void sendMessage(Message message);
+        void readMessage(User sender);
     }
 }

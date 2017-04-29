@@ -81,4 +81,29 @@ public class Message implements Serializable {
         }
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equals = false;
+
+        if (obj != null) {
+            if (obj instanceof Message) {
+                Message message = (Message)obj;
+
+                if (message.getId() == this.getId()) {
+                    if (message.getSender() == this.getSender()) {
+                        if (message.getReceiver() == this.getReceiver()) {
+                            if (message.getContent().equalsIgnoreCase(this.getContent())) {
+                                if (message.getFormattedDate().equalsIgnoreCase(this.getFormattedDate())) {
+                                    equals = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return equals;
+    }
 }

@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bitbits.assistapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission-sdk-23 android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission-sdk-23 android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".AssistApp_Application"
@@ -15,14 +19,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Login_Activity" android:windowSoftInputMode="adjustPan" android:noHistory="true" android:theme="@style/LoginTheme" android:screenOrientation="portrait">
+        <activity
+            android:name=".Login_Activity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home_Activity" android:windowSoftInputMode="adjustResize" android:noHistory="true" android:screenOrientation="portrait"/>
-    </application>
 
+        <activity
+            android:name=".Home_Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:launchMode="singleTop"/>
+
+        <service
+            android:name=".services.Message_Service"
+            android:exported="false"/>
+
+        <receiver
+            android:name=".receivers.Message_Receiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.bitbits.assistapp.NEW_MESSAGE" />
+            </intent-filter>
+        </receiver>
+
+    </application>
 </manifest>

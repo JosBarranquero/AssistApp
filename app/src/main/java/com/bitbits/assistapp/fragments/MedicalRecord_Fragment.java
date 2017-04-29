@@ -120,7 +120,9 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
 
     @Override
     public void showError(String error) {
-        Snackbar.make(getView(), error, Snackbar.LENGTH_SHORT).show();
+        if (getView() != null) {
+            Snackbar.make(getView(), error, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override

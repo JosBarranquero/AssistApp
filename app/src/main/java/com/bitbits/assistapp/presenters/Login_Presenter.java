@@ -121,14 +121,15 @@ public class Login_Presenter implements IAccount.Presenter {
                             if (User_Preferences.getPass(context) == null && User_Preferences.getUser(context) == null) {
                                 User_Preferences.saveUser(mData.getCurrentUser().getIdDoc(), context);
                                 User_Preferences.savePass(mData.getCurrentUser().getPassword(), context);
+                                User_Preferences.saveId(mData.getCurrentUser().getId(), context);
                                 User_Preferences.saveEmail(mData.getCurrentUser().getEmail(), context);
                                 User_Preferences.saveApikey(mData.getCurrentUser().getApikey(), context);
                             }
                             mView.launchActivity();
                         } else {
-                            if (result.getStatus() == 421)
-                                mView.setErrorMessage("", 0);
-                            else
+                            if (result.getStatus() == 421)  //Old version
+                                mView.setErrorMessage(context.getString(R.string.old_version), 0);
+                            else    //Incorrect credentials
                                 mView.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
                         }
                     }
