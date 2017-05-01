@@ -26,8 +26,13 @@ import cz.msebera.android.httpclient.Header;
 
 /**
  * Service which looks for new messages
+ * @author José Antonio Barranquero Fernández
+ * @version 1.1
+ *          AssistApp
  */
 public class Message_Service extends IntentService {
+    private static final String TAG = "MsgSrv";
+
     private Repository mRepository = Repository.getInstance();
 
     public Message_Service() {
@@ -42,12 +47,13 @@ public class Message_Service extends IntentService {
             @Override
             public void run() {
                 if (mRepository.isNetworkAvailable()) {
-                    Log.v("MsgSrv", "Connecting...");
+                    Log.v(TAG, "Connecting...");
 
                     fetchNewMessages();
                 } else {
-                    Log.v("MsgSrv", "No network");
+                    Log.v(TAG, "No network");
                 }
+                handler.postDelayed(this, 10000);
             }
         }, 10000);
 
@@ -59,8 +65,10 @@ public class Message_Service extends IntentService {
 
     }
 
+    /**
+     * Method which fetches new messages
+     */
     private void fetchNewMessages() {
-
         ApiClient.get(ApiClient.MESSAGES + "/" + User_Preferences.getId(AssistApp_Application.getContext()), null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -70,7 +78,7 @@ public class Message_Service extends IntentService {
                 if (result != null) {
                     if (result.getCode()) {
                         if (!checkMessages(result.getMessages())) {
-                            Log.v("MsgSrv", "Got messages!");
+                            Log.v(TAG, "Got messages!");
 
                             mRepository.setUnread(result.getMessages());
 
@@ -81,27 +89,27 @@ public class Message_Service extends IntentService {
                             intent.setAction(Message_Receiver.ACTION_MESSAGE);
                             sendBroadcast(intent);
                         } else {
-                            Log.v("MsgSrv", "No new messages");
+                            Log.v(TAG, "No new messages");
                         }
                     }
                 }
-                Log.v("MsgSrv", "Completed");
+                Log.v(TAG, "Completed");
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("MsgSrv", responseString);
+                Log.e(TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("MsgSrv", throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
 
     /**
-     * Method which checks if the returned messages
+     * Method which checks if the returned messages are the same as the ones we got
      *
      * @param unread
      * @return

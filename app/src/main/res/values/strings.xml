@@ -1,5 +1,5 @@
 <!DOCTYPE resources [
-    <!ENTITY codename "Harmony">
+    <!ENTITY codename "Aria">
     ]>
 
 <resources>
@@ -13,7 +13,7 @@
 
     <string name="date">Date</string>
 
-    <string name="patient">\"Patient: \"</string>
+    <string name="patient">"Patient: "</string>
     <string name="nationality">"Nationality: "</string>
     <string name="residence">"Residence: "</string>
     <string name="job">"Job: "</string>

@@ -14,11 +14,12 @@ import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.preferences.User_Preferences;
 
 /**
+ * Receiver which notifies the user when a message is received
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
  */
-
 public class Message_Receiver extends BroadcastReceiver {
     public static final String ACTION_MESSAGE = "com.bitbits.assistapp.NEW_MESSAGE";
     public static final String MESSAGE_COUNT = "count";
@@ -31,10 +32,9 @@ public class Message_Receiver extends BroadcastReceiver {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
         notificationBuilder.setAutoCancel(true);
 
-        int count = intent.getExtras().getInt(MESSAGE_COUNT);
-
         notificationBuilder.setContentTitle(context.getString(R.string.app_name));
 
+        int count = intent.getExtras().getInt(MESSAGE_COUNT);
         if (count > 1)
             notificationBuilder.setContentText(String.format(context.getString(R.string.new_messages), String.valueOf(count)));
         else

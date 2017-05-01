@@ -26,9 +26,11 @@ import cz.msebera.android.httpclient.Header;
  * @version 1.0
  */
 public class Login_Presenter implements IAccount.Presenter {
-    Repository mData = Repository.getInstance();
-    IAccount.View mView;
-    Context context;
+    private static final String TAG = "Login";
+
+    private Repository mData = Repository.getInstance();
+    private IAccount.View mView;
+    private Context context;
 
     public Login_Presenter(IAccount.View view) {
         this.mView = view;
@@ -139,14 +141,14 @@ public class Login_Presenter implements IAccount.Presenter {
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     progressDialog.dismiss();
                     mView.setErrorMessage(context.getString(R.string.connection_error), R.id.activity_login);
-                    Log.e("Login", responseString);
+                    Log.e(TAG, responseString);
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     progressDialog.dismiss();
                     mView.setErrorMessage(context.getString(R.string.connection_error), R.id.activity_login);
-                    Log.e("Login", throwable.getMessage());
+                    Log.e(TAG, throwable.getMessage());
                 }
             });
         }

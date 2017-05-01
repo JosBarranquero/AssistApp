@@ -27,12 +27,4 @@
             android:singleLine="true"
             android:title="@string/pref_email_title" />
     </PreferenceCategory>
-
-    <!--<PreferenceCategory android:title="@string/pref_support">
-        <EditTextPreference
-            android:key="about"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="@string/pref_about_title"/>
-    </PreferenceCategory>-->
 </PreferenceScreen>

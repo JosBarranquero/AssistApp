@@ -3,18 +3,19 @@ package com.bitbits.assistapp.models;
 import java.util.ArrayList;
 
 /**
+ * Middleclass for network communication
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
  */
 public class Result {
-    boolean code;
-    int status;
-    String message;
-    ArrayList<User> users;
-    ArrayList<MedicalData> meddata;
-    ArrayList<MedicalRecord> medrecord;
-    ArrayList<Message> messages;
+    private boolean code;
+    private int status;
+    private String message;
+    private ArrayList<User> users;
+    private ArrayList<MedicalData> meddata;
+    private ArrayList<MedicalRecord> medrecord;
+    private ArrayList<Message> messages;
 
     public boolean getCode() {
         return code;

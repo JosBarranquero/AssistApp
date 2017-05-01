@@ -9,15 +9,18 @@ import java.util.Comparator;
  * @author José Antonio Barranquero Fernández
  */
 public class User implements Serializable {
-    int id;
-    String password, idDoc, name, surname, email;
-    String type;
-    String img;
-    String apikey;
+    private int id;
+    private String password, idDoc, name, surname, email;
+    private String type;
+    private String img;
+    private String apikey;
 
     public static final String NURSE = "Nurse";
     public static final String PATIENT = "Patient";
 
+    /**
+     * Comparators, so the users list can be sorted by name or surname
+     */
     public static final Comparator<User> NAME_COMPARATOR = new Comparator<User>() {
         @Override
         public int compare(User o1, User o2) {

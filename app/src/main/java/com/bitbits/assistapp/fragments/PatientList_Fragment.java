@@ -74,7 +74,7 @@ public class PatientList_Fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_patientlist, container, false);
 
         mLstPatientList = (ListView) rootView.findViewById(R.id.lstPatientList);
-        mEdtSearch = (EditText)rootView.findViewById(R.id.edtSearch);
+        mEdtSearch = (EditText) rootView.findViewById(R.id.edtSearch);
 
         return rootView;
     }

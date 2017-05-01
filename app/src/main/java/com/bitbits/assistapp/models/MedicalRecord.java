@@ -17,11 +17,13 @@ import java.util.Locale;
  * @author José Antonio Barranquero Fernández
  */
 public class MedicalRecord implements Serializable {
-    int id;
-    int idData;
-    String reason, antecedents;
-    int hospitalised;
-    String date;
+    private static final String TAG = "Record";
+
+    private int id;
+    private int idData;
+    private String reason, antecedents;
+    private int hospitalised;
+    private String date;
 
     public MedicalRecord(int id, int idData, String reason, String antecedents, boolean hospitalised, String date) {
         this.id = id;
@@ -59,6 +61,10 @@ public class MedicalRecord implements Serializable {
         return date;
     }
 
+    /**
+     * Formats the date according to the system locales
+     * @return Formatted date
+     */
     public String getFormattedDate() {
         if (this.date != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -68,7 +74,7 @@ public class MedicalRecord implements Serializable {
                 dateFormat += DateFormat.getTimeFormat(AssistApp_Application.getContext()).format(date);
                 return dateFormat;
             } catch (ParseException e) {
-                Log.e("Record", e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
         }
         return null;

@@ -27,7 +27,9 @@ import cz.msebera.android.httpclient.Header;
  * @version 1.0
  *          25/12/16
  */
-public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.LoaderCallbacks<Cursor>*/ {
+public class Messaging_Presenter implements IMessage.Presenter {
+    private static final String TAG = "Msg";
+
     private IMessage.View mView;
     private Context context;
     private Repository mRepository = Repository.getInstance();
@@ -56,7 +58,7 @@ public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.
                 result = gson.fromJson(String.valueOf(response), Result.class);
                 if (result != null) {
                     if (!result.getCode()) {
-                        Log.e("MSG", result.getMessage());
+                        Log.e(TAG, result.getMessage());
                     } else {
                         mRepository.writeMessage(message);
                         mView.message();
@@ -66,12 +68,12 @@ public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("MSG", responseString);
+                Log.e(TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("MSG", throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }
@@ -111,19 +113,19 @@ public class Messaging_Presenter implements IMessage.Presenter/*, LoaderManager.
 
                         mView.setData();
                     } else {
-                        Log.e("MSG", result.getMessage());
+                        Log.e(TAG, result.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("MSG", responseString);
+                Log.e(TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("MSG", throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }

@@ -30,18 +30,20 @@ import cz.msebera.android.httpclient.Header;
  * @version 1.0
  */
 public class Settings_Fragment extends PreferenceFragment {
-    EditTextPreference edtPassword;
-    EditTextPreference edtEmail;
+    private static final String TAG = "Settings";
+
+    private EditTextPreference mEdtPassword;
+    private EditTextPreference mEdtEmail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings_app);
 
-        edtPassword = (EditTextPreference) findPreference("password");
-        edtEmail = (EditTextPreference) findPreference("email");
+        mEdtPassword = (EditTextPreference) findPreference("password");
+        mEdtEmail = (EditTextPreference) findPreference("email");
 
-        edtPassword.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        mEdtPassword.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 String password = String.valueOf(newValue);
@@ -62,7 +64,7 @@ public class Settings_Fragment extends PreferenceFragment {
                 return save;
             }
         });
-        edtEmail.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        mEdtEmail.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 String email = String.valueOf(newValue);
@@ -110,7 +112,7 @@ public class Settings_Fragment extends PreferenceFragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Snackbar.make(getView(), responseString, Snackbar.LENGTH_LONG).show();
-                Log.e("Pref", responseString);
+                Log.e(TAG, responseString);
 
                 updated[0] = false;
             }
@@ -118,7 +120,7 @@ public class Settings_Fragment extends PreferenceFragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Snackbar.make(getView(), throwable.getMessage(), Snackbar.LENGTH_SHORT).show();
-                Log.e("Pref", throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
 
                 updated[0] = false;
             }

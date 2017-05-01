@@ -18,6 +18,8 @@ import java.util.Locale;
  * @author José Antonio Barranquero Fernández
  */
 public class Message implements Serializable {
+    private static final String TAG = "Msg";
+
     private int id;
     private String content;
     private String date;
@@ -67,6 +69,10 @@ public class Message implements Serializable {
         return receiver;
     }
 
+    /**
+     * Formats the date according to the system locales
+     * @return Formatted date
+     */
     public String getFormattedDate() {
         if (this.date != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -76,12 +82,17 @@ public class Message implements Serializable {
                 dateFormat += DateFormat.getTimeFormat(AssistApp_Application.getContext()).format(date);
                 return dateFormat;
             } catch (ParseException e) {
-                Log.e("Msg", e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
         }
         return null;
     }
 
+    /**
+     * Compares if two messages are the same
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         boolean equals = false;

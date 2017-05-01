@@ -141,7 +141,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void message() {
         mAdapter.notifyDataSetChanged();
-        mLstMessages.scrollToPosition(mRepository.getMessages().size()-1);
+        mLstMessages.scrollToPosition(mRepository.getMessages().size() - 1);
     }
 
     /**

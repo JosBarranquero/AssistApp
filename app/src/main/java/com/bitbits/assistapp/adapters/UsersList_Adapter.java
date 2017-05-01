@@ -50,7 +50,7 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
 
             conversationHolder.contact_image = (CircleImageView) item.findViewById(R.id.imgContact);
             conversationHolder.txvName = (TextView) item.findViewById(R.id.txvContactName);
-            conversationHolder.imgUnread = (ImageView)item.findViewById(R.id.imgUnread);
+            conversationHolder.imgUnread = (ImageView) item.findViewById(R.id.imgUnread);
 
             item.setTag(conversationHolder);
         } else {
@@ -64,11 +64,12 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
                     .load(AssistApp_Application.URL + user.getImg())
                     .error(R.drawable.logo)
                     .placeholder(R.drawable.user)
+                    .noFade()
                     .into(conversationHolder.contact_image);
 
             conversationHolder.txvName.setText(user.getFormattedName());
 
-            if (showUnread){
+            if (showUnread) {
                 for (Message message : Repository.getInstance().getUnread()) {
                     if (message.getSender() == user.getId()) {
                         conversationHolder.imgUnread.setVisibility(View.VISIBLE);
@@ -90,6 +91,7 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
 
     /**
      * Method which searches for a user
+     *
      * @param query Search query
      */
     public void searchUser(String query) {
@@ -102,7 +104,7 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
             for (User user : Repository.getInstance().getUsers()) {
                 if (user.getSurname().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
                         user.getIdDoc().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
-						user.getFormattedName().toLowerCase(Locale.getDefault()).startsWith(myQuery)) {
+                        user.getFormattedName().toLowerCase(Locale.getDefault()).startsWith(myQuery)) {
                     add(user);
                 }
             }
@@ -112,6 +114,7 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
 
     /**
      * Method which
+     *
      * @param query
      * @return
      */

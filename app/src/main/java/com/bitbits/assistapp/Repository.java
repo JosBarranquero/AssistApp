@@ -1,6 +1,7 @@
 package com.bitbits.assistapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -8,9 +9,9 @@ import com.bitbits.assistapp.models.MedicalData;
 import com.bitbits.assistapp.models.MedicalRecord;
 import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.User;
+import com.bitbits.assistapp.services.Message_Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Singleton class which stores the data
@@ -32,6 +33,8 @@ public class Repository {
     public synchronized static Repository getInstance() {
         if (myInstance == null) {
             myInstance = new Repository();
+
+            AssistApp_Application.getContext().startService(new Intent(AssistApp_Application.getContext(), Message_Service.class)); //Starting the service
         }
         return myInstance;
     }

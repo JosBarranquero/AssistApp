@@ -7,8 +7,10 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".Home_Activity">
+
     <!-- Content to be shown layout -->
     <include layout="@layout/activity_home" />
+
     <!-- Navigation Drawer menu layout -->
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"

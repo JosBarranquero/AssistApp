@@ -1,14 +1,11 @@
 package com.bitbits.assistapp.models;
 
-import android.support.annotation.StringDef;
 import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.bitbits.assistapp.AssistApp_Application;
 
 import java.io.Serializable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,23 +17,17 @@ import java.util.Locale;
  * @author José Antonio Barranquero Fernández
  */
 public class MedicalData implements Serializable {
-    int id;
-    int idPat;
-    String birthdate;
-    String nationality, job, residence;
-    @Sex
-    String sex;
-    int smoker, alcohol, drugs;
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @StringDef({MASC, FEM})
-    public @interface Sex {
-    }
+    private int id;
+    private int idPat;
+    private String birthdate;
+    private String nationality, job, residence;
+    private String sex;
+    private int smoker, alcohol, drugs;
 
     public static final String MASC = "M";
     public static final String FEM = "F";
 
-    public MedicalData(int id, String birthdate, int idPat, @Sex String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
+    public MedicalData(int id, String birthdate, int idPat, String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
         this.id = id;
         this.birthdate = birthdate;
         this.idPat = idPat;

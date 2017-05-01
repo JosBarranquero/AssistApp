@@ -15,13 +15,16 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 /**
+ * Presenter for ConversationList_Fragment
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
  */
 public class ConversationList_Presenter implements IConversation.Presenter {
-    IConversation.View mView;
-    Context mContext;
+    private static final String TAG = "Assist";
+
+    private IConversation.View mView;
+    private Context mContext;
 
     public ConversationList_Presenter(IConversation.View view) {
         this.mView = view;
@@ -43,19 +46,19 @@ public class ConversationList_Presenter implements IConversation.Presenter {
 
                         mView.setData();
                     } else {
-                        Log.e("Assist", result.getMessage());
+                        Log.e(TAG, result.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("Assist", responseString);
+                Log.e(TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("Assist", throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }

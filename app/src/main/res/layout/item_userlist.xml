@@ -7,7 +7,6 @@
         android:id="@+id/imgContact"
         android:layout_width="@dimen/img_width"
         android:layout_height="@dimen/img_height"
-
         android:layout_margin="@dimen/img_margin"
         android:layout_marginBottom="@dimen/img_margin"
         android:src="@drawable/logo" />

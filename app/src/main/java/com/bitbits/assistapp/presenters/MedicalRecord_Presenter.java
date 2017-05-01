@@ -17,11 +17,15 @@ import cz.msebera.android.httpclient.Header;
 
 /**
  * Presenter for MedicalRecord_Fragment
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  */
 
 public class MedicalRecord_Presenter implements IRecord.Presenter {
+    private static final String DATA_TAG = "MedData";
+    private static final String RECORD_TAG = "MedRecord";
+
     private IRecord.View mView;
     private Context mContext;
 
@@ -49,7 +53,7 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
                         getRecord(result.getMeddata().get(0).getId());
                     } else {
                         mView.showError(mContext.getString(R.string.no_data));
-                        Log.e("Data", result.getMessage());
+                        Log.e(DATA_TAG, result.getMessage());
                     }
                 }
             }
@@ -57,13 +61,13 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 mView.showError(mContext.getString(R.string.connection_error));
-                Log.e("Data", responseString);
+                Log.e(DATA_TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 mView.showError(mContext.getString(R.string.connection_error));
-                Log.e("Data", throwable.getMessage());
+                Log.e(DATA_TAG, throwable.getMessage());
             }
         });
     }
@@ -84,7 +88,7 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
                         mView.setData();
                     } else {
                         mView.showError(mContext.getString(R.string.no_record));
-                        Log.e("Record", result.getMessage());
+                        Log.e(RECORD_TAG, result.getMessage());
                     }
                 }
             }
@@ -92,13 +96,13 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 mView.showError(mContext.getString(R.string.connection_error));
-                Log.e("Record", responseString);
+                Log.e(RECORD_TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 mView.showError(mContext.getString(R.string.connection_error));
-                Log.e("Record", throwable.getMessage());
+                Log.e(RECORD_TAG, throwable.getMessage());
             }
         });
     }

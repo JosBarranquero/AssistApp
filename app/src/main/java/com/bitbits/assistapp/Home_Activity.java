@@ -139,6 +139,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                 .load(AssistApp_Application.URL + mRepository.getCurrentUser().getImg())
                 .error(R.drawable.logo)
                 .placeholder(R.drawable.user)
+                .noFade()
                 .into(profileImage);
 
         TextView username = (TextView) header.findViewById(R.id.username);
@@ -356,8 +357,6 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                 if (result != null) {
                     if (result.getCode()) {
                         mRepository.setCurrentUser(result.getUsers().get(0));
-
-                        User_Preferences.saveId(mRepository.getCurrentUser().getId(), Home_Activity.this); // TODO remove
 
                         setupDrawer();
                         showConversations();

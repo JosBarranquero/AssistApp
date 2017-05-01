@@ -153,7 +153,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
 
     /**
-     * Method which validates the credential, but checks if the network is available beforehand
+     * Method which validates the credentials, but checks if network is available beforehand
      *
      * @param user     The user name
      * @param password The password
