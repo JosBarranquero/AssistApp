@@ -56,6 +56,15 @@
         </receiver>
 
         <receiver
+            android:name=".receivers.Version_Receiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.bitbits.assistapp.NEW_VERSION" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".receivers.Boot_Receiver"
             android:enabled="true"
             android:exported="false">

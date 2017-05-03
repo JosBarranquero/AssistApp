@@ -6,51 +6,45 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.NotificationCompat;
 
-import com.bitbits.assistapp.Home_Activity;
+import com.bitbits.assistapp.AssistApp_Application;
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.preferences.User_Preferences;
 
 /**
- * Receiver which notifies the user when a message is received
- *
+ * Broadcast receiver which notifies the user if a new version is available
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
  */
-public class Message_Receiver extends BroadcastReceiver {
-    public static final String ACTION_MESSAGE = "com.bitbits.assistapp.NEW_MESSAGE";
-    public static final String MESSAGE_COUNT = "count";
+public class Version_Receiver extends BroadcastReceiver {
+    public static final String ACTION_NEW = "com.bitbits.assistapp.NEW_VERSION";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean sound = User_Preferences.getSound(context);
         boolean vibration = User_Preferences.getVibration(context);
+        AssistApp_Application.stopMessageService();
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
         notificationBuilder.setAutoCancel(true);
 
         notificationBuilder.setContentTitle(context.getString(R.string.app_name));
-
-        int count = intent.getExtras().getInt(MESSAGE_COUNT);
-        if (count > 1)
-            notificationBuilder.setContentText(String.format(context.getString(R.string.new_messages), String.valueOf(count)));
-        else
-            notificationBuilder.setContentText(String.format(context.getString(R.string.new_message), String.valueOf(count)));
+        notificationBuilder.setContentText(context.getString(R.string.old_version));
 
         if (sound)
             notificationBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
         if (vibration)
-            notificationBuilder.setVibrate(new long[]{250, 250});
-        notificationBuilder.setLights(Color.GREEN, 1000, 1000);
+            notificationBuilder.setVibrate(new long[]{500, 500});
+        notificationBuilder.setLights(Color.GREEN, 3000, 3000);
 
         notificationBuilder.setSmallIcon(R.drawable.ic_notification);
 
-        Intent i = new Intent(context, Home_Activity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(AssistApp_Application.URL + "apk/AssistApp.apk"));
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_ONE_SHOT);
         notificationBuilder.setContentIntent(pendingIntent);
 

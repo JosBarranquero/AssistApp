@@ -358,10 +358,14 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                     if (result.getCode()) {
                         mRepository.setCurrentUser(result.getUsers().get(0));
 
-                        setupDrawer();
-                        showConversations();
+                        try {
+                            setupDrawer();
+                            showConversations();
+                        } catch (Exception e) {
+                            Log.e("Mine", e.getMessage());
+                        }
                     } else {
-                        if (result.getStatus() == 421)
+                        if (result.getStatus() == ApiClient.NEW_VERSION)
                             showVersionError();
                         else
                             Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.credentials_error), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {

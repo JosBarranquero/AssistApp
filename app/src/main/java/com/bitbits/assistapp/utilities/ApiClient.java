@@ -1,6 +1,8 @@
 package com.bitbits.assistapp.utilities;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.bitbits.assistapp.AssistApp_Application;
 import com.bitbits.assistapp.preferences.User_Preferences;
@@ -15,6 +17,7 @@ import com.loopj.android.http.RequestParams;
  */
 public class ApiClient {
     private static final String BASE_URL = AssistApp_Application.URL + "API/";
+
     public static final String USERS = "user";
     public static final String MEDDATA = "meddata";
     public static final String MEDRECORD = "medrecord";
@@ -22,6 +25,8 @@ public class ApiClient {
     public static final String MESSAGES = "messages";
 
     public static final String DEFAULT_APIKEY = "assistapp";
+
+    public static final int NEW_VERSION = 421;
 
     private static final int MAX_TIMEOUT = 3000;
     private static final int RETRIES = 3;
@@ -31,6 +36,7 @@ public class ApiClient {
 
     public static void get(String url, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
+        client.addHeader("userId", String.valueOf(User_Preferences.getId(AssistApp_Application.getContext())));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -39,6 +45,7 @@ public class ApiClient {
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
+        client.addHeader("userId", String.valueOf(User_Preferences.getId(AssistApp_Application.getContext())));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -47,6 +54,7 @@ public class ApiClient {
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
+        client.addHeader("userId", String.valueOf(User_Preferences.getId(AssistApp_Application.getContext())));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -55,6 +63,7 @@ public class ApiClient {
 
     public static void put(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
+        client.addHeader("userId", String.valueOf(User_Preferences.getId(AssistApp_Application.getContext())));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -63,6 +72,7 @@ public class ApiClient {
 
     public static void delete(String url, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("apikey", User_Preferences.getApikey(AssistApp_Application.getContext()));
+        client.addHeader("userId", String.valueOf(User_Preferences.getId(AssistApp_Application.getContext())));
         client.addHeader("codename", AssistApp_Application.getCodename());
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
@@ -75,5 +85,16 @@ public class ApiClient {
 
     private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
+    }
+
+    /**
+     * Method which checks for internet connectivity
+     *
+     * @return True if it network is available, false if it is not
+     */
+    public static boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) AssistApp_Application.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
     }
 }

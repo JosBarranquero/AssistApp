@@ -140,8 +140,10 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
      */
     @Override
     public void message() {
-        mAdapter.notifyDataSetChanged();
-        mLstMessages.scrollToPosition(mRepository.getMessages().size() - 1);
+        if (getActivity() != null) {    // We make sure the fragment is visible by trying to get its activity
+            mAdapter.notifyDataSetChanged();
+            mLstMessages.scrollToPosition(mRepository.getMessages().size() - 1);
+        }
     }
 
     /**

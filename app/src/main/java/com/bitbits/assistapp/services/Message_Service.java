@@ -13,6 +13,7 @@ import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.Result;
 import com.bitbits.assistapp.preferences.User_Preferences;
 import com.bitbits.assistapp.receivers.Message_Receiver;
+import com.bitbits.assistapp.receivers.Version_Receiver;
 import com.bitbits.assistapp.utilities.ApiClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -46,7 +47,7 @@ public class Message_Service extends IntentService {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mRepository.isNetworkAvailable()) {
+                if (ApiClient.isNetworkAvailable()) {
                     Log.v(TAG, "Connecting...");
 
                     fetchNewMessages();
@@ -90,6 +91,15 @@ public class Message_Service extends IntentService {
                             sendBroadcast(intent);
                         } else {
                             Log.v(TAG, "No new messages");
+                        }
+                    } else {
+                        if (result.getStatus() == ApiClient.NEW_VERSION) {
+                            if (AssistApp_Application.isServiceRunning()) {
+                                Log.v(TAG, "Old version");
+                                Intent intent = new Intent();
+                                intent.setAction(Version_Receiver.ACTION_NEW);
+                                sendBroadcast(intent);
+                            }
                         }
                     }
                 }

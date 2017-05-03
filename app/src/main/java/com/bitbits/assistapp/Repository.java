@@ -1,15 +1,9 @@
 package com.bitbits.assistapp;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
 import com.bitbits.assistapp.models.MedicalData;
 import com.bitbits.assistapp.models.MedicalRecord;
 import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.User;
-import com.bitbits.assistapp.services.Message_Service;
 
 import java.util.ArrayList;
 
@@ -33,8 +27,6 @@ public class Repository {
     public synchronized static Repository getInstance() {
         if (myInstance == null) {
             myInstance = new Repository();
-
-            AssistApp_Application.getContext().startService(new Intent(AssistApp_Application.getContext(), Message_Service.class)); //Starting the service
         }
         return myInstance;
     }
@@ -45,17 +37,6 @@ public class Repository {
         data = new ArrayList<>();
         records = new ArrayList<>();
         unread = new ArrayList<>();
-    }
-
-    /**
-     * Method which checks for internet connectivity
-     *
-     * @return True if it network is available, false if it is not
-     */
-    public boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) AssistApp_Application.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
     }
 
     public void setCurrentUser(User u) {

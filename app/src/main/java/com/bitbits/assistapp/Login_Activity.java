@@ -18,6 +18,7 @@ import android.widget.EditText;
 import com.bitbits.assistapp.interfaces.IAccount;
 import com.bitbits.assistapp.preferences.User_Preferences;
 import com.bitbits.assistapp.presenters.Login_Presenter;
+import com.bitbits.assistapp.utilities.ApiClient;
 
 /**
  * Activity which will manage the system login
@@ -40,7 +41,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!mRepository.isNetworkAvailable()) {
+        if (!ApiClient.isNetworkAvailable()) {
             showNetworkError();
         } else {
             setContentView(R.layout.activity_login);
@@ -159,7 +160,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
      * @param password The password
      */
     private void validateCredentials(String user, String password) {
-        if (mRepository.isNetworkAvailable()) {
+        if (ApiClient.isNetworkAvailable()) {
             mLogin.validateCredentials(user, password);
         } else {
             showNetworkError();
