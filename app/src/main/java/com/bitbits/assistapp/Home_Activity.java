@@ -71,6 +71,9 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
+        if (mMessagingFragment != null && mMessagingFragment.isVisible())
+            onBackPressed();
+
         showConversations();
     }
 
@@ -157,13 +160,10 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Messaging_Fragment messaging = (Messaging_Fragment) getFragmentManager().findFragmentByTag(MESSAGING_FRAGMENT);
-        MedicalRecord_Fragment record = (MedicalRecord_Fragment) getFragmentManager().findFragmentByTag(MEDICAL_RECORD_FRAGMENT);
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 //If we are in the Messaging_Fragment or MedicalRecord_Fragment (being a nurse), we show a back arrow, instead of the drawer icon, so we simulate a back key press
-                if ((messaging != null && messaging.isVisible()) || (record != null && record.isVisible() && mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE))) {
+                if ((mMessagingFragment != null && mMessagingFragment.isVisible()) || (mMedicalRecordFragment != null && mMedicalRecordFragment.isVisible() && mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE))) {
                     this.onBackPressed();
                 } else {    // We open the drawer
                     mDrawerLayout.openDrawer(GravityCompat.START);
@@ -180,12 +180,9 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {  //If drawer is opened, we close it
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {        // If it's not opened, we check if the Messaging, MedicalRecord (if curUser is a nurse) or About fragments are being displayed to unlock the drawer, show the action bar and set and show the home button
-            Messaging_Fragment messaging = (Messaging_Fragment) getFragmentManager().findFragmentByTag(MESSAGING_FRAGMENT);
-            About_Fragment about = (About_Fragment) getFragmentManager().findFragmentByTag(ABOUT_FRAGMENT);
-            MedicalRecord_Fragment record = (MedicalRecord_Fragment) getFragmentManager().findFragmentByTag(MEDICAL_RECORD_FRAGMENT);
-
-            if ((messaging != null && messaging.isVisible()) || (about != null && about.isVisible()) || (record != null && record.isVisible() && mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE))) {
+        } else {
+            // If it's not opened, we check if the Messaging, MedicalRecord (if curUser is a nurse) or About fragments are being displayed to unlock the drawer, show the action bar and set and show the home button
+            if ((mMessagingFragment != null && mMessagingFragment.isVisible()) || (mAboutFragment != null && mAboutFragment.isVisible()) || (mMedicalRecordFragment != null && mMedicalRecordFragment.isVisible() && mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE))) {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 getSupportActionBar().show();
                 getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_home);
