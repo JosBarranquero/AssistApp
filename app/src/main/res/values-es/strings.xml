@@ -48,4 +48,5 @@
     <string name="old_version">Disponible nueva versión, actualiza por favor</string>
     <string name="new_messages">%1$s mensajes nuevos</string>
     <string name="new_message">%1$s mensaje nuevo</string>
+    <string name="inactive_account">Tu cuenta ha sido desactivada</string>
 </resources>

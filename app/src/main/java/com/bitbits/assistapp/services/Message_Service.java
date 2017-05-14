@@ -47,16 +47,18 @@ public class Message_Service extends IntentService {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (ApiClient.isNetworkAvailable()) {
-                    Log.v(TAG, "Connecting...");
+                if (AssistApp_Application.isServiceRunning()) { // TODO check
+                    if (ApiClient.isNetworkAvailable()) {
+                        Log.v(TAG, "Connecting...");
 
-                    fetchNewMessages();
-                } else {
-                    Log.v(TAG, "No network");
+                        fetchNewMessages();
+                    } else {
+                        Log.v(TAG, "No network");
+                    }
+                    handler.postDelayed(this, 10000);
                 }
-                handler.postDelayed(this, 10000);
             }
-        }, 10000);
+        }, 0);
 
         return START_STICKY;
     }
@@ -86,6 +88,7 @@ public class Message_Service extends IntentService {
                             Intent intent = new Intent();
                             Bundle bundle = new Bundle();
                             bundle.putInt(Message_Receiver.MESSAGE_COUNT, Repository.getInstance().getUnread().size());
+                            bundle.putBoolean(Message_Receiver.NEW_NOTIFICATION, true);
                             intent.putExtras(bundle);
                             intent.setAction(Message_Receiver.ACTION_MESSAGE);
                             sendBroadcast(intent);
@@ -97,7 +100,7 @@ public class Message_Service extends IntentService {
                             if (AssistApp_Application.isServiceRunning()) {
                                 Log.v(TAG, "Old version");
                                 Intent intent = new Intent();
-                                intent.setAction(Version_Receiver.ACTION_NEW);
+                                intent.setAction(Version_Receiver.ACTION_NEW_VERSION);
                                 sendBroadcast(intent);
                             }
                         }

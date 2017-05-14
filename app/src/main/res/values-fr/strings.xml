@@ -53,4 +53,5 @@
     <string name="old_version">Nouvelle version disponible, veuillez mettre à jour</string>
     <string name="new_messages">%1$s nouveaux messages</string>
     <string name="new_message">%1$s nouveau message</string>
+    <string name="inactive_account">Votre compte a été désactivé</string>
 </resources>

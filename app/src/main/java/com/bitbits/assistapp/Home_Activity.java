@@ -71,7 +71,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        if (mMessagingFragment != null && mMessagingFragment.isVisible())
+        //If we are in the Messaging_Fragment or MedicalRecord_Fragment (being a nurse) we simulate a back key press to clear the screen
+        if ((mMessagingFragment != null && mMessagingFragment.isVisible()) || (mMedicalRecordFragment != null && mMedicalRecordFragment.isVisible() && mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE)))
             onBackPressed();
 
         showConversations();

@@ -21,7 +21,7 @@ import com.bitbits.assistapp.preferences.User_Preferences;
  *          AssistApp
  */
 public class Version_Receiver extends BroadcastReceiver {
-    public static final String ACTION_NEW = "com.bitbits.assistapp.NEW_VERSION";
+    public static final String ACTION_NEW_VERSION = "com.bitbits.assistapp.NEW_VERSION";
 
     @Override
     public void onReceive(Context context, Intent intent) {

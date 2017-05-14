@@ -26,6 +26,7 @@ public class ApiClient {
 
     public static final String DEFAULT_APIKEY = "assistapp";
 
+    public static final int NON_ACTIVE = 419;
     public static final int NEW_VERSION = 421;
 
     private static final int MAX_TIMEOUT = 3000;

@@ -5,4 +5,6 @@ com.bitbits.assistapp.interfaces
 com.bitbits.assistapp.models
 com.bitbits.assistapp.preferences
 com.bitbits.assistapp.presenters
+com.bitbits.assistapp.receivers
+com.bitbits.assistapp.services
 com.bitbits.assistapp.utilities

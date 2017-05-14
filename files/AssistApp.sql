@@ -20,7 +20,8 @@ CREATE TABLE Users (
     type ENUM("patient", "nurse") NOT NULL,
     img VARCHAR(60) NOT NULL,
     email VARCHAR(40) NOT NULL,
-	apikey VARCHAR(16) NOT NULL,
+    apikey VARCHAR(16) NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
     PRIMARY KEY (id)
 );
 
@@ -70,7 +71,7 @@ CREATE TABLE MedData (
     FOREIGN KEY (idData) REFERENCES MedData (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
---Event
+-- Event which deletes messages older than 2 weeks
 SET GLOBAL event_scheduler = ON;
 DROP EVENT IF EXISTS ev_messages;
 CREATE EVENT ev_messages
@@ -80,4 +81,5 @@ DO
 	DELETE FROM Messages WHERE (DATEDIFF(CURDATE(), date) >= 14);
 
 
-INSERT INTO Users (idDoc, password, name, surname, type, img, email, apikey) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com', SHA2('12345678A', 256);
+-- Default User
+INSERT INTO Users (idDoc, password, name, surname, type, img, email, apikey) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com', SHA2('12345678A', 256), TRUE;

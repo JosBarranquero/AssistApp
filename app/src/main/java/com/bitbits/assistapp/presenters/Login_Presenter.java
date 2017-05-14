@@ -133,6 +133,7 @@ public class Login_Presenter implements IAccount.Presenter {
                                 mView.setErrorMessage(context.getString(R.string.old_version), 0);
                             else    //Incorrect credentials
                                 mView.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
+
                         }
                     }
                 }

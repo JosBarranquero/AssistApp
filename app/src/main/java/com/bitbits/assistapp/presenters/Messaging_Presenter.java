@@ -1,6 +1,8 @@
 package com.bitbits.assistapp.presenters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.bitbits.assistapp.Repository;
@@ -8,6 +10,7 @@ import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
 import com.bitbits.assistapp.models.Result;
 import com.bitbits.assistapp.models.User;
+import com.bitbits.assistapp.receivers.Message_Receiver;
 import com.bitbits.assistapp.utilities.ApiClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -95,6 +98,14 @@ public class Messaging_Presenter implements IMessage.Presenter {
                 mRepository.getUnread().remove(message);
             }
         }
+
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Message_Receiver.MESSAGE_COUNT, Repository.getInstance().getUnread().size());
+        bundle.putBoolean(Message_Receiver.NEW_NOTIFICATION, false);
+        intent.putExtras(bundle);
+        intent.setAction(Message_Receiver.ACTION_MESSAGE);
+        context.sendBroadcast(intent);
     }
 
     public void getMessages(int receiver, int sender) {

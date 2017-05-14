@@ -1,5 +1,5 @@
 <!DOCTYPE resources [
-    <!ENTITY codename "Presto">
+    <!ENTITY codename "Concerto">
     ]>
 
 <resources>
@@ -70,4 +70,5 @@
 
     <string name="new_messages">%1$s new messages</string>
     <string name="new_message">%1$s new message</string>
+    <string name="inactive_account">Your account has been deactivated</string>
 </resources>
