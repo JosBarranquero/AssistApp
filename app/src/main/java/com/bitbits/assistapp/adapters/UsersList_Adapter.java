@@ -104,7 +104,8 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
             for (User user : Repository.getInstance().getUsers()) {
                 if (user.getSurname().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
                         user.getIdDoc().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
-                        user.getFormattedName().toLowerCase(Locale.getDefault()).startsWith(myQuery)) {
+                        user.getFormattedName().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
+                        user.getEmail().toLowerCase(Locale.getDefault()).startsWith(myQuery)) {
                     add(user);
                 }
             }

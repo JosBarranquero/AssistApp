@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.widget.Toast;
 
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
@@ -49,14 +48,21 @@ public class Settings_Fragment extends PreferenceFragment {
                 String password = String.valueOf(newValue);
                 boolean save = false;
                 if (TextUtils.isEmpty(password)) {      //If the password is empty
-                    Toast.makeText(getActivity(), R.string.data_empty, Toast.LENGTH_SHORT).show();
+                    if (getView() != null)
+                        Snackbar.make(getView(), R.string.data_empty, Snackbar.LENGTH_SHORT).show();
                 } else {
-                    if (!(password.matches("(.*)\\d(.*)")))     //If the password doesn't contain a digit
-                        Toast.makeText(getActivity(), R.string.password_digit, Toast.LENGTH_SHORT).show();
-                    if (!(password.matches("(.*)\\p{Lower}(.*)") && password.matches("(.*)\\p{Upper}(.*)")))    //If the password doesn't contain at least a lowercase and uppercase letter
-                        Toast.makeText(getActivity(), R.string.password_case, Toast.LENGTH_SHORT).show();
-                    if (password.length() < 8)  //If it's less than 8 characters
-                        Toast.makeText(getActivity(), R.string.password_length, Toast.LENGTH_SHORT).show();
+                    if (!(password.matches("(.*)\\d(.*)"))) {    //If the password doesn't contain a digit
+                        if (getView() != null)
+                            Snackbar.make(getView(), R.string.password_digit, Snackbar.LENGTH_SHORT).show();
+                    }
+                    if (!(password.matches("(.*)\\p{Lower}(.*)") && password.matches("(.*)\\p{Upper}(.*)"))) {  //If the password doesn't contain at least a lowercase and uppercase letter
+                        if (getView() != null)
+                            Snackbar.make(getView(), R.string.password_case, Snackbar.LENGTH_SHORT).show();
+                    }
+                    if (password.length() < 8) { //If it's less than 8 characters
+                        if (getView() != null)
+                            Snackbar.make(getView(), R.string.password_length, Snackbar.LENGTH_SHORT).show();
+                    }
                     else {      //If it's valid
                         save = updateUser(User_Preferences.getEmail(getActivity()), password);
                     }
@@ -72,7 +78,8 @@ public class Settings_Fragment extends PreferenceFragment {
                 if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {  //If it's a valid address
                     save = updateUser(email, User_Preferences.getPass(getActivity()));
                 } else {                                                //If it's not a valid address
-                    Toast.makeText(getActivity(), R.string.email_error, Toast.LENGTH_SHORT).show();
+                    if (getView() != null)
+                        Snackbar.make(getView(), R.string.email_error, Snackbar.LENGTH_SHORT).show();
                 }
                 return save;
             }
@@ -103,7 +110,10 @@ public class Settings_Fragment extends PreferenceFragment {
                         User_Preferences.saveEmail(email, getActivity());
                         updated[0] = true;
                     } else {
-                        Snackbar.make(getView(), result.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        if (getView() != null)
+                            Snackbar.make(getView(), result.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                        Log.e(TAG, result.getMessage());
                         updated[0] = false;
                     }
                 }
@@ -111,17 +121,19 @@ public class Settings_Fragment extends PreferenceFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Snackbar.make(getView(), responseString, Snackbar.LENGTH_LONG).show();
-                Log.e(TAG, responseString);
+                if (getView() != null)
+                    Snackbar.make(getView(), responseString, Snackbar.LENGTH_LONG).show();
 
+                Log.e(TAG, responseString);
                 updated[0] = false;
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Snackbar.make(getView(), throwable.getMessage(), Snackbar.LENGTH_SHORT).show();
-                Log.e(TAG, throwable.getMessage());
+                if (getView() != null)
+                    Snackbar.make(getView(), throwable.getMessage(), Snackbar.LENGTH_SHORT).show();
 
+                Log.e(TAG, throwable.getMessage());
                 updated[0] = false;
             }
         });

@@ -82,4 +82,4 @@ DO
 
 
 -- Default User
-INSERT INTO Users (idDoc, password, name, surname, type, img, email, apikey) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com', SHA2('12345678A', 256), TRUE;
+INSERT INTO Users (idDoc, password, name, surname, type, img, email, apikey) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com', SHA2(CONCAT('12345678A', NOW()), 256), TRUE;

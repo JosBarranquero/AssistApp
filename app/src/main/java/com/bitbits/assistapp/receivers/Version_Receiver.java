@@ -49,6 +49,6 @@ public class Version_Receiver extends BroadcastReceiver {
         notificationBuilder.setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, notificationBuilder.build());
+        notificationManager.notify(2, notificationBuilder.build());
     }
 }

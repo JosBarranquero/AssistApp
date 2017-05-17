@@ -29,9 +29,9 @@ public class ApiClient {
     public static final int NON_ACTIVE = 419;
     public static final int NEW_VERSION = 421;
 
-    private static final int MAX_TIMEOUT = 3000;
+    private static final int MAX_TIMEOUT = 2000;
     private static final int RETRIES = 3;
-    private static final int TIMEOUT_BETWEEN_RETRIES = 1500;
+    private static final int TIMEOUT_BETWEEN_RETRIES = 500;
 
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.bitbits.assistapp.services.Message_Service;
@@ -21,6 +22,7 @@ public class AssistApp_Application extends Application {
 
     private static Context context;
     private static boolean isServiceRunning = false;
+    private static PowerManager.WakeLock wakeLock;
 
     @Override
     public void onCreate() {
@@ -35,6 +37,11 @@ public class AssistApp_Application extends Application {
      */
     public static void startMessageService() {
         if (!isServiceRunning) {
+            PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                    "AssistApp WakeLock");
+            wakeLock.acquire();
+
             Intent intent = new Intent(context, Message_Service.class);
             context.startService(intent);
 
@@ -49,6 +56,8 @@ public class AssistApp_Application extends Application {
      */
     public static void stopMessageService() {
         if (isServiceRunning) {
+            wakeLock.release();
+
             Intent intent = new Intent(context, Message_Service.class);
             context.stopService(intent);
 

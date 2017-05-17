@@ -27,6 +27,7 @@ import cz.msebera.android.httpclient.Header;
 
 /**
  * Service which looks for new messages
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.1
  *          AssistApp
@@ -47,7 +48,7 @@ public class Message_Service extends IntentService {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (AssistApp_Application.isServiceRunning()) { // TODO check
+                if (AssistApp_Application.isServiceRunning()) {
                     if (ApiClient.isNetworkAvailable()) {
                         Log.v(TAG, "Connecting...");
 
@@ -97,12 +98,10 @@ public class Message_Service extends IntentService {
                         }
                     } else {
                         if (result.getStatus() == ApiClient.NEW_VERSION) {
-                            if (AssistApp_Application.isServiceRunning()) {
-                                Log.v(TAG, "Old version");
-                                Intent intent = new Intent();
-                                intent.setAction(Version_Receiver.ACTION_NEW_VERSION);
-                                sendBroadcast(intent);
-                            }
+                            Log.v(TAG, "Old version");
+                            Intent intent = new Intent();
+                            intent.setAction(Version_Receiver.ACTION_NEW_VERSION);
+                            sendBroadcast(intent);
                         }
                     }
                 }
