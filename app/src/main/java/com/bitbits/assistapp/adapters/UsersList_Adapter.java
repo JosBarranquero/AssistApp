@@ -25,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Adapter which manages the contacts shown on the ConversationList_Fragment and the patients show in the PatientList_Fragment
  *
  * @author José Antonio Barranquero Fernández
- * @version 1.2
+ * @version 1.5
  */
 public class UsersList_Adapter extends ArrayAdapter<User> {
     private Context context;
@@ -67,7 +67,7 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
                     .noFade()
                     .into(conversationHolder.contact_image);
 
-            conversationHolder.txvName.setText(user.getFormattedName());
+            conversationHolder.txvName.setText(user.getWholeName());
 
             if (showUnread) {
                 for (Message message : Repository.getInstance().getUnread()) {
@@ -102,10 +102,15 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
             addAll(Repository.getInstance().getUsers());
         } else {
             for (User user : Repository.getInstance().getUsers()) {
-                if (user.getSurname().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
-                        user.getIdDoc().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
-                        user.getFormattedName().toLowerCase(Locale.getDefault()).startsWith(myQuery) ||
-                        user.getEmail().toLowerCase(Locale.getDefault()).startsWith(myQuery)) {
+                String surname = replaceCharacters(user.getSurname().toLowerCase(Locale.getDefault()));
+                String idDoc = replaceCharacters(user.getIdDoc().toLowerCase(Locale.getDefault()));
+                String formattedName = replaceCharacters(user.getWholeName().toLowerCase(Locale.getDefault()));
+                String email = replaceCharacters(user.getEmail().toLowerCase(Locale.getDefault()));
+
+                if (surname.startsWith(myQuery) ||
+                        idDoc.startsWith(myQuery) ||
+                        formattedName.startsWith(myQuery) ||
+                        email.startsWith(myQuery)) {
                     add(user);
                 }
             }
@@ -114,13 +119,13 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
     }
 
     /**
-     * Method which
+     * Method which replaces special characters
      *
      * @param query
      * @return
      */
     private String replaceCharacters(String query) {
-        return query.replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
+        return query.replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u').replace('à', 'a').replace('è', 'e').replace('ì', 'i').replace('ò', 'o').replace('ù', 'u');
     }
 
     class UserHolder {

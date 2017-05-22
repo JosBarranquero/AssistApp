@@ -91,7 +91,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_conversationlist, container, false);
 
-        getActivity().setTitle(mRepository.getCurrentUser().getFormattedName());
+        getActivity().setTitle(mRepository.getCurrentUser().getWholeName());
 
         mLstConvoList = (ListView) rootView.findViewById(R.id.lstConvoList);
         mEdtSearch = (EditText) rootView.findViewById(R.id.edtSearch);

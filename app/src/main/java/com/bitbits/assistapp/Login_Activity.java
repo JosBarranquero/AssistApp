@@ -44,10 +44,10 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
         if (!ApiClient.isNetworkAvailable()) {
             showNetworkError();
         } else {
-            setContentView(R.layout.activity_login);
             if (User_Preferences.getPass(this) != null && User_Preferences.getUser(this) != null) { //If the user has already logged in we launch the next activity
                 launchActivity();
             } else {
+                setContentView(R.layout.activity_login);
                 mLogin = new Login_Presenter(this);
 
                 mTilUser = (TextInputLayout) findViewById(R.id.tilUser);
@@ -117,12 +117,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
                 mTilUser.setError(error);
                 break;
             case R.id.activity_login:
-                Snackbar.make(findViewById(idView), error, Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        (Login_Activity.this).finish();
-                    }
-                }).show();
+                Snackbar.make(findViewById(idView), error, Snackbar.LENGTH_SHORT).show();
                 break;
             case 0:
                 showVersionError();

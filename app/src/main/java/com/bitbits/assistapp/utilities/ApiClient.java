@@ -28,6 +28,7 @@ public class ApiClient {
 
     public static final int NON_ACTIVE = 419;
     public static final int NEW_VERSION = 421;
+    public static final int WRONG_CREDENTIALS = 420;
 
     private static final int MAX_TIMEOUT = 2000;
     private static final int RETRIES = 3;

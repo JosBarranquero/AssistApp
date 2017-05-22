@@ -69,7 +69,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         View rootView = inflater.inflate(R.layout.fragment_messaging, container, false);
 
         receiver = (User) getArguments().getSerializable("receiver");
-        getActivity().setTitle(receiver.getFormattedName());
+        getActivity().setTitle(receiver.getWholeName());
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);  //We set a back arrow in the top left of the screen
 
         mPresenter.readMessage(receiver);   // We read our receiver messages

@@ -102,7 +102,7 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
             mLstRecord.setAdapter(mAdapter);
 
             MedicalData data = mRepository.getMedData().get(0);
-            mTxvName.setText(mPat.getFormattedName() + " - " + mPat.getIdDoc());
+            mTxvName.setText(mPat.getWholeName() + " - " + mPat.getIdDoc());
             mTxvNationality.setText(data.getNationality());
             mTxvJob.setText(data.getJob());
             mTxvResidence.setText(data.getResidence());

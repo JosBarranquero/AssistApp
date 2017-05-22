@@ -14,9 +14,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission-sdk-23 android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"/> <!-- TODO check -->
-    <uses-permission-sdk-23 android:name="android.permission.WAKE_LOCK"/>
-
     <application
         android:name=".AssistApp_Application"
         android:allowBackup="true"

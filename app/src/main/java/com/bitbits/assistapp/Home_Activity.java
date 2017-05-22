@@ -147,7 +147,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                 .into(profileImage);
 
         TextView username = (TextView) header.findViewById(R.id.username);
-        username.setText(mRepository.getCurrentUser().getFormattedName());
+        username.setText(mRepository.getCurrentUser().getWholeName());
 
         TextView doc = (TextView) header.findViewById(R.id.doc);
         doc.setText(mRepository.getCurrentUser().getIdDoc());
@@ -365,13 +365,23 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                     } else {
                         if (result.getStatus() == ApiClient.NEW_VERSION)
                             showVersionError();
-                        else
-                            Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.credentials_error), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    logOut();
-                                }
-                            }).show();
+
+                            if (result.getStatus() == ApiClient.NON_ACTIVE) {
+                                Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.inactive_account), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        logOut();
+                                    }
+                                }).show();
+                            } if (result.getStatus() == ApiClient.WRONG_CREDENTIALS) {
+                                Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.credentials_error), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        logOut();
+                                    }
+                                }).show();
+                            }
+
                     }
                 }
             }

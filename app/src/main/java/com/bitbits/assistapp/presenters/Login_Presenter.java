@@ -102,12 +102,10 @@ public class Login_Presenter implements IAccount.Presenter {
                 @Override
                 public void onStart() {
                     super.onStart();
-                    if (User_Preferences.getPass(context) == null && User_Preferences.getUser(context) == null) {
-                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        progressDialog.setMessage(mView.getContext().getString(R.string.loggingin));
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
-                    }
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.setMessage(mView.getContext().getString(R.string.loggingin));
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
                 }
 
                 @Override
@@ -131,9 +129,10 @@ public class Login_Presenter implements IAccount.Presenter {
                         } else {
                             if (result.getStatus() == ApiClient.NEW_VERSION)  //Old version
                                 mView.setErrorMessage(context.getString(R.string.old_version), 0);
-                            else    //Incorrect credentials
+                            if (result.getStatus() == ApiClient.WRONG_CREDENTIALS)    //Incorrect credentials
                                 mView.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
-
+                            if (result.getStatus() == ApiClient.NON_ACTIVE)     // Non active account
+                                mView.setErrorMessage(context.getString(R.string.inactive_account), R.id.activity_login);
                         }
                     }
                 }

@@ -29,13 +29,15 @@ import cz.msebera.android.httpclient.Header;
  * Service which looks for new messages
  *
  * @author José Antonio Barranquero Fernández
- * @version 1.1
+ * @version 2.0
  *          AssistApp
  */
 public class Message_Service extends IntentService {
     private static final String TAG = "MsgSrv";
 
     private Repository mRepository = Repository.getInstance();
+    private Handler mHandler = null;
+    private Runnable mRunnable = null;
 
     public Message_Service() {
         super("Message_Service");
@@ -43,9 +45,9 @@ public class Message_Service extends IntentService {
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
-        final Handler handler = new Handler();
+        mHandler = new Handler();
 
-        handler.postDelayed(new Runnable() {
+        mRunnable = new Runnable() {
             @Override
             public void run() {
                 if (AssistApp_Application.isServiceRunning()) {
@@ -56,10 +58,12 @@ public class Message_Service extends IntentService {
                     } else {
                         Log.v(TAG, "No network");
                     }
-                    handler.postDelayed(this, 10000);
+                    mHandler.postDelayed(this, 10000);
                 }
             }
-        }, 0);
+        };
+
+        mHandler.post(mRunnable);
 
         return START_STICKY;
     }
@@ -67,6 +71,13 @@ public class Message_Service extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mHandler.removeCallbacks(mRunnable);
     }
 
     /**

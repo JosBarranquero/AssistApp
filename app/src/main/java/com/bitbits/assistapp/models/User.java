@@ -87,7 +87,7 @@ public class User implements Serializable {
         this.surname = surname;
     }
 
-    public String getFormattedName() {
+    public String getWholeName() {
         return this.name + " " + this.surname;
     }
 

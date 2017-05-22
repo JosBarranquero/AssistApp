@@ -25,9 +25,10 @@ public class Version_Receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        AssistApp_Application.stopMessageService();
+
         boolean sound = User_Preferences.getSound(context);
         boolean vibration = User_Preferences.getVibration(context);
-        AssistApp_Application.stopMessageService();
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
         notificationBuilder.setAutoCancel(true);
