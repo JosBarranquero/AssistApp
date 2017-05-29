@@ -46,7 +46,7 @@ public class AssistApp_Application extends Application {
     }
 
     /**
-     * Method which starts our service
+     * Method which stops our service
      */
     public static void stopMessageService() {
         if (isServiceRunning) {
@@ -59,10 +59,18 @@ public class AssistApp_Application extends Application {
         }
     }
 
+    /**
+     * Method which returns the application version codename
+     * @return Version codename
+     */
     public static String getCodename() {
         return context.getString(R.string.codename);
     }
 
+    /**
+     * Method which returns the application version
+     * @return App version
+     */
     public static String getVersion() {
         String version = null;
         try {
@@ -74,10 +82,18 @@ public class AssistApp_Application extends Application {
         return version;
     }
 
+    /**
+     * Context getter
+     * @return Context
+     */
     public static Context getContext() {
         return context;
     }
 
+    /**
+     * Method which checks if our service is currently running
+     * @return True if it's running, false if it isn't
+     */
     public static boolean isServiceRunning() {
         return isServiceRunning;
     }

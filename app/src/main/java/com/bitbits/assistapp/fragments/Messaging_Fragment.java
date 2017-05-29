@@ -43,11 +43,6 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     private User receiver;
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -58,6 +53,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     public void onDestroy() {
         super.onDestroy();
 
+        mPresenter.stopFetching();
         mPresenter = null;
         mAdapter = null;
     }
@@ -71,10 +67,6 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         receiver = (User) getArguments().getSerializable("receiver");
         getActivity().setTitle(receiver.getWholeName());
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);  //We set a back arrow in the top left of the screen
-
-        mPresenter.readMessage(receiver);   // We read our receiver messages
-
-        rootView.setBackgroundColor(getResources().getColor(R.color.colorOtherMessage));
 
         mLstMessages = (RecyclerView) rootView.findViewById(R.id.lstMessages);
         mEdtContent = (EditText) rootView.findViewById(R.id.edtContent);
@@ -136,17 +128,6 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     }
 
     /**
-     * Method which updates the adapter data
-     */
-    @Override
-    public void message() {
-        if (getActivity() != null) {    // We make sure the fragment is visible by trying to get its activity
-            mAdapter.notifyDataSetChanged();
-            mLstMessages.scrollToPosition(mRepository.getMessages().size() - 1);
-        }
-    }
-
-    /**
      * Method which returns the Context
      *
      * @return The context
@@ -160,6 +141,8 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void setData() {
         if (getActivity() != null) {    // We make sure the fragment is visible by trying to get its activity
+            mPresenter.readMessage(receiver);   // We read our receiver messages
+
             mAdapter = new Messaging_Adapter(getActivity());
             mLstMessages.setAdapter(mAdapter);
         }

@@ -7,6 +7,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 public class Messaging_Adapter extends RecyclerView.Adapter<Messaging_Adapter.Messaging_Holder> {
     private ArrayList<Message> messages;
     private Context context;
+    private int lastPosition = -1;
 
     public Messaging_Adapter(Context context) {
         this.context = context;
@@ -63,6 +66,21 @@ public class Messaging_Adapter extends RecyclerView.Adapter<Messaging_Adapter.Me
 
         holder.cvMessage.setLayoutParams(paramsCardView);
         holder.txvDate.setLayoutParams(paramsDatetime);
+
+        setAnimation(holder.itemView, position);
+    }
+
+    /**
+     * Method which animates the message sent or received
+     * @param viewToAnimate View to animate
+     * @param position      View's position
+     */
+    private void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {  // If the bound view wasn't previously displayed on screen, it's animated
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
     @Override

@@ -26,7 +26,7 @@ import cz.msebera.android.httpclient.Header;
 
 
 /**
- * Service which looks for new messages
+ * Service which looks for new messages every 5 seconds
  *
  * @author José Antonio Barranquero Fernández
  * @version 2.0
@@ -36,6 +36,7 @@ public class Message_Service extends IntentService {
     private static final String TAG = "MsgSrv";
 
     private Repository mRepository = Repository.getInstance();
+
     private Handler mHandler = null;
     private Runnable mRunnable = null;
 
@@ -49,7 +50,7 @@ public class Message_Service extends IntentService {
 
         mRunnable = new Runnable() {
             @Override
-            public void run() {
+            public void run() {     // Thread which checks for messages periodically
                 if (AssistApp_Application.isServiceRunning()) {
                     if (ApiClient.isNetworkAvailable()) {
                         Log.v(TAG, "Connecting...");
@@ -58,7 +59,7 @@ public class Message_Service extends IntentService {
                     } else {
                         Log.v(TAG, "No network");
                     }
-                    mHandler.postDelayed(this, 10000);
+                    mHandler.postDelayed(this, 5000);   // Every 5000 ms = 5 s
                 }
             }
         };

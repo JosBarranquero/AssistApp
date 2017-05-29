@@ -167,7 +167,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                if (mEdtSearch.getVisibility() == View.GONE) {
+                if (mEdtSearch.getVisibility() == View.GONE) {      // If it's not showing, we show the search bar
                     mEdtSearch.setVisibility(View.VISIBLE);
                     mEdtSearch.requestFocus();
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -192,6 +192,9 @@ public class ConversationList_Fragment extends Fragment implements IConversation
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method which sets the adapter data
+     */
     @Override
     public void setData() {
         if (getActivity() != null) {
@@ -200,6 +203,10 @@ public class ConversationList_Fragment extends Fragment implements IConversation
         }
     }
 
+    /**
+     * Context getter
+     * @return Context
+     */
     @Override
     public Context getContext() {
         return getActivity();

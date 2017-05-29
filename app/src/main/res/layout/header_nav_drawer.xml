@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_top_margin" />
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="@dimen/profile_image"
         android:layout_height="@dimen/profile_image"

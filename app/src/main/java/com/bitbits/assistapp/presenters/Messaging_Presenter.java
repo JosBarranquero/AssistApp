@@ -3,6 +3,7 @@ package com.bitbits.assistapp.presenters;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.bitbits.assistapp.Repository;
@@ -37,13 +38,16 @@ public class Messaging_Presenter implements IMessage.Presenter {
     private Context context;
     private Repository mRepository = Repository.getInstance();
 
+    private Handler mHandler = null;
+    private Runnable mRunnable = null;
+
     public Messaging_Presenter(IMessage.View view) {
         mView = view;
         this.context = mView.getContext();
     }
 
     /**
-     * Method which saves a message into the repository
+     * Method which sends a message to another user
      *
      * @param message
      * @see Message
@@ -62,9 +66,6 @@ public class Messaging_Presenter implements IMessage.Presenter {
                 if (result != null) {
                     if (!result.getCode()) {
                         Log.e(TAG, result.getMessage());
-                    } else {
-                        mRepository.writeMessage(message);
-                        mView.message();
                     }
                 }
             }
@@ -108,36 +109,72 @@ public class Messaging_Presenter implements IMessage.Presenter {
         context.sendBroadcast(intent);
     }
 
-    public void getMessages(int receiver, int sender) {
-        RequestParams params = new RequestParams();
-        params.put("receiver", receiver);
-        params.put("sender", sender);
-        ApiClient.post(ApiClient.MESSAGES, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Result result;
-                Gson gson = new Gson();
-                result = gson.fromJson(String.valueOf(response), Result.class);
-                if (result != null) {
-                    if (result.getCode()) {
-                        mRepository.setMessages(result.getMessages());
+    /**
+     * Method which gets the messages between receiver and sender, and keeps getting them every second to get an instant messaging-like service
+     * @param receiver
+     * @param sender
+     */
+    public void getMessages(final int receiver, final int sender) {
+        mRepository.setMessages(new ArrayList<Message>());  // Clearing messages cache
 
-                        mView.setData();
-                    } else {
-                        Log.e(TAG, result.getMessage());
+        mHandler = new Handler();
+
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                RequestParams params = new RequestParams();
+                params.put("receiver", receiver);
+                params.put("sender", sender);
+                ApiClient.post(ApiClient.MESSAGES, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Result result;
+                        Gson gson = new Gson();
+                        result = gson.fromJson(String.valueOf(response), Result.class);
+                        if (result != null) {
+                            if (result.getCode()) {
+                                if (result.getMessages().size() >= 1) { // If there are messages
+                                    if (mRepository.getMessages().size() >= 1) {    // If  our message list is not empty
+                                        if (!mRepository.getMessages().get(mRepository.getMessages().size()-1).equals(result.getMessages().get(result.getMessages().size()-1))) {   // If the last message is different, we set the messages
+                                            mRepository.setMessages(result.getMessages());
+                                            mView.setData();
+                                        }
+                                    } else { // If it is empty
+                                        mRepository.setMessages(result.getMessages());
+                                        mView.setData();
+                                    }
+                                } else {   // If there are no messages
+                                    mRepository.setMessages(result.getMessages());
+                                    mView.setData();
+                                }
+                            } else {
+                                Log.e(TAG, result.getMessage());
+                            }
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e(TAG, responseString);
-            }
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e(TAG, responseString);
+                    }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e(TAG, throwable.getMessage());
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.e(TAG, throwable.getMessage());
+                    }
+                });
+                mHandler.postDelayed(this, 1000);
             }
-        });
+        };
+
+        mHandler.post(mRunnable);
+    }
+
+    /**
+     * Method which stops fetching messages between these users
+     */
+    @Override
+    public void stopFetching() {
+        mHandler.removeCallbacks(mRunnable);
     }
 }

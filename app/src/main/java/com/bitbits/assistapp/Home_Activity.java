@@ -47,6 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @version 1.0
  */
 public class Home_Activity extends AppCompatActivity implements ConversationList_Fragment.ListConversationListener, PatientList_Fragment.ListPatientListener {
+    private static final String TAG = "Home";
     private static final String MESSAGING_FRAGMENT = "Messaging";
     private static final String CONVERSATION_LIST_FRAGMENT = "ConversationList";
     private static final String MEDICAL_RECORD_FRAGMENT = "MedicalRecord";
@@ -209,6 +210,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         mMessagingFragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_left, R.animator.slide_out_right, R.animator.slide_in_right);
         fragmentTransaction.replace(R.id.framehome, mMessagingFragment, MESSAGING_FRAGMENT);
         fragmentTransaction.addToBackStack(MESSAGING_FRAGMENT);
         fragmentTransaction.commit();
@@ -225,6 +227,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         mConversationListFragment = new ConversationList_Fragment();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         fragmentTransaction.replace(R.id.framehome, mConversationListFragment, CONVERSATION_LIST_FRAGMENT);
         fragmentTransaction.commit();
     }
@@ -237,6 +240,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     public void showMedicalRecord() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 
         if (mRepository.getCurrentUser().getType().equalsIgnoreCase(User.PATIENT)) {
             Bundle bundle = new Bundle();
@@ -270,6 +274,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         mMedicalRecordFragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_left, R.animator.slide_out_right, R.animator.slide_in_right);
         fragmentTransaction.replace(R.id.framehome, mMedicalRecordFragment, MEDICAL_RECORD_FRAGMENT);
         fragmentTransaction.addToBackStack(MEDICAL_RECORD_FRAGMENT);
         fragmentTransaction.commit();
@@ -288,6 +293,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         }
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         fragmentTransaction.replace(R.id.framehome, mSettingsFragment, SETTINGS_FRAGMENT);
         fragmentTransaction.commit();
     }
@@ -360,7 +366,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                             setupDrawer();
                             showConversations();
                         } catch (Exception e) {
-                            Log.e("Mine", e.getMessage());
+                            Log.e(TAG, e.getMessage());
                         }
                     } else {
                         if (result.getStatus() == ApiClient.NEW_VERSION)
@@ -394,7 +400,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                         (Home_Activity.this).finish();
                     }
                 });
-                Log.e("Login", responseString);
+                Log.e(TAG, responseString);
             }
 
             @Override
@@ -405,7 +411,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                         (Home_Activity.this).finish();
                     }
                 });
-                Log.e("Login", throwable.getMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }

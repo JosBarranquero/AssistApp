@@ -180,6 +180,9 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
         builder.show();
     }
 
+    /**
+     * Method which shows an AlertDialog telling the user they need to update
+     */
     private void showVersionError() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.app_name);

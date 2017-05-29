@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorOtherMessage">
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/btnSend"
@@ -11,7 +10,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_action_send"
+        android:background="@drawable/transition_send"
         android:contentDescription="@string/send"
         android:text="@string/send" />
 
@@ -36,6 +35,6 @@
         android:layout_above="@+id/edtContent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"/>
 
 </RelativeLayout>

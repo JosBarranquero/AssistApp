@@ -16,7 +16,6 @@ import com.bitbits.assistapp.models.User;
  */
 public interface IMessage {
     interface View {
-        void message();
         Context getContext();
         void setData();
     }
@@ -25,5 +24,6 @@ public interface IMessage {
         void getMessages(int receiver, int sender);
         void sendMessage(Message message);
         void readMessage(User sender);
+        void stopFetching();
     }
 }

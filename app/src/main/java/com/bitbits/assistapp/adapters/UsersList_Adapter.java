@@ -82,6 +82,10 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
         return item;
     }
 
+    /**
+     * Method which sorts users
+     * @param byName If true, sorts by name. Else, it sorts by surname
+     */
     public void sortUsers(boolean byName) {
         if (byName)
             sort(User.NAME_COMPARATOR);
