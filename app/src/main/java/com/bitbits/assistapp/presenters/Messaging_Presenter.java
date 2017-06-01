@@ -28,7 +28,7 @@ import cz.msebera.android.httpclient.Header;
  * Presenter for Messaging_Fragment
  *
  * @author José Antonio Barranquero Fernández
- * @version 1.0
+ * @version 1.5
  *          25/12/16
  */
 public class Messaging_Presenter implements IMessage.Presenter {
@@ -102,7 +102,7 @@ public class Messaging_Presenter implements IMessage.Presenter {
 
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
-        bundle.putInt(Message_Receiver.MESSAGE_COUNT, Repository.getInstance().getUnread().size());
+        bundle.putInt(Message_Receiver.MESSAGE_COUNT, mRepository.getUnread().size());
         bundle.putBoolean(Message_Receiver.NEW_NOTIFICATION, false);
         intent.putExtras(bundle);
         intent.setAction(Message_Receiver.ACTION_MESSAGE);
@@ -115,7 +115,7 @@ public class Messaging_Presenter implements IMessage.Presenter {
      * @param sender
      */
     public void getMessages(final int receiver, final int sender) {
-        mRepository.setMessages(new ArrayList<Message>());  // Clearing messages cache
+        mRepository.setMessages(new ArrayList<Message>());  // Clearing local message list 'cache'
 
         mHandler = new Handler();
 
@@ -134,12 +134,12 @@ public class Messaging_Presenter implements IMessage.Presenter {
                         if (result != null) {
                             if (result.getCode()) {
                                 if (result.getMessages().size() >= 1) { // If there are messages
-                                    if (mRepository.getMessages().size() >= 1) {    // If  our message list is not empty
-                                        if (!mRepository.getMessages().get(mRepository.getMessages().size()-1).equals(result.getMessages().get(result.getMessages().size()-1))) {   // If the last message is different, we set the messages
+                                    if (mRepository.getMessages().size() >= 1) {    // If  our local message list is not empty
+                                        if (!mRepository.getMessages().get(mRepository.getMessages().size()-1).equals(result.getMessages().get(result.getMessages().size()-1))) {   // If the last message is different, we set the received messages
                                             mRepository.setMessages(result.getMessages());
                                             mView.setData();
                                         }
-                                    } else { // If it is empty
+                                    } else { // If our local list is empty
                                         mRepository.setMessages(result.getMessages());
                                         mView.setData();
                                     }

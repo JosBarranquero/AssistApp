@@ -416,13 +416,17 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
         });
     }
 
+    /**
+     * Method which prompts the user to update the application
+     */
     private void showVersionError() {
+        AssistApp_Application.stopMessageService();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.app_name);
         builder.setIcon(R.drawable.logo);
         builder.setMessage(R.string.old_version);
         builder.setCancelable(false);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent i = new Intent(Intent.ACTION_VIEW);

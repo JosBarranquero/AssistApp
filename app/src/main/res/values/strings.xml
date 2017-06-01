@@ -19,6 +19,7 @@
     <string name="job">"Job: "</string>
     <string name="sex">"Sex: "</string>
     <string name="birthdate">"Birthdate: "</string>
+    <string name="years">%1$s years</string>
 
     <string name="masculine">Male</string>
     <string name="feminine">Female</string>
@@ -63,12 +64,16 @@
     <string name="orderName">Order by name</string>
     
     <string name="connection_error">Connection error</string>
+    <string name="inactive_account">Your account has been deactivated</string>
+
     <string name="no_data">No data registered</string>
     <string name="no_record">No records registered</string>
 
     <string name="old_version">New version available, please update</string>
+    <string name="update">Update</string>
 
     <string name="new_messages">%1$s new messages</string>
     <string name="new_message">%1$s new message</string>
-    <string name="inactive_account">Your account has been deactivated</string>
+
+    <string name="non_available">N/A</string>
 </resources>

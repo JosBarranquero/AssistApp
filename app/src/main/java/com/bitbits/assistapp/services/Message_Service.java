@@ -93,14 +93,14 @@ public class Message_Service extends IntentService {
                 result = gson.fromJson(String.valueOf(response), Result.class);
                 if (result != null) {
                     if (result.getCode()) {
-                        if (!checkMessages(result.getMessages())) {
+                        if (!containsMessage(result.getMessages())) {
                             Log.v(TAG, "Got messages!");
 
                             mRepository.setUnread(result.getMessages());
 
                             Intent intent = new Intent();
                             Bundle bundle = new Bundle();
-                            bundle.putInt(Message_Receiver.MESSAGE_COUNT, Repository.getInstance().getUnread().size());
+                            bundle.putInt(Message_Receiver.MESSAGE_COUNT, mRepository.getUnread().size());
                             bundle.putBoolean(Message_Receiver.NEW_NOTIFICATION, true);
                             intent.putExtras(bundle);
                             intent.setAction(Message_Receiver.ACTION_MESSAGE);
@@ -138,20 +138,20 @@ public class Message_Service extends IntentService {
      * @param unread
      * @return
      */
-    private boolean checkMessages(ArrayList<Message> unread) {
-        boolean check = true;
+    private boolean containsMessage(ArrayList<Message> unread) {
+        boolean contains = true;
         for (Message message : unread) {
             if (!mRepository.getUnread().contains(message)) {
-                check = false;
+                contains = false;
                 break;
             }
         }
         for (Message message : mRepository.getUnread()) {
             if (!unread.contains(message)) {
-                check = false;
+                contains = false;
                 break;
             }
         }
-        return check;
+        return contains;
     }
 }

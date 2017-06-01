@@ -8,6 +8,7 @@ import com.bitbits.assistapp.AssistApp_Application;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -58,17 +59,34 @@ public class MedicalData implements Serializable {
     }
 
     public String getFormattedDate() {
+        String dateFormat = null;
         if (this.birthdate != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             try {
                 Date date = format.parse(this.birthdate);
-                String dateFormat = DateFormat.getDateFormat(AssistApp_Application.getContext()).format(date);
-                return dateFormat;
+                dateFormat = DateFormat.getDateFormat(AssistApp_Application.getContext()).format(date);
             } catch (ParseException e) {
                 Log.e("Data", e.getMessage());
             }
         }
-        return null;
+        return dateFormat;
+    }
+
+    public String getAge() {
+        int age = 0;
+        if (this.birthdate != null) {
+            Calendar today = Calendar.getInstance();
+            Calendar birthday = Calendar.getInstance();
+
+            String[] birth = this.birthdate.split("-"); // 0 - year; 1 - month; 2 - day
+            birthday.set(Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2]));
+
+            age = today.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+
+            if (today.get(Calendar.DAY_OF_YEAR) < birthday.get(Calendar.DAY_OF_YEAR))
+                age--;
+        }
+        return String.valueOf(age);
     }
 
     public int getIdPat() {
