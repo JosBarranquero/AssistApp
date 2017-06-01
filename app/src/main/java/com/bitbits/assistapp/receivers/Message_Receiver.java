@@ -48,8 +48,8 @@ public class Message_Receiver extends BroadcastReceiver {
                 notificationBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
             if (vibration)
                 notificationBuilder.setVibrate(new long[]{250, 250});
+            notificationBuilder.setLights(Color.GREEN, 1000, 1000);
         }
-        notificationBuilder.setLights(Color.GREEN, 1000, 1000);
 
         notificationBuilder.setSmallIcon(R.drawable.ic_notification);
 

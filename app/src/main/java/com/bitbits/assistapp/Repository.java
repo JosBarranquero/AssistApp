@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Singleton class which stores the data
  *
  * @author José Antonio Barranquero Fernández
- * @version 1.0
+ * @version 2.0
  */
 public class Repository {
     private static Repository myInstance;
@@ -53,10 +53,6 @@ public class Repository {
 
     public void setUsers(ArrayList<User> users) {
         this.users = users;
-    }
-
-    public void writeMessage(Message m) {
-        messages.add(m);
     }
 
     public ArrayList<Message> getMessages() {

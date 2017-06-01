@@ -119,9 +119,6 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
             case R.id.activity_login:
                 Snackbar.make(findViewById(idView), error, Snackbar.LENGTH_SHORT).show();
                 break;
-            case 0:
-                showVersionError();
-                break;
         }
     }
 
@@ -175,26 +172,6 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 finish();
-            }
-        });
-        builder.show();
-    }
-
-    /**
-     * Method which shows an AlertDialog telling the user they need to update
-     */
-    private void showVersionError() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.app_name);
-        builder.setIcon(R.drawable.logo);
-        builder.setMessage(R.string.old_version);
-        builder.setCancelable(false);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(AssistApp_Application.URL+"apk/AssistApp.apk"));
-                startActivity(i);
             }
         });
         builder.show();

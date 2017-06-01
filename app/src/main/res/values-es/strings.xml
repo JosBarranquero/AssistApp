@@ -49,4 +49,7 @@
     <string name="new_messages">%1$s mensajes nuevos</string>
     <string name="new_message">%1$s mensaje nuevo</string>
     <string name="inactive_account">Tu cuenta ha sido desactivada</string>
+    <string name="years">%1$s años</string>
+    <string name="update">Actualizar</string>
+    <string name="non_available">N/D</string>
 </resources>

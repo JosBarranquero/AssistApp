@@ -27,7 +27,7 @@ import com.bitbits.assistapp.presenters.MedicalRecord_Presenter;
  * @version 1.0
  */
 public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
-    private TextView mTxvName, mTxvBirth, mTxvResidence, mTxvNationality, mTxvJob, mTxvSex;
+    private TextView mTxvName, mTxvIdDoc, mTxvBirth, mTxvAge, mTxvResidence, mTxvNationality, mTxvJob, mTxvSex;
     private TextView mTxvAlcohol;
     private TextView mTxvSmoker;
     private TextView mTxvDrugs;
@@ -63,13 +63,15 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
 
         View rootView = inflater.inflate(R.layout.fragment_medrecord, container, false);
 
-        if (mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE)) {
+        if (mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE)) {  // If we are a nurse, we can go back to our patients list
             ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);  //We set a back arrow in the top left of the screen
         }
 
         mTxvBirth = (TextView) rootView.findViewById(R.id.txvBirth);
+        mTxvAge = (TextView) rootView.findViewById(R.id.txvAge);
         mTxvJob = (TextView) rootView.findViewById(R.id.txvJob);
         mTxvName = (TextView) rootView.findViewById(R.id.txvName);
+        mTxvIdDoc = (TextView) rootView.findViewById(R.id.txvIdDoc);
         mTxvNationality = (TextView) rootView.findViewById(R.id.txvNationality);
         mTxvResidence = (TextView) rootView.findViewById(R.id.txvResidence);
         mTxvSex = (TextView) rootView.findViewById(R.id.txvSex);
@@ -102,7 +104,8 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
             mLstRecord.setAdapter(mAdapter);
 
             MedicalData data = mRepository.getMedData().get(0);
-            mTxvName.setText(mPat.getWholeName() + " - " + mPat.getIdDoc());
+            mTxvName.setText(mPat.getWholeName());
+            mTxvIdDoc.setText(mPat.getIdDoc());
             mTxvNationality.setText(data.getNationality());
             mTxvJob.setText(data.getJob());
             mTxvResidence.setText(data.getResidence());
@@ -111,6 +114,7 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
             else
                 mTxvSex.setText(R.string.masculine);
             mTxvBirth.setText(data.getFormattedDate());
+            mTxvAge.setText(String.format(getActivity().getString(R.string.years), data.getAge()));
 
             mTxvAlcohol.setEnabled(data.isAlcoholic());
             mTxvSmoker.setEnabled(data.isSmoker());

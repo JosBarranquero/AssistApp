@@ -127,8 +127,6 @@ public class Login_Presenter implements IAccount.Presenter {
                             }
                             mView.launchActivity();
                         } else {
-                            if (result.getStatus() == ApiClient.NEW_VERSION)  //Old version
-                                mView.setErrorMessage(context.getString(R.string.old_version), 0);
                             if (result.getStatus() == ApiClient.WRONG_CREDENTIALS)    //Incorrect credentials
                                 mView.setErrorMessage(context.getString(R.string.credentials_error), R.id.edtPassword);
                             if (result.getStatus() == ApiClient.NON_ACTIVE)     // Non active account

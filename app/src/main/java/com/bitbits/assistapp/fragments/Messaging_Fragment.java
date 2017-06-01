@@ -81,9 +81,9 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
         mPresenter.getMessages(receiver.getId(), mRepository.getCurrentUser().getId());
 
-        mLstMessages.setHasFixedSize(true);
+        mLstMessages.setHasFixedSize(true);     // So the RecyclerView doesn't change its size
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setStackFromEnd(true);  // The starts from the end
         mLstMessages.setLayoutManager(linearLayoutManager);
 
         mBtnSend.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_send));
