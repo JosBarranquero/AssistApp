@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navConvo"
+            android:id="@+id/nav_conversations"
             android:checked="true"
             android:icon="@drawable/ic_action_convo"
             android:title="@string/conversations" />
         <item
-            android:id="@+id/navHistory"
+            android:id="@+id/nav_record"
             android:icon="@drawable/ic_action_record"
             android:title="@string/med_record" />
         <item
-            android:id="@+id/navSettings"
+            android:id="@+id/nav_settings"
             android:icon="@drawable/ic_action_settings"
             android:title="@string/settings" />
     </group>
     <item android:title="@string/options">
         <menu>
             <item
-                android:id="@+id/navAbout"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_action_about"
                 android:title="@string/nav_about" />
             <item
-                android:id="@+id/navLogout"
+                android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_action_logout"
                 android:title="@string/logout" />
         </menu>

@@ -52,4 +52,6 @@
     <string name="years">%1$s años</string>
     <string name="update">Actualizar</string>
     <string name="non_available">N/D</string>
+    <string name="send_email">Enviar email</string>
+    <string name="no_email">App de email no instalada</string>
 </resources>

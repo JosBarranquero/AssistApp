@@ -2,8 +2,11 @@ package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +14,9 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -40,13 +46,15 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
 
     private Repository mRepository = Repository.getInstance();
 
-    private User receiver;
+    private User mReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mPresenter = new Messaging_Presenter(this);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -64,8 +72,8 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_messaging, container, false);
 
-        receiver = (User) getArguments().getSerializable("receiver");
-        getActivity().setTitle(receiver.getWholeName());
+        mReceiver = (User) getArguments().getSerializable("receiver");
+        getActivity().setTitle(mReceiver.getWholeName());
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);  //We set a back arrow in the top left of the screen
 
         mLstMessages = (RecyclerView) rootView.findViewById(R.id.lstMessages);
@@ -79,7 +87,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mPresenter.getMessages(receiver.getId(), mRepository.getCurrentUser().getId());
+        mPresenter.getMessages(mReceiver.getId(), mRepository.getCurrentUser().getId());
 
         mLstMessages.setHasFixedSize(true);     // So the RecyclerView doesn't change its size
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -94,7 +102,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
                 String content = mEdtContent.getText().toString();
                 content = content.trim();
 
-                Message message = new Message(content, mRepository.getCurrentUser().getId(), receiver.getId());
+                Message message = new Message(content, mRepository.getCurrentUser().getId(), mReceiver.getId());
                 mPresenter.sendMessage(message);
 
                 mEdtContent.setText("");
@@ -127,6 +135,33 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
         });
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_medrecord, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_email:
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setType("text/plain");
+                Uri uri = Uri.parse("mailto:" + mReceiver.getEmail());
+                intent.setData(uri);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(Intent.createChooser(intent, getActivity().getString(R.string.send_email)));
+                } else {
+                    if (getView() != null)
+                        Snackbar.make(getView(), R.string.no_email, Snackbar.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * Method which returns the Context
      *
@@ -141,7 +176,7 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     @Override
     public void setData() {
         if (getActivity() != null) {    // We make sure the fragment is visible by trying to get its activity
-            mPresenter.readMessage(receiver);   // We read our receiver messages
+            mPresenter.readMessage(mReceiver);   // We read our receiver messages
 
             mAdapter = new Messaging_Adapter(getActivity());
             mLstMessages.setAdapter(mAdapter);

@@ -24,7 +24,6 @@
 
         <activity
             android:name=".Login_Activity"
-            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustPan">
@@ -38,7 +37,6 @@
         <activity
             android:name=".Home_Activity"
             android:launchMode="singleTop"
-            android:noHistory="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 

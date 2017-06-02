@@ -1,5 +1,5 @@
 <!DOCTYPE resources [
-    <!ENTITY codename "Allegro">
+    <!ENTITY codename "Vibrato">
     ]>
 
 <resources>
@@ -76,4 +76,6 @@
     <string name="new_message">%1$s new message</string>
 
     <string name="non_available">N/A</string>
+    <string name="send_email">Send email</string>
+    <string name="no_email">Email app not installed</string>
 </resources>

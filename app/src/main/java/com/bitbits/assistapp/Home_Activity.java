@@ -44,7 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Activity which will show the Fragments that compose this Application
  *
  * @author José Antonio Barranquero Fernández
- * @version 1.0
+ * @version 2.0
  */
 public class Home_Activity extends AppCompatActivity implements ConversationList_Fragment.ListConversationListener, PatientList_Fragment.ListPatientListener {
     private static final String TAG = "Home";
@@ -54,15 +54,18 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     private static final String PATIENT_LIST_FRAGMENT = "PatientList";
     private static final String SETTINGS_FRAGMENT = "Settings";
     private static final String ABOUT_FRAGMENT = "About";
+    private static final String CURRENT_SELECTION = "Current NavMenu";
 
-    Messaging_Fragment mMessagingFragment;
-    ConversationList_Fragment mConversationListFragment;
-    MedicalRecord_Fragment mMedicalRecordFragment;
-    PatientList_Fragment mPatientListFragment;
-    Settings_Fragment mSettingsFragment;
-    About_Fragment mAboutFragment;
+    private int mCurrentSelected;
 
-    Repository mRepository = Repository.getInstance();
+    private Messaging_Fragment mMessagingFragment;
+    private ConversationList_Fragment mConversationListFragment;
+    private MedicalRecord_Fragment mMedicalRecordFragment;
+    private PatientList_Fragment mPatientListFragment;
+    private Settings_Fragment mSettingsFragment;
+    private About_Fragment mAboutFragment;
+
+    private Repository mRepository = Repository.getInstance();
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -99,6 +102,11 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
             setupDrawer();
             showConversations();
         }
+
+        if (savedInstanceState == null)
+            mCurrentSelected = 0;
+        else
+            mCurrentSelected = savedInstanceState.getInt(CURRENT_SELECTION);
     }
 
     /**
@@ -110,22 +118,22 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
                 switch (item.getItemId()) {
-                    case R.id.navConvo:
+                    case R.id.nav_conversations:
                         showConversations();
                         break;
-                    case R.id.navHistory:
+                    case R.id.nav_record:
                         setTitle(item.getTitle());
                         showMedicalRecord();
                         break;
-                    case R.id.navSettings:
+                    case R.id.nav_settings:
                         setTitle(item.getTitle());
                         showSettings();
                         break;
-                    case R.id.navAbout:
+                    case R.id.nav_about:
                         item.setChecked(false);
                         showAbout();
                         break;
-                    case R.id.navLogout:
+                    case R.id.nav_logout:
                         logOut();
                         break;
                     default:
@@ -195,6 +203,67 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     }
 
     /**
+     * Method which saves the selection in the NavigationView menu and the Messaging or MedicalRecord fragment
+     *
+     * @param outState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(CURRENT_SELECTION, mCurrentSelected);
+
+        // If we are showing the MessagingFragment, we save the arguments that were sent to it
+        if (mMessagingFragment != null && mMessagingFragment.isVisible())
+            outState.putBundle(MESSAGING_FRAGMENT, mMessagingFragment.getArguments());
+
+        if (mMedicalRecordFragment != null && mMedicalRecordFragment.isVisible() && mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE))
+            outState.putBundle(MEDICAL_RECORD_FRAGMENT, mMedicalRecordFragment.getArguments());
+    }
+
+    /**
+     * Method which restores the selection in the NavigationView menu and the Messaging or MedicalRecord fragment
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mCurrentSelected = savedInstanceState.getInt(CURRENT_SELECTION, 0);
+
+        MenuItem item = null;
+        switch (mCurrentSelected) {
+            case 0:
+                item = mNavigationView.getMenu().findItem(R.id.nav_conversations);
+                showConversations();
+                break;
+            case 1:
+                item = mNavigationView.getMenu().findItem(R.id.nav_record);
+                showMedicalRecord();
+                break;
+            case 2:
+                item = mNavigationView.getMenu().findItem(R.id.nav_about);
+                showAbout();
+                break;
+            case 3:
+                showSettings();
+                break;
+            case 4:
+                item = mNavigationView.getMenu().findItem(R.id.nav_conversations);
+                showConversations();
+                showMessaging(savedInstanceState.getBundle(MESSAGING_FRAGMENT));
+                break;
+            case 5:
+                item = mNavigationView.getMenu().findItem(R.id.nav_record);
+                showMedicalRecord();
+                showMedicalRecord(savedInstanceState.getBundle(MEDICAL_RECORD_FRAGMENT));
+                break;
+        }
+
+        if (item != null)
+            item.setChecked(true);
+    }
+
+    /**
      * Method which changes the current fragment to the Messaging_Fragment
      *
      * @param bundle The contact info
@@ -202,6 +271,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      */
     @Override
     public void showMessaging(Bundle bundle) {
+        mCurrentSelected = 4;
+
         FragmentManager fragmentManager = getFragmentManager();
 
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -222,6 +293,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * @see ConversationList_Fragment
      */
     public void showConversations() {
+        mCurrentSelected = 0;
+
         FragmentManager fragmentManager = getFragmentManager();
 
         mConversationListFragment = new ConversationList_Fragment();
@@ -238,6 +311,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * @see MedicalRecord_Fragment
      */
     public void showMedicalRecord() {
+        mCurrentSelected = 1;
+
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -266,6 +341,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      */
     @Override
     public void showMedicalRecord(Bundle bundle) {
+        mCurrentSelected = 5;
+
         FragmentManager fragmentManager = getFragmentManager();
 
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -286,6 +363,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * @see Settings_Fragment
      */
     public void showSettings() {
+        mCurrentSelected = 3;
+
         FragmentManager fragmentManager = getFragmentManager();
 
         if (mSettingsFragment == null) {
@@ -302,6 +381,8 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
      * Method which shows the about splash screen
      */
     private void showAbout() {
+        mCurrentSelected = 2;
+
         FragmentManager fragmentManager = getFragmentManager();
 
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -333,6 +414,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
         Intent intent = new Intent(Home_Activity.this, Login_Activity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -372,21 +454,22 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                         if (result.getStatus() == ApiClient.NEW_VERSION)
                             showVersionError();
 
-                            if (result.getStatus() == ApiClient.NON_ACTIVE) {
-                                Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.inactive_account), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        logOut();
-                                    }
-                                }).show();
-                            } if (result.getStatus() == ApiClient.WRONG_CREDENTIALS) {
-                                Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.credentials_error), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        logOut();
-                                    }
-                                }).show();
-                            }
+                        if (result.getStatus() == ApiClient.NON_ACTIVE) {
+                            Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.inactive_account), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    logOut();
+                                }
+                            }).show();
+                        }
+                        if (result.getStatus() == ApiClient.WRONG_CREDENTIALS) {
+                            Snackbar.make(findViewById(R.id.activity_home), (Home_Activity.this).getString(R.string.credentials_error), Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    logOut();
+                                }
+                            }).show();
+                        }
 
                     }
                 }
@@ -399,7 +482,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                     public void onClick(View v) {
                         (Home_Activity.this).finish();
                     }
-                });
+                }).show();
                 Log.e(TAG, responseString);
             }
 
@@ -410,7 +493,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
                     public void onClick(View v) {
                         (Home_Activity.this).finish();
                     }
-                });
+                }).show();
                 Log.e(TAG, throwable.getMessage());
             }
         });

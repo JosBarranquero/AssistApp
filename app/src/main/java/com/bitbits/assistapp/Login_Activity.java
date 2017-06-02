@@ -24,7 +24,7 @@ import com.bitbits.assistapp.utilities.ApiClient;
  * Activity which will manage the system login
  *
  * @author José Antonio Barranquero Fernández
- * @version 1.0
+ * @version 2.0
  */
 public class Login_Activity extends AppCompatActivity implements IAccount.View {
     private Button mBtnLogin;
@@ -34,8 +34,6 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     private EditText mEdtUser;
 
     private IAccount.Presenter mLogin;
-
-    private Repository mRepository = Repository.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +129,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     public void launchActivity() {
         Intent intent = new Intent(Login_Activity.this, Home_Activity.class);
         startActivity(intent);
+        finish();
     }
 
     /**

@@ -2,11 +2,16 @@ package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -46,6 +51,8 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
 
         mPresenter = new MedicalRecord_Presenter(this);
         mPat = (User) getArguments().getSerializable(User.PATIENT);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -90,6 +97,34 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
         super.onViewCreated(view, savedInstanceState);
 
         mPresenter.getData(mPat.getId());
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if (mRepository.getCurrentUser().getType().equalsIgnoreCase(User.NURSE))    // If the user is a nurse, we show the option to send an email
+            inflater.inflate(R.menu.menu_medrecord, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_email:
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setType("text/plain");
+                Uri uri = Uri.parse("mailto:" + mPat.getEmail());
+                intent.setData(uri);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(Intent.createChooser(intent, getActivity().getString(R.string.send_email)));
+                } else {
+                    if (getView() != null)
+                        Snackbar.make(getView(), R.string.no_email, Snackbar.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
