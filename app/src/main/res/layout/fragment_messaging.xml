@@ -35,6 +35,6 @@
         android:layout_above="@+id/edtContent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

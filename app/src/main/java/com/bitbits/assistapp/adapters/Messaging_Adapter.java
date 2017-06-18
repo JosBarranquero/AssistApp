@@ -72,6 +72,7 @@ public class Messaging_Adapter extends RecyclerView.Adapter<Messaging_Adapter.Me
 
     /**
      * Method which animates the message sent or received
+     *
      * @param viewToAnimate View to animate
      * @param position      View's position
      */

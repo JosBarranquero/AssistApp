@@ -3,19 +3,19 @@ package com.bitbits.assistapp.interfaces;
 import android.content.Context;
 
 /**
- * Interface to be implemented by ConversationList_Presenter and ConversationList_Fragment
+ * Interface to be implemented by both Forgot_Activity and Forgot_Presenter
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
  */
-public interface IConversation {
+
+public interface IPassword {
     interface View {
         void showMessage(String message);
-        void setData();
         Context getContext();
     }
 
     interface Presenter {
-        void getUsers();
+        void resetPassword(String email, String idDoc);
     }
 }

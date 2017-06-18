@@ -8,6 +8,7 @@ import com.bitbits.assistapp.AssistApp_Application;
 
 /**
  * Receiver which starts the Message_Service when the phone has finished booting up
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp

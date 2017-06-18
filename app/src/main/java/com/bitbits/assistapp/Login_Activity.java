@@ -3,9 +3,9 @@ package com.bitbits.assistapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +13,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bitbits.assistapp.interfaces.IAccount;
 import com.bitbits.assistapp.preferences.User_Preferences;
 import com.bitbits.assistapp.presenters.Login_Presenter;
 import com.bitbits.assistapp.utilities.ApiClient;
+import com.bitbits.assistapp.utilities.Connectivity;
 
 /**
  * Activity which will manage the system login
@@ -30,8 +31,9 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     private Button mBtnLogin;
     private TextInputLayout mTilUser;
     private TextInputLayout mTilPassword;
-    private EditText mEdtPassword;
-    private EditText mEdtUser;
+    private TextInputEditText mEdtPassword;
+    private TextInputEditText mEdtUser;
+    private TextView mTxvForgot;
 
     private IAccount.Presenter mLogin;
 
@@ -39,7 +41,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!ApiClient.isNetworkAvailable()) {
+        if (!Connectivity.isConnected()) {
             showNetworkError();
         } else {
             if (User_Preferences.getPass(this) != null && User_Preferences.getUser(this) != null) { //If the user has already logged in we launch the next activity
@@ -51,7 +53,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
                 mTilUser = (TextInputLayout) findViewById(R.id.tilUser);
                 mTilPassword = (TextInputLayout) findViewById(R.id.tilPassword);
 
-                mEdtUser = (EditText) findViewById(R.id.edtUser);
+                mEdtUser = (TextInputEditText) findViewById(R.id.edtUser);
                 mEdtUser.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -68,7 +70,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
 
                     }
                 });
-                mEdtPassword = (EditText) findViewById(R.id.edtPassword);
+                mEdtPassword = (TextInputEditText) findViewById(R.id.edtPassword);
                 mEdtPassword.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -93,6 +95,15 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
                         String user = mEdtUser.getText().toString();
                         String password = mEdtPassword.getText().toString();
                         validateCredentials(user, password);
+                    }
+                });
+
+                mTxvForgot = (TextView) findViewById(R.id.txvForgot);
+                mTxvForgot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Login_Activity.this, Forgot_Activity.class);
+                        startActivity(intent);
                     }
                 });
             }
@@ -151,7 +162,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
      * @param password The password
      */
     private void validateCredentials(String user, String password) {
-        if (ApiClient.isNetworkAvailable()) {
+        if (Connectivity.isConnected()) {
             mLogin.validateCredentials(user, password);
         } else {
             showNetworkError();
@@ -164,6 +175,7 @@ public class Login_Activity extends AppCompatActivity implements IAccount.View {
     private void showNetworkError() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.app_name);
+        builder.setIcon(R.drawable.logo);
         builder.setMessage(R.string.no_network);
         builder.setCancelable(false);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

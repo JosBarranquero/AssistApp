@@ -71,6 +71,7 @@ public class Message implements Serializable {
 
     /**
      * Formats the date according to the system locales
+     *
      * @return Formatted date
      */
     public String getFormattedDate() {
@@ -90,6 +91,7 @@ public class Message implements Serializable {
 
     /**
      * Compares if two messages are the same
+     *
      * @param obj
      * @return
      */
@@ -99,7 +101,7 @@ public class Message implements Serializable {
 
         if (obj != null) {
             if (obj instanceof Message) {
-                Message message = (Message)obj;
+                Message message = (Message) obj;
 
                 if (message.getId() == this.getId()) {
                     if (message.getSender() == this.getSender()) {

@@ -52,7 +52,7 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
 
                         getRecord(result.getMeddata().get(0).getId());
                     } else {
-                        mView.showError(mContext.getString(R.string.no_data));
+                        mView.showMessage(mContext.getString(R.string.no_data));
                         Log.e(DATA_TAG, result.getMessage());
                     }
                 }
@@ -60,13 +60,13 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                mView.showError(mContext.getString(R.string.connection_error));
+                mView.showMessage(mContext.getString(R.string.connection_error));
                 Log.e(DATA_TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                mView.showError(mContext.getString(R.string.connection_error));
+                mView.showMessage(mContext.getString(R.string.connection_error));
                 Log.e(DATA_TAG, throwable.getMessage());
             }
         });
@@ -87,7 +87,7 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
 
                         mView.setData();
                     } else {
-                        mView.showError(mContext.getString(R.string.no_record));
+                        mView.showMessage(mContext.getString(R.string.no_record));
                         Log.e(RECORD_TAG, result.getMessage());
                     }
                 }
@@ -95,13 +95,13 @@ public class MedicalRecord_Presenter implements IRecord.Presenter {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                mView.showError(mContext.getString(R.string.connection_error));
+                mView.showMessage(mContext.getString(R.string.connection_error));
                 Log.e(RECORD_TAG, responseString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                mView.showError(mContext.getString(R.string.connection_error));
+                mView.showMessage(mContext.getString(R.string.connection_error));
                 Log.e(RECORD_TAG, throwable.getMessage());
             }
         });

@@ -71,12 +71,14 @@ public class Login_Presenter implements IAccount.Presenter {
         } else {
             if (!(password.matches("(.*)\\d(.*)")))
                 error = ((Context) mView).getResources().getString(R.string.password_digit);
-            if (!(password.matches("(.*)\\p{Lower}(.*)") && password.matches("(.*)\\p{Upper}(.*)")))
-                error = ((Context) mView).getResources().getString(R.string.password_case);
-            if (password.length() < 8)
-                error = ((Context) mView).getResources().getString(R.string.password_length);
-            else
-                valid = true;
+            else {
+                if (!(password.matches("(.*)\\p{Lower}(.*)") && password.matches("(.*)\\p{Upper}(.*)")))
+                    error = ((Context) mView).getResources().getString(R.string.password_case);
+                else if (password.length() < 8)
+                    error = ((Context) mView).getResources().getString(R.string.password_length);
+                else
+                    valid = true;
+            }
         }
         if (!valid)
             mView.setErrorMessage(error, R.id.edtPassword);

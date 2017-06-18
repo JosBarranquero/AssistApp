@@ -63,6 +63,7 @@ public class MedicalRecord implements Serializable {
 
     /**
      * Formats the date according to the system locales
+     *
      * @return Formatted date
      */
     public String getFormattedDate() {

@@ -48,6 +48,12 @@ public class User_Preferences {
         editor.apply();
     }
 
+    /**
+     * Method which saves the user id in the app preferences file
+     *
+     * @param id
+     * @param context
+     */
     public static void saveId(int id, Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -69,7 +75,7 @@ public class User_Preferences {
     }
 
     /**
-     * Method which saves the user apikey in yhe app preferences file
+     * Method which saves the user apikey in the app preferences file
      *
      * @param apikey
      * @param context
@@ -103,6 +109,12 @@ public class User_Preferences {
         return sharedPreferences.getString(PASS_KEY, null);
     }
 
+    /**
+     * Method which retrieves the user id from the app preferences file
+     *
+     * @param context
+     * @return The password
+     */
     public static int getId(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getInt(ID_KEY, 0);

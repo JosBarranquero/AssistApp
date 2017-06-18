@@ -11,6 +11,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /**
+ * Class which will communicate with the API
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
@@ -23,6 +25,7 @@ public class ApiClient {
     public static final String MEDRECORD = "medrecord";
     public static final String ASSISTS = "assist";
     public static final String MESSAGES = "messages";
+    public static final String RESET = "reset";
 
     public static final String DEFAULT_APIKEY = "assistapp";
 
@@ -30,7 +33,7 @@ public class ApiClient {
     public static final int NEW_VERSION = 421;
     public static final int WRONG_CREDENTIALS = 420;
 
-    private static final int MAX_TIMEOUT = 2000;
+    private static final int MAX_TIMEOUT = 5000;
     private static final int RETRIES = 3;
     private static final int TIMEOUT_BETWEEN_RETRIES = 500;
 
@@ -87,16 +90,5 @@ public class ApiClient {
 
     private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
-    }
-
-    /**
-     * Method which checks for internet connectivity
-     *
-     * @return True if it network is available, false if it is not
-     */
-    public static boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) AssistApp_Application.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
     }
 }

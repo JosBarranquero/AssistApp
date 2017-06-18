@@ -22,8 +22,7 @@
     <dimen name="name_margin">32dp</dimen>
     <dimen name="img_margin">10dp</dimen>
 
-    <dimen name="record_top_margin">8dp</dimen>
-    <dimen name="record_bottom_margin">5dp</dimen>
+    <dimen name="record_margin">5dp</dimen>
 
     <dimen name="spacing_margin">2dp</dimen>
 </resources>

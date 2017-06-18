@@ -39,7 +39,7 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View item = convertView;
         UserHolder conversationHolder;
 
@@ -79,11 +79,13 @@ public class UsersList_Adapter extends ArrayAdapter<User> {
                 }
             }
         }
+
         return item;
     }
 
     /**
      * Method which sorts users
+     *
      * @param byName If true, sorts by name. Else, it sorts by surname
      */
     public void sortUsers(boolean byName) {

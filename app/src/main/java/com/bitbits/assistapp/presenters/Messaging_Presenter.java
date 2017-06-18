@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.interfaces.IMessage;
 import com.bitbits.assistapp.models.Message;
@@ -35,7 +36,7 @@ public class Messaging_Presenter implements IMessage.Presenter {
     private static final String TAG = "Msg";
 
     private IMessage.View mView;
-    private Context context;
+    private Context mContext;
     private Repository mRepository = Repository.getInstance();
 
     private Handler mHandler = null;
@@ -43,7 +44,7 @@ public class Messaging_Presenter implements IMessage.Presenter {
 
     public Messaging_Presenter(IMessage.View view) {
         mView = view;
-        this.context = mView.getContext();
+        this.mContext = mView.getContext();
     }
 
     /**
@@ -73,17 +74,20 @@ public class Messaging_Presenter implements IMessage.Presenter {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e(TAG, responseString);
+                mView.showMessage(mContext.getString(R.string.connection_error));
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e(TAG, throwable.getMessage());
+                mView.showMessage(mContext.getString(R.string.connection_error));
             }
         });
     }
 
     /**
      * Method which sets the received messages from sender as read, removing them from out list
+     *
      * @param sender The user which sends the message
      */
     @Override
@@ -106,11 +110,12 @@ public class Messaging_Presenter implements IMessage.Presenter {
         bundle.putBoolean(Message_Receiver.NEW_NOTIFICATION, false);
         intent.putExtras(bundle);
         intent.setAction(Message_Receiver.ACTION_MESSAGE);
-        context.sendBroadcast(intent);
+        mContext.sendBroadcast(intent);
     }
 
     /**
      * Method which gets the messages between receiver and sender, and keeps getting them every second to get an instant messaging-like service
+     *
      * @param receiver
      * @param sender
      */
@@ -135,7 +140,7 @@ public class Messaging_Presenter implements IMessage.Presenter {
                             if (result.getCode()) {
                                 if (result.getMessages().size() >= 1) { // If there are messages
                                     if (mRepository.getMessages().size() >= 1) {    // If  our local message list is not empty
-                                        if (!mRepository.getMessages().get(mRepository.getMessages().size()-1).equals(result.getMessages().get(result.getMessages().size()-1))) {   // If the last message is different, we set the received messages
+                                        if (!mRepository.getMessages().get(mRepository.getMessages().size() - 1).equals(result.getMessages().get(result.getMessages().size() - 1))) {   // If the last message is different, we set the received messages
                                             mRepository.setMessages(result.getMessages());
                                             mView.setData();
                                         }
@@ -156,11 +161,13 @@ public class Messaging_Presenter implements IMessage.Presenter {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         Log.e(TAG, responseString);
+                        mView.showMessage(mContext.getString(R.string.connection_error));
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         Log.e(TAG, throwable.getMessage());
+                        mView.showMessage(mContext.getString(R.string.connection_error));
                     }
                 });
                 mHandler.postDelayed(this, 1000);

@@ -3,6 +3,7 @@ package com.bitbits.assistapp.presenters;
 import android.content.Context;
 import android.util.Log;
 
+import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
 import com.bitbits.assistapp.interfaces.IConversation;
 import com.bitbits.assistapp.models.Result;
@@ -16,6 +17,7 @@ import cz.msebera.android.httpclient.Header;
 
 /**
  * Presenter for ConversationList_Fragment
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp
@@ -54,11 +56,13 @@ public class ConversationList_Presenter implements IConversation.Presenter {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e(TAG, responseString);
+                mView.showMessage(mContext.getString(R.string.connection_error));
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e(TAG, throwable.getMessage());
+                mView.showMessage(mContext.getString(R.string.connection_error));
             }
         });
     }

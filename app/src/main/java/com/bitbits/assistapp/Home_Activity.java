@@ -54,7 +54,7 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
     private static final String PATIENT_LIST_FRAGMENT = "PatientList";
     private static final String SETTINGS_FRAGMENT = "Settings";
     private static final String ABOUT_FRAGMENT = "About";
-    private static final String CURRENT_SELECTION = "Current NavMenu";
+    private static final String CURRENT_SELECTION = "Current NavMenu Item";
 
     private int mCurrentSelected;
 
@@ -96,12 +96,9 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-        if (User_Preferences.getUser(this) != null && User_Preferences.getPass(this) != null) {
-            logIn(User_Preferences.getUser(this), User_Preferences.getPass(this));
-        } else {
-            setupDrawer();
-            showConversations();
-        }
+
+        logIn(User_Preferences.getUser(this), User_Preferences.getPass(this));
+
 
         if (savedInstanceState == null)
             mCurrentSelected = 0;
@@ -446,7 +443,11 @@ public class Home_Activity extends AppCompatActivity implements ConversationList
 
                         try {
                             setupDrawer();
-                            showConversations();
+                            if (mRepository.getCurrentUser().passwordIsRestored()) {
+                                showSettings();
+                                mNavigationView.getMenu().findItem(R.id.nav_settings).setChecked(true);
+                            } else
+                                showConversations();
                         } catch (Exception e) {
                             Log.e(TAG, e.getMessage());
                         }

@@ -16,6 +16,7 @@ import com.bitbits.assistapp.preferences.User_Preferences;
 
 /**
  * Broadcast receiver which notifies the user if a new version is available
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp

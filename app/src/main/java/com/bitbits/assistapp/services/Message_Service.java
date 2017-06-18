@@ -15,6 +15,7 @@ import com.bitbits.assistapp.preferences.User_Preferences;
 import com.bitbits.assistapp.receivers.Message_Receiver;
 import com.bitbits.assistapp.receivers.Version_Receiver;
 import com.bitbits.assistapp.utilities.ApiClient;
+import com.bitbits.assistapp.utilities.Connectivity;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -46,20 +47,30 @@ public class Message_Service extends IntentService {
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+
         mHandler = new Handler();
 
         mRunnable = new Runnable() {
             @Override
             public void run() {     // Thread which checks for messages periodically
                 if (AssistApp_Application.isServiceRunning()) {
-                    if (ApiClient.isNetworkAvailable()) {
+                    if (Connectivity.isConnected()) {
                         Log.v(TAG, "Connecting...");
 
                         fetchNewMessages();
+
+                        if (Connectivity.isConnectedWifi()) {
+                            Log.v(TAG, "Wi-Fi");
+                            mHandler.postDelayed(this, 10000);   // Every 10000 ms = 10 s
+                        }
+                        if (Connectivity.isConnectedMobile()) {
+                            Log.v(TAG, "3G/4G");
+                            mHandler.postDelayed(this, 30000);   // Every 30000 ms = 30 s
+                        }
                     } else {
                         Log.v(TAG, "No network");
+                        mHandler.postDelayed(this, 20000);   // Every 20000 ms = 20 s
                     }
-                    mHandler.postDelayed(this, 5000);   // Every 5000 ms = 5 s
                 }
             }
         };

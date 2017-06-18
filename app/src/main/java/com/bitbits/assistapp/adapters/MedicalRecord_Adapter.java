@@ -29,7 +29,7 @@ public class MedicalRecord_Adapter extends ArrayAdapter<MedicalRecord> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View item = convertView;
         RecordHolder holder;
 
@@ -50,13 +50,15 @@ public class MedicalRecord_Adapter extends ArrayAdapter<MedicalRecord> {
         }
         MedicalRecord currentRecord = getItem(position);
 
-        holder.txvReason.setText(currentRecord.getReason());
-        holder.txvDate.setText(currentRecord.getFormattedDate());
-        holder.txvAntecents.setText(currentRecord.getAntecedents());
-        if (currentRecord.isHospitalised())
-            holder.txvHospitalised.setVisibility(View.VISIBLE);
-        else
-            holder.txvHospitalised.setVisibility(View.INVISIBLE);
+        if (currentRecord != null) {
+            holder.txvReason.setText(currentRecord.getReason());
+            holder.txvDate.setText(currentRecord.getFormattedDate());
+            holder.txvAntecents.setText(currentRecord.getAntecedents());
+            if (currentRecord.isHospitalised())
+                holder.txvHospitalised.setVisibility(View.VISIBLE);
+            else
+                holder.txvHospitalised.setVisibility(View.INVISIBLE);
+        }
 
         return item;
     }

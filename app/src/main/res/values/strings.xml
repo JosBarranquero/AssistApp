@@ -1,5 +1,5 @@
 <!DOCTYPE resources [
-    <!ENTITY codename "Vibrato">
+    <!ENTITY codename "Tempo">
     ]>
 
 <resources>
@@ -78,4 +78,14 @@
     <string name="non_available">N/A</string>
     <string name="send_email">Send email</string>
     <string name="no_email">Email app not installed</string>
+    <string name="call">Call</string>
+    <string name="no_phone">No phone registered</string>
+    <string name="forgot_password">I forgot my password</string>
+    <string name="reset_password">Reset your password</string>
+    <string name="email">Email address</string>
+    <string name="reset">Reset</string>
+    <string name="connecting">Connecting</string>
+    <string name="successful_reset">Check your email</string>
+    <string name="failure_reset">Email not registered</string>
+    <string name="change_password">Please change your password</string>
 </resources>

@@ -22,6 +22,8 @@ CREATE TABLE Users (
     email VARCHAR(40) NOT NULL,
     apikey VARCHAR(16) NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE,
+    defaultPass BOOLEAN NOT NULL DEFAULT TRUE,
+    dateHash VARCHAR(32) DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
@@ -53,6 +55,7 @@ CREATE TABLE MedData (
     birthdate DATE NOT NULL,
     residence VARCHAR(100) NOT NULL,
     job VARCHAR(30) NOT NULL,
+    phone VARCHAR(9) NOT NULL,
     smoker BOOLEAN NOT NULL,
     alcohol BOOLEAN NOT NULL,
     drugs BOOLEAN NOT NULL,
@@ -82,4 +85,4 @@ DO
 
 
 -- Default User
-INSERT INTO Users (idDoc, password, name, surname, type, img, email, apikey) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com', SHA2(CONCAT('12345678A', NOW()), 256), TRUE;
+INSERT INTO Users (idDoc, password, name, surname, type, img, email, apikey) SELECT '12345678A', SHA2('Aa123456', 256), 'José Antonio', 'Barranquero', 2, 'profiles/Jose.jpg', 'joseantbarranquero@gmail.com', SHA2(CONCAT('12345678A', NOW()), 256), TRUE, TRUE;

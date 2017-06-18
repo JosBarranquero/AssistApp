@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
 
 import com.bitbits.assistapp.R;
 import com.bitbits.assistapp.Repository;
@@ -34,10 +36,14 @@ public class Settings_Fragment extends PreferenceFragment {
     private EditTextPreference mEdtPassword;
     private EditTextPreference mEdtEmail;
 
+    private Repository mRepository = Repository.getInstance();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings_app);
+
+        setRetainInstance(true);
 
         mEdtPassword = (EditTextPreference) findPreference("password");
         mEdtEmail = (EditTextPreference) findPreference("email");
@@ -54,17 +60,17 @@ public class Settings_Fragment extends PreferenceFragment {
                     if (!(password.matches("(.*)\\d(.*)"))) {    //If the password doesn't contain a digit
                         if (getView() != null)
                             Snackbar.make(getView(), R.string.password_digit, Snackbar.LENGTH_SHORT).show();
-                    }
-                    if (!(password.matches("(.*)\\p{Lower}(.*)") && password.matches("(.*)\\p{Upper}(.*)"))) {  //If the password doesn't contain at least a lowercase and uppercase letter
-                        if (getView() != null)
-                            Snackbar.make(getView(), R.string.password_case, Snackbar.LENGTH_SHORT).show();
-                    }
-                    if (password.length() < 8) { //If it's less than 8 characters
-                        if (getView() != null)
-                            Snackbar.make(getView(), R.string.password_length, Snackbar.LENGTH_SHORT).show();
-                    }
-                    else {      //If it's valid
-                        save = updateUser(User_Preferences.getEmail(getActivity()), password);
+                    } else {
+                        if (!(password.matches("(.*)\\p{Lower}(.*)") && password.matches("(.*)\\p{Upper}(.*)"))) {  //If the password doesn't contain at least a lowercase and uppercase letter
+                            if (getView() != null)
+                                Snackbar.make(getView(), R.string.password_case, Snackbar.LENGTH_SHORT).show();
+                        } else if (password.length() < 8) { //If it's less than 8 characters
+                            if (getView() != null)
+                                Snackbar.make(getView(), R.string.password_length, Snackbar.LENGTH_SHORT).show();
+                        } else {      //If it's valid
+                            save = updateUser(User_Preferences.getEmail(getActivity()), password);
+                            mRepository.getCurrentUser().setDefaultPass(0);
+                        }
                     }
                 }
                 return save;
@@ -85,6 +91,16 @@ public class Settings_Fragment extends PreferenceFragment {
             }
         });
 
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (mRepository.getCurrentUser().passwordIsRestored()) {
+            if (getView() != null)
+                Snackbar.make(getView(), R.string.change_password, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -192,6 +193,12 @@ public class ConversationList_Fragment extends Fragment implements IConversation
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void showMessage(String message) {
+        if (getView() != null)
+            Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
+    }
+
     /**
      * Method which sets the adapter data
      */
@@ -205,6 +212,7 @@ public class ConversationList_Fragment extends Fragment implements IConversation
 
     /**
      * Context getter
+     *
      * @return Context
      */
     @Override

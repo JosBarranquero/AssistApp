@@ -42,6 +42,7 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
     private IRecord.Presenter mPresenter;
 
     private User mPat;
+    MedicalData mData;
 
     private Repository mRepository = Repository.getInstance();
 
@@ -109,9 +110,10 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_email:
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setType("text/plain");
                 Uri uri = Uri.parse("mailto:" + mPat.getEmail());
                 intent.setData(uri);
@@ -120,6 +122,18 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
                 } else {
                     if (getView() != null)
                         Snackbar.make(getView(), R.string.no_email, Snackbar.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.action_call:
+                if (mData != null) {
+                    intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mData.getPhone()));
+                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                } else {
+                    if (getView() != null) {
+                        Snackbar.make(getView(), R.string.no_phone, Snackbar.LENGTH_SHORT).show();
+                    }
                 }
                 break;
         }
@@ -138,29 +152,29 @@ public class MedicalRecord_Fragment extends Fragment implements IRecord.View {
             mAdapter = new MedicalRecord_Adapter(getActivity());
             mLstRecord.setAdapter(mAdapter);
 
-            MedicalData data = mRepository.getMedData().get(0);
+            mData = mRepository.getMedData().get(0);
             mTxvName.setText(mPat.getWholeName());
             mTxvIdDoc.setText(mPat.getIdDoc());
-            mTxvNationality.setText(data.getNationality());
-            mTxvJob.setText(data.getJob());
-            mTxvResidence.setText(data.getResidence());
-            if (data.getSex().equalsIgnoreCase(MedicalData.FEM))
+            mTxvNationality.setText(mData.getNationality());
+            mTxvJob.setText(mData.getJob());
+            mTxvResidence.setText(mData.getResidence());
+            if (mData.getSex().equalsIgnoreCase(MedicalData.FEM))
                 mTxvSex.setText(R.string.feminine);
             else
                 mTxvSex.setText(R.string.masculine);
-            mTxvBirth.setText(data.getFormattedDate());
-            mTxvAge.setText(String.format(getActivity().getString(R.string.years), data.getAge()));
+            mTxvBirth.setText(mData.getFormattedDate());
+            mTxvAge.setText(String.format(getActivity().getString(R.string.years), mData.getAge()));
 
-            mTxvAlcohol.setEnabled(data.isAlcoholic());
-            mTxvSmoker.setEnabled(data.isSmoker());
-            mTxvDrugs.setEnabled(data.usesDrugs());
+            mTxvAlcohol.setEnabled(mData.isAlcoholic());
+            mTxvSmoker.setEnabled(mData.isSmoker());
+            mTxvDrugs.setEnabled(mData.usesDrugs());
         }
     }
 
     @Override
-    public void showError(String error) {
+    public void showMessage(String message) {
         if (getView() != null) {
-            Snackbar.make(getView(), error, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
         }
     }
 

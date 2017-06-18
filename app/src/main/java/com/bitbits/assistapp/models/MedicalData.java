@@ -24,11 +24,12 @@ public class MedicalData implements Serializable {
     private String nationality, job, residence;
     private String sex;
     private int smoker, alcohol, drugs;
+    private String phone;
 
     public static final String MASC = "M";
     public static final String FEM = "F";
 
-    public MedicalData(int id, String birthdate, int idPat, String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs) {
+    public MedicalData(int id, String birthdate, int idPat, String sex, String nationality, String job, String residence, boolean smoker, boolean alcoholic, boolean drugs, String phone) {
         this.id = id;
         this.birthdate = birthdate;
         this.idPat = idPat;
@@ -48,6 +49,7 @@ public class MedicalData implements Serializable {
             this.drugs = 1;
         else
             this.drugs = 0;
+        this.phone = phone;
     }
 
     public int getId() {
@@ -119,5 +121,9 @@ public class MedicalData implements Serializable {
 
     public boolean usesDrugs() {
         return drugs == 1;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 }

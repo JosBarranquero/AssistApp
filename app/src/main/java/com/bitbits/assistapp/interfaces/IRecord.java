@@ -14,7 +14,7 @@ import com.bitbits.assistapp.fragments.MedicalRecord_Fragment;
 public interface IRecord {
     interface View {
         void setData();
-        void showError(String error);
+        void showMessage(String message);
         Context getContext();
     }
 

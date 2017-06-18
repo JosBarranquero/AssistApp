@@ -2,8 +2,6 @@ package com.bitbits.assistapp.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -14,9 +12,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -136,30 +131,9 @@ public class Messaging_Fragment extends Fragment implements IMessage.View {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.menu_medrecord, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_email:
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setType("text/plain");
-                Uri uri = Uri.parse("mailto:" + mReceiver.getEmail());
-                intent.setData(uri);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(Intent.createChooser(intent, getActivity().getString(R.string.send_email)));
-                } else {
-                    if (getView() != null)
-                        Snackbar.make(getView(), R.string.no_email, Snackbar.LENGTH_SHORT).show();
-                }
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void showMessage(String message) {
+        if (getView() != null)
+            Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
     }
 
     /**

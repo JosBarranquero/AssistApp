@@ -35,6 +35,13 @@
         </activity>
 
         <activity
+            android:name=".Forgot_Activity"
+            android:parentActivityName=".Login_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".Home_Activity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

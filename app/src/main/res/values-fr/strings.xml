@@ -59,4 +59,14 @@
     <string name="non_available">N/D</string>
     <string name="send_email">Envoyer un email</string>
     <string name="no_email">Email app non installée</string>
+    <string name="call">Téléphoner</string>
+    <string name="no_phone">Sans téléphone</string>
+    <string name="forgot_password">J\'ai oublié mon mot de passe</string>
+    <string name="reset_password">Réinitialiser le mot de passe</string>
+    <string name="email">Adresse email</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="connecting">En train de connecter</string>
+    <string name="successful_reset">Vérifiez votre email</string>
+    <string name="failure_reset">Email non registeré</string>
+    <string name="change_password">Changez votre mot de passe</string>
 </resources>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Middleclass for network communication
+ *
  * @author José Antonio Barranquero Fernández
  * @version 1.0
  *          AssistApp

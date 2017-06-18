@@ -14,6 +14,7 @@ public class User implements Serializable {
     private String type;
     private String img;
     private String apikey;
+    private int defaultPass;   // If the password has been defaultPass
 
     public static final String NURSE = "Nurse";
     public static final String PATIENT = "Patient";
@@ -121,5 +122,13 @@ public class User implements Serializable {
 
     public void setApikey(String apikey) {
         this.apikey = apikey;
+    }
+
+    public boolean passwordIsRestored() {
+        return defaultPass == 1;
+    }
+
+    public void setDefaultPass(int defaultPass) {
+        this.defaultPass = defaultPass;
     }
 }

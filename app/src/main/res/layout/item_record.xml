@@ -11,7 +11,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginTop="@dimen/img_margin"
+        android:layout_marginTop="@dimen/record_margin"
         android:text="Date" />
 
     <TextView
@@ -34,9 +34,12 @@
         android:layout_alignLeft="@+id/txvDate"
         android:layout_alignStart="@+id/txvDate"
         android:layout_below="@+id/txvDate"
-        android:layout_marginTop="@dimen/record_top_margin"
+        android:layout_marginEnd="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/record_margin"
         android:text="Reason"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txvAntecedents"
@@ -45,7 +48,10 @@
         android:layout_alignLeft="@+id/txvDate"
         android:layout_alignStart="@+id/txvDate"
         android:layout_below="@+id/txvReason"
-        android:layout_marginBottom="@dimen/record_bottom_margin"
+        android:layout_marginBottom="@dimen/record_margin"
+        android:layout_marginEnd="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
         android:text="Antecedents"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="14sp" />
 </RelativeLayout>
