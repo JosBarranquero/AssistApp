@@ -74,7 +74,10 @@ public class Forgot_Presenter implements IPassword.Presenter {
                         if (result.getCode()) {
                             mView.showMessage(context.getString(R.string.successful_reset));
                         } else {
-                            mView.showMessage(context.getString(R.string.failure_reset));
+                            if (result.getStatus() == ApiClient.WRONG_CREDENTIALS)
+                                mView.showMessage(context.getString(R.string.failure_reset));
+                            else
+                                mView.showMessage(context.getString(R.string.connection_error));
                         }
                     }
                 }
